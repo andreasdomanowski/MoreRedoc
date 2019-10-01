@@ -1,0 +1,130 @@
+package moreredoc.analysis.services;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.apache.commons.lang3.StringUtils;
+
+import moreredoc.analysis.data.CompoundType;
+import moreredoc.analysis.data.PossessionTuple;
+import moreredoc.linguistics.processing.MoreRedocStringUtils;
+import moreredoc.linguistics.processing.SentenceRegularizerService;
+import moreredoc.linguistics.processing.WordRegularizerService;
+import moreredoc.umldata.Multiplicity;
+
+public class CompoundAnalysisService {
+	private CompoundAnalysisService() {
+	}
+
+	/**
+	 * Computes the compound type (Enumeration CompoundType, either) of a given
+	 * domain concept for a given sentence
+	 * 
+	 * @param in
+	 * @param domainConceptToTest
+	 * @param domainConcepts
+	 * @return
+	 */
+	public static List<PossessionTuple> computeCompoundType(String in, String domainConceptToTest,
+			Set<String> domainConcepts) {
+		List<PossessionTuple> toReturn = new ArrayList<>();
+		// domain concept can be attribute or/AND class type, initialize flags for this
+		// combinations
+		boolean isAttributeType = false;
+		boolean isClassType = false;
+
+		// regularized domain concept to test
+		domainConceptToTest = WordRegularizerService.regularize(domainConceptToTest);
+
+		// split input string by whitespace, read into array
+		String[] inputSplittedByWhitespace = StringUtils.split(in.trim());
+
+		// normalize every word in input string/array
+		for (int i = 0; i < inputSplittedByWhitespace.length; i++) {
+			inputSplittedByWhitespace[i] = WordRegularizerService.regularize(inputSplittedByWhitespace[i]);
+		}
+
+		// list containing every index of a occurence in the array
+		List<Integer> occurenceIndices = MoreRedocStringUtils.getIndicesForMatches(inputSplittedByWhitespace,
+				domainConceptToTest);
+
+		// if no domainConceptToTest was found, there can be no compound type for this
+		// domain concept
+//		if (occurenceIndices.isEmpty()) {
+//			return CompoundType.NONE;
+//		}
+
+		int maxIndex = inputSplittedByWhitespace.length - 1;
+
+		// iterate once again, check neighbourhood of occurences
+		for (int occurenceIndex : occurenceIndices) {
+			// compute indices of words in input before and after occurence of domain
+			// concept
+			int preOccurence = occurenceIndex - 1;
+			int postOccurence = occurenceIndex + 1;
+
+			// check, whether preOccurence would be out of bounds of array, if not, compute,
+			// whether preOccurence offers information about CompoundType
+			if (!(preOccurence < 0)) {
+				// iterate over all domain concepts
+				for (String domainConcept : domainConcepts) {
+					// if there is a match at index preoccurence and it does not equal
+					// domainConceptToTest -> attributeType
+					if (inputSplittedByWhitespace[preOccurence].equals(domainConcept)
+							&& !inputSplittedByWhitespace[preOccurence].equals(domainConceptToTest)) {
+						isAttributeType = true;
+						String preClass = inputSplittedByWhitespace[preOccurence];
+						toReturn.add(new PossessionTuple(preClass, domainConceptToTest, Multiplicity.NO_INFO));
+					}
+				}
+			}
+
+			// TODO : refactor
+			if (!(postOccurence > maxIndex)) {
+				// iterate over all domain concepts
+				for (String domainConcept : domainConcepts) {
+					// if there is a match at index preoccurence and it does not equal
+					// domainConceptToTest -> attributeType
+					if (inputSplittedByWhitespace[postOccurence].equals(domainConcept)
+							&& !inputSplittedByWhitespace[postOccurence].equals(domainConceptToTest)) {
+						isClassType = true;
+						String postAttribute = inputSplittedByWhitespace[postOccurence];
+						toReturn.add(new PossessionTuple(domainConceptToTest, postAttribute, Multiplicity.NO_INFO));
+					}
+				}
+			}
+		}
+
+//		if(isAttributeType && isClassType) return CompoundType.COMPOUND_BOTH; 
+//		else if(isAttributeType && !isClassType) return CompoundType.COMPOUND_ATTRIBUTE;
+//		else if(!isAttributeType && isClassType) return CompoundType.COMPOUND_CLASS;
+//		else return CompoundType.NONE;
+		return toReturn;
+	}
+
+	public static List<PossessionTuple> computeCompoundTypeOfConcept(Set<String> allConcepts) {
+		List<PossessionTuple> toReturn = new ArrayList<>();
+
+		for (String concept : allConcepts) {
+			String[] splittedConcept = StringUtils.split(concept, "_");
+			String[] splittedAndRegularized = SentenceRegularizerService.normalizeStringArray(splittedConcept);
+
+			// check all every word for pre and post word, if both are domain concepts,
+			// there's a possession relationship
+			for (int i = 0; i < splittedAndRegularized.length; i++) {
+				String currentWord = splittedAndRegularized[i];
+				int postIndex = i + 1;
+				if (allConcepts.contains(currentWord) && postIndex < splittedAndRegularized.length) {
+					String followingWord = splittedAndRegularized[postIndex];
+					if (allConcepts.contains(followingWord)) {
+						toReturn.add(new PossessionTuple(currentWord, followingWord, Multiplicity.NO_INFO));
+					}
+				}
+			}
+		}
+
+		return toReturn;
+	}
+}
