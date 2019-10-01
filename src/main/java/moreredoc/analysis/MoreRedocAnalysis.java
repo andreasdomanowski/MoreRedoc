@@ -178,13 +178,17 @@ public class MoreRedocAnalysis {
 			String currentFrom = c.getFrom();
 			if(this.classMapping.containsKey(currentFrom)) {
 				UmlClass currentFromClass = this.classMapping.get(currentFrom);
-				currentFromClass.addMethod(c.getVerb());
+				
+				String method = c.getVerb();
 				
 				if(c.getTo() != null && this.classMapping.containsKey(c.getTo())) {
 					UmlClass currentToClass = this.classMapping.get(c.getTo());
 					UmlRelationship newRelationship = new UmlRelationship(currentFromClass, currentToClass, UmlRelationshipType.DIRECTEDASSOCIATION);
 					model.getRelationships().add(newRelationship);
+					method = method + "("+c.getTo()+")";
 				}
+				
+				currentFromClass.addMethod(method);
 			}
 		}
 		

@@ -1,6 +1,7 @@
 package moreredoc.analysis.services;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -16,8 +17,8 @@ import moreredoc.linguistics.processing.WordRegularizerService;
 import moreredoc.project.data.RelationTripleWrapper;
 
 public class VerbAnalyzerService {
-	public static List<VerbCandidate> analyzeIETriples(List<RelationTripleWrapper> wrappedTriples, Set<String> domainConcepts) {
-		List<VerbCandidate> toReturn = new ArrayList<>();
+	public static Set<VerbCandidate> analyzeIETriples(List<RelationTripleWrapper> wrappedTriples, Set<String> domainConcepts) {
+		Set<VerbCandidate> toReturn = new HashSet<>();
 		
 		List<VerbCandidate> oneOccurenceList = new ArrayList<>();
 		List<VerbCandidate> twoOccurencesList = new ArrayList<>();

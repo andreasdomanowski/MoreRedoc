@@ -43,6 +43,7 @@ public class UmlClass {
 		methods.add(method);
 	}
 	
+	
 	public String toPlantUmlClassString() {
 		String toReturn = "class " + this.name + " { \n";
 		
@@ -51,7 +52,12 @@ public class UmlClass {
 		}
 		
 		for(String method : methods) {
-			toReturn = toReturn + "\t" + method + "() \n";
+			// TODO refactor
+			if(method.contains("(") && method.contains(")")){
+				toReturn = toReturn + "\t" + method + "\n";
+			}else {
+				toReturn = toReturn + "\t" + method + "()\n";
+			}
 		}
 		
 		return toReturn + "}";
