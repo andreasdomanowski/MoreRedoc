@@ -14,6 +14,10 @@ public class VerbCandidate {
 	public String getTo() {
 		return to;
 	}
+	
+	public String getVerb() {
+		return this.verb;
+	}
 
 	public VerbCandidate(String from, String to, String verb) {
 		super();

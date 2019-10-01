@@ -18,6 +18,7 @@ import moreredoc.project.data.MoreRedocProject;
 import moreredoc.project.data.ProcessedRequirement;
 import moreredoc.project.data.RelationTripleWrapper;
 import moreredoc.project.data.Requirement;
+import moreredoc.umlgenerator.ModelGenerator;
 import moreredoc.utils.fileutils.CsvReader;
 import net.sourceforge.plantuml.project3.Verb;
 
@@ -45,14 +46,23 @@ public class MoreRedocStarter {
 
 		MoreRedocAnalysis analysis = new MoreRedocAnalysis(project);
 
-		System.out.println("Verb Analysis");
-		for (ProcessedRequirement r : project.getProcessedProjectRequirements()) {
-			System.out.println(r.toString());
-			r.printIE();
-			VerbAnalyzerService.analyzeIETriples(r.getRelationTriples(), project.getProjectDomainConcepts());
-		}
+//		System.out.println("Verb Analysis");
+//		for (ProcessedRequirement r : project.getProcessedProjectRequirements()) {
+////			System.out.println(r.toString());
+////			r.printIE();
+////			VerbAnalyzerService.analyzeIETriples(r.getRelationTriples(), project.getProjectDomainConcepts());
+//		}
 
 		// System.out.println(analysis.getModel().toPlantUmlDslString());
+		
+		ModelGenerator modGen = new ModelGenerator();
+		String dslString = analysis.getModel().toPlantUmlDslString();
+		
+		modGen.drawPng(new File("model.png"), dslString) ;
+		modGen.drawSvg(new File("model.svg"), dslString);
+		modGen.generateRawXMI(new File("xmiRaw.xmi"), dslString);
+		modGen.generateArgoXMI(new File("xmiArgo.xmi"), dslString);
+		modGen.generateStarXMI(new File("xmiStar.xmi"), dslString);
 
 	}
 

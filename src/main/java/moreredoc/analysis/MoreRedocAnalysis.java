@@ -11,8 +11,10 @@ import org.apache.log4j.Logger;
 import edu.stanford.nlp.ie.KBPRelationExtractor.RelationType;
 import edu.stanford.nlp.ie.util.RelationTriple;
 import moreredoc.analysis.data.PossessionTuple;
+import moreredoc.analysis.data.VerbCandidate;
 import moreredoc.analysis.services.AttributiveRelationshipService;
 import moreredoc.analysis.services.CompoundAnalysisService;
+import moreredoc.analysis.services.VerbAnalyzerService;
 import moreredoc.project.data.MoreRedocProject;
 import moreredoc.project.data.ProcessedRequirement;
 import moreredoc.project.data.RelationTripleWrapper;
@@ -42,8 +44,8 @@ public class MoreRedocAnalysis {
 		this.project = project;
 		initializePossessionTuples();
 		initializeClasses();
-
 		generateModel();
+		analyzeVerbs();
 	}
 
 	private void initializePossessionTuples() {
@@ -150,6 +152,43 @@ public class MoreRedocAnalysis {
 			}
 
 		}
+	}
+
+	private void analyzeVerbs() {
+		if (this.model == null)
+			return;
+
+
+		List<VerbCandidate> verbList = new ArrayList<>();
+
+//		for (ProcessedRequirement requirement : project.getProcessedProjectRequirements()) {
+//			verbList.addAll(VerbAnalyzerService.analyzeIETriples(requirement.getRelationTriples(),
+//					project.getProjectDomainConcepts()));
+//
+//		}
+		
+		System.out.println("Verb Analysis");
+		for (ProcessedRequirement r : project.getProcessedProjectRequirements()) {
+			verbList.addAll(VerbAnalyzerService.analyzeIETriples(r.getRelationTriples(), project.getProjectDomainConcepts()));
+		}
+		
+		
+		System.out.println("length: " + verbList.size());
+		for(VerbCandidate c : verbList) {
+			String currentFrom = c.getFrom();
+			if(this.classMapping.containsKey(currentFrom)) {
+				UmlClass currentFromClass = this.classMapping.get(currentFrom);
+				currentFromClass.addMethod(c.getVerb());
+				
+				if(c.getTo() != null && this.classMapping.containsKey(c.getTo())) {
+					UmlClass currentToClass = this.classMapping.get(c.getTo());
+					UmlRelationship newRelationship = new UmlRelationship(currentFromClass, currentToClass, UmlRelationshipType.DIRECTEDASSOCIATION);
+					model.getRelationships().add(newRelationship);
+				}
+			}
+		}
+		
+
 	}
 
 	private void generateModel() {

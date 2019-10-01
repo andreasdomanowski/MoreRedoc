@@ -16,7 +16,9 @@ import moreredoc.linguistics.processing.WordRegularizerService;
 import moreredoc.project.data.RelationTripleWrapper;
 
 public class VerbAnalyzerService {
-	public static void analyzeIETriples(List<RelationTripleWrapper> wrappedTriples, Set<String> domainConcepts) {
+	public static List<VerbCandidate> analyzeIETriples(List<RelationTripleWrapper> wrappedTriples, Set<String> domainConcepts) {
+		List<VerbCandidate> toReturn = new ArrayList<>();
+		
 		List<VerbCandidate> oneOccurenceList = new ArrayList<>();
 		List<VerbCandidate> twoOccurencesList = new ArrayList<>();
 
@@ -67,7 +69,7 @@ public class VerbAnalyzerService {
 
 			@Override
 			public void accept(VerbCandidate t) {
-				System.out.println("one: "+t);
+				//System.out.println("one: "+t);
 			}
 			
 		});
@@ -75,10 +77,15 @@ public class VerbAnalyzerService {
 
 			@Override
 			public void accept(VerbCandidate t) {
-				System.out.println("two: "+t);
+				//System.out.println("two: "+t);
 			}
 			
 		});
+		
+		toReturn.addAll(oneOccurenceList);
+		toReturn.addAll(twoOccurencesList);
+		
+		return toReturn;
 	}
 
 	public Map<String, List<String>> getMethodsFromIETriples(List<RelationTripleWrapper> wrappedTriples,
@@ -92,5 +99,7 @@ public class VerbAnalyzerService {
 		List<VerbCandidate> toReturn = null;
 		return toReturn;
 	}
+	
+	
 
 }
