@@ -24,13 +24,20 @@ import net.sourceforge.plantuml.project3.Verb;
 public class MoreRedocStarter {
 
 	public static void main(String[] args) throws Exception {
+		if(args.length < 2) {
+			System.exit(-1);
+		}
+		
+		String filepathKeywords = args[0];
+		String filepathText = args[1];
+		
 		String log4jConfPath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
 				+ File.separator + "resources" + File.separator + "logger" + File.separator + "log4j.properties";
 		PropertyConfigurator.configure(log4jConfPath);
 
 		CsvReader reader = new CsvReader();
-		List<List<String>> keywordsRaw = reader.readCsv("D:\\Cloud\\Dropbox\\Informatik\\Beleg\\_ORDERS.CSV", ";");
-		List<List<String>> sentencesRaw = reader.readCsv("D:\\Cloud\\Dropbox\\Informatik\\Beleg\\_OrderEntry.CSV", ";");
+		List<List<String>> keywordsRaw = reader.readCsv(filepathKeywords, ";");
+		List<List<String>> sentencesRaw = reader.readCsv(filepathText, ";");
 
 		SoftRedocDataHandler softReadocDataHandler = new SoftRedocDataHandler();
 		List<Requirement> requirements = softReadocDataHandler.getRequirementsFromCsvInputs(keywordsRaw, sentencesRaw);
