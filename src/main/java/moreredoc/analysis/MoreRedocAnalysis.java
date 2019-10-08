@@ -24,6 +24,8 @@ import moreredoc.umldata.UmlRelationship;
 import moreredoc.umldata.UmlRelationshipType;
 
 public class MoreRedocAnalysis {
+	private MoreRedocAnalysisConfiguration configuration;
+	
 	private MoreRedocProject project;
 	private List<PossessionTuple> possessionTuples;
 
@@ -40,8 +42,9 @@ public class MoreRedocAnalysis {
 
 	}
 
-	public MoreRedocAnalysis(MoreRedocProject project) {
+	public MoreRedocAnalysis(MoreRedocProject project, MoreRedocAnalysisConfiguration configuration) {
 		this.project = project;
+		this.setConfiguration(configuration);
 		initializePossessionTuples();
 		initializeClasses();
 		generateModel();
@@ -158,23 +161,15 @@ public class MoreRedocAnalysis {
 		if (this.model == null)
 			return;
 
-
 		List<VerbCandidate> verbList = new ArrayList<>();
-
-//		for (ProcessedRequirement requirement : project.getProcessedProjectRequirements()) {
-//			verbList.addAll(VerbAnalyzerService.analyzeIETriples(requirement.getRelationTriples(),
-//					project.getProjectDomainConcepts()));
-//
-//		}
 		
-		System.out.println("Verb Analysis");
 		for (ProcessedRequirement r : project.getProcessedProjectRequirements()) {
 			verbList.addAll(VerbAnalyzerService.analyzeIETriples(r.getRelationTriples(), project.getProjectDomainConcepts()));
 		}
 		
 		
-		System.out.println("length: " + verbList.size());
 		for(VerbCandidate c : verbList) {
+			System.out.println(c);
 			String currentFrom = c.getFrom();
 			if(this.classMapping.containsKey(currentFrom)) {
 				UmlClass currentFromClass = this.classMapping.get(currentFrom);
@@ -205,6 +200,14 @@ public class MoreRedocAnalysis {
 
 	public UmlModel getModel() {
 		return model;
+	}
+
+	public MoreRedocAnalysisConfiguration getConfiguration() {
+		return configuration;
+	}
+
+	public void setConfiguration(MoreRedocAnalysisConfiguration configuration) {
+		this.configuration = configuration;
 	}
 
 }

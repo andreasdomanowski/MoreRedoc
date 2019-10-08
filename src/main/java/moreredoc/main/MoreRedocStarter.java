@@ -10,6 +10,7 @@ import edu.stanford.nlp.ie.util.RelationTriple;
 import moreredoc.analysis.MoreRedocAnalysis;
 import moreredoc.analysis.data.CompoundType;
 import moreredoc.analysis.data.PossessionTuple;
+import moreredoc.analysis.data.VerbCandidate;
 import moreredoc.analysis.services.AttributiveRelationshipService;
 import moreredoc.analysis.services.CompoundAnalysisService;
 import moreredoc.analysis.services.VerbAnalyzerService;
@@ -44,7 +45,7 @@ public class MoreRedocStarter {
 		List<Requirement> requirements = softReadocDataHandler.getRequirementsFromCsvInputs(keywordsRaw, sentencesRaw);
 		MoreRedocProject project = new MoreRedocProject(requirements);
 
-		MoreRedocAnalysis analysis = new MoreRedocAnalysis(project);
+		MoreRedocAnalysis analysis = new MoreRedocAnalysis(project, null);
 
 //		System.out.println("Verb Analysis");
 //		for (ProcessedRequirement r : project.getProcessedProjectRequirements()) {

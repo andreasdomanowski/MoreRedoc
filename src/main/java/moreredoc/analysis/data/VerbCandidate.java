@@ -14,7 +14,7 @@ public class VerbCandidate {
 	public String getTo() {
 		return to;
 	}
-	
+
 	public String getVerb() {
 		return this.verb;
 	}
@@ -25,41 +25,47 @@ public class VerbCandidate {
 		this.to = to;
 		this.verb = verb;
 	}
-	
+
 	public String toString() {
 		return "F: " + from + " " + " V " + verb + " " + "T: " + to;
 	}
-	
-    //Idea from effective Java : Item 9
-    @Override
-    public int hashCode() {
-    	String toComparator = "";
-    	if(to != null) {
-    		toComparator = this.to;
-    	}
-        int result = 17;
-        result = 31 * result + from.hashCode();
-        result = 31 * result + toComparator.hashCode();
-        result = 31 * result + verb.hashCode();
-        return result;
-    }
-    
-    public boolean equals(Object o) {
-    	if(o instanceof VerbCandidate) {
-    		String toBuffer = "";
-    		
-    		VerbCandidate cand = (VerbCandidate) o;
-    		
-    		if(cand.getTo() != null) {
-    			toBuffer = cand.getTo();
-    		}
-    		
-    		return cand.getFrom().equals(this.from)
-    				&& cand.getVerb().equals(this.verb)
-    				&& toBuffer.equals(this.to);
-    	}else {
-    		return false;
-    	}
-    }
+
+	// Idea from effective Java : Item 9
+	@Override
+	public int hashCode() {
+		String toComparator = "";
+		if (to != null) {
+			toComparator = this.to;
+		}
+		int result = 17;
+		result = 31 * result + from.hashCode();
+		result = 31 * result + toComparator.hashCode();
+		result = 31 * result + verb.hashCode();
+		return result;
+	}
+
+	public boolean equals(Object o) {
+		if (o instanceof VerbCandidate) {
+			VerbCandidate cand = (VerbCandidate) o;
+			// first check "from" and "verb", because both are always set
+			if (this.from.equals(cand.from) && this.verb.equals(cand.verb)) {
+				// if both "to"s are not null, compare them
+				if (this.to != null && cand.to != null) {
+					return this.to.equals(cand.to);
+				// if 
+					// TODO
+				} else {
+					return (this.to == null && cand.to == null);
+				}
+			} else {
+				return false;
+			}
+
+		}
+		// if o is not instance of VerbCandidate, return false
+		else {
+			return false;
+		}
+	}
 
 }
