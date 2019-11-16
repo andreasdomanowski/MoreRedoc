@@ -45,15 +45,9 @@ public class MoreRedocStarter {
 		SoftRedocDataHandler softReadocDataHandler = new SoftRedocDataHandler();
 		List<Requirement> requirements = softReadocDataHandler.getRequirementsFromCsvInputs(keywordsRaw, sentencesRaw);
 		MoreRedocProject project = new MoreRedocProject(requirements);
-		
-		for(Requirement r : requirements) {
-			r.getKeywords().clear();
-		}
-		project.getProjectDomainConcepts().clear();
 
 		MoreRedocAnalysis analysis = new MoreRedocAnalysis(project, null);
 		
-		System.out.println("Domain concepts: " + project.getProjectDomainConcepts());
 
 //		System.out.println("Verb Analysis");
 //		for (ProcessedRequirement r : project.getProcessedProjectRequirements()) {
