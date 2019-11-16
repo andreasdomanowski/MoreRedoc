@@ -29,7 +29,7 @@ public class MoreRedocStarter {
 		if(args.length < 2) {
 			System.exit(-1);
 		}
-		
+				
 		String filepathKeywords = args[0];
 		String filepathText = args[1];
 		
@@ -40,12 +40,20 @@ public class MoreRedocStarter {
 		CsvReader reader = new CsvReader();
 		List<List<String>> keywordsRaw = reader.readCsv(filepathKeywords, ";");
 		List<List<String>> sentencesRaw = reader.readCsv(filepathText, ";");
+	
 
 		SoftRedocDataHandler softReadocDataHandler = new SoftRedocDataHandler();
 		List<Requirement> requirements = softReadocDataHandler.getRequirementsFromCsvInputs(keywordsRaw, sentencesRaw);
 		MoreRedocProject project = new MoreRedocProject(requirements);
+		
+		for(Requirement r : requirements) {
+			r.getKeywords().clear();
+		}
+		project.getProjectDomainConcepts().clear();
 
 		MoreRedocAnalysis analysis = new MoreRedocAnalysis(project, null);
+		
+		System.out.println("Domain concepts: " + project.getProjectDomainConcepts());
 
 //		System.out.println("Verb Analysis");
 //		for (ProcessedRequirement r : project.getProcessedProjectRequirements()) {

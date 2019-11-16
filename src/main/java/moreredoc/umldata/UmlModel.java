@@ -10,17 +10,18 @@ public class UmlModel {
 	private List<UmlRelationship> relationships;
 	
 	public String toPlantUmlDslString() {
-		String toReturn = "@startuml\n";
+		StringBuilder plantTextBuilder = new StringBuilder("@startuml\n");
 		
 		for(UmlClass c : classes.values()) {
-			toReturn = toReturn + c.toPlantUmlClassString() + "\n";
+			plantTextBuilder.append(c.toPlantUmlClassString() + "\n");
 		}
 		
 		for(UmlRelationship r : relationships) {
-			toReturn = toReturn + r.toPlantUmlRelationshipString() + "\n";
+			plantTextBuilder.append(r.toPlantUmlRelationshipString() + "\n");
 		}
+		plantTextBuilder.append("@enduml");
 		
-		return toReturn + "@enduml";
+		return plantTextBuilder.toString();
 	}
 
 	public UmlModel(Map<String, UmlClass> classes, List<UmlRelationship> relationships) {

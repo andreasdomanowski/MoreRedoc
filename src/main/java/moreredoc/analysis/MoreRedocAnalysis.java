@@ -25,7 +25,7 @@ import moreredoc.umldata.UmlRelationshipType;
 
 public class MoreRedocAnalysis {
 	private MoreRedocAnalysisConfiguration configuration;
-	
+
 	private MoreRedocProject project;
 	private List<PossessionTuple> possessionTuples;
 
@@ -144,7 +144,7 @@ public class MoreRedocAnalysis {
 					this.classMapping.put(ownerClassName, ownerClass);
 				}
 				UmlRelationship newRelationship = new UmlRelationship(ownerClass, attributeClass,
-						UmlRelationshipType.AGGREGATION);
+						UmlRelationshipType.AGGREGATION, null);
 				this.relationships.add(newRelationship);
 			}
 
@@ -162,31 +162,38 @@ public class MoreRedocAnalysis {
 			return;
 
 		List<VerbCandidate> verbList = new ArrayList<>();
-		
+
 		for (ProcessedRequirement r : project.getProcessedProjectRequirements()) {
-			verbList.addAll(VerbAnalyzerService.analyzeIETriples(r.getRelationTriples(), project.getProjectDomainConcepts()));
+			verbList.addAll(
+					VerbAnalyzerService.analyzeIETriples(r.getRelationTriples(), project.getProjectDomainConcepts()));
 		}
-		
-		
-		for(VerbCandidate c : verbList) {
-			System.out.println(c);
+
+		for (VerbCandidate c : verbList) {
 			String currentFrom = c.getFrom();
-			if(this.classMapping.containsKey(currentFrom)) {
+			if (this.classMapping.containsKey(currentFrom)) {
 				UmlClass currentFromClass = this.classMapping.get(currentFrom);
 				
-				String method = c.getVerb();
-				
-				if(c.getTo() != null && this.classMapping.containsKey(c.getTo())) {
-					UmlClass currentToClass = this.classMapping.get(c.getTo());
-					UmlRelationship newRelationship = new UmlRelationship(currentFromClass, currentToClass, UmlRelationshipType.DIRECTEDASSOCIATION);
-					model.getRelationships().add(newRelationship);
-					method = method + "("+c.getTo()+")";
+				StringBuilder methodStringBuilder = new StringBuilder(c.getVerb());
+
+				// if getTo != null, check if it is modelled as class
+				// if so, add relationship
+				// if not, just add it as method argument
+				if (c.getTo() != null) {
+					if (this.classMapping.containsKey(c.getTo())) {
+						// TODO 
+						UmlClass currentToClass = this.classMapping.get(c.getTo());
+						UmlRelationship newRelationship = new UmlRelationship(currentFromClass, currentToClass,
+								UmlRelationshipType.ASSOCIATION, c.getVerb());
+						model.getRelationships().add(newRelationship);
+
+					}
+					methodStringBuilder.append("(" + c.getTo() + ")");
+
 				}
-				
-				currentFromClass.addMethod(method);
+
+				currentFromClass.addMethod(methodStringBuilder.toString());
 			}
 		}
-		
 
 	}
 
