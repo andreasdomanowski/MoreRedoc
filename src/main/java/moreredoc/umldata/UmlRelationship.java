@@ -5,6 +5,8 @@ public class UmlRelationship {
 	private UmlClass to;
 	private UmlRelationshipType type;
 	
+	private String name;
+	
 	private static String relationshipSignAssociation = " -- ";
 	private static String relationshipSignDirectedAssociation = " --> ";
 	private static String relationshipSignAggregation = " *-- "; // from aggregates to
@@ -19,14 +21,20 @@ public class UmlRelationship {
 		if(type == UmlRelationshipType.DEPENDENCY) relationshipToAdd = relationshipSignDependency;
 		if(type == UmlRelationshipType.DIRECTEDASSOCIATION) relationshipToAdd = relationshipSignDirectedAssociation;
 		
-		return toReturn + relationshipToAdd + to.getName();
+		StringBuilder returnStringBuilder = new StringBuilder(toReturn + relationshipToAdd + to.getName());
+		
+		if(name != null) {
+			returnStringBuilder.append(" : "+ name);
+		}
+		return returnStringBuilder.toString();
 	}
 
-	public UmlRelationship(UmlClass from, UmlClass to, UmlRelationshipType type) {
+	public UmlRelationship(UmlClass from, UmlClass to, UmlRelationshipType type, String name) {
 		super();
 		this.from = from;
 		this.to = to;
 		this.type = type;
+		this.name = name;
 	}
 
 	public UmlClass getFrom() {

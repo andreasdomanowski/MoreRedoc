@@ -28,10 +28,10 @@ public class ModelGeneratorExample {
 		UmlClass class2 = new UmlClass("Class2", class2Attributes, class2Methods);
 		UmlClass class3 = new UmlClass("Class3", class3Attributes, class3Methods);
 		
-		UmlRelationship rel1 = new UmlRelationship(class1, class2, UmlRelationshipType.AGGREGATION);
-		UmlRelationship rel2 = new UmlRelationship(class2, class3, UmlRelationshipType.ASSOCIATION);
-		UmlRelationship rel3 = new UmlRelationship(class3, class1, UmlRelationshipType.DIRECTEDASSOCIATION);
-		UmlRelationship rel4 = new UmlRelationship(class3, class2, UmlRelationshipType.DEPENDENCY);
+		UmlRelationship rel1 = new UmlRelationship(class1, class2, UmlRelationshipType.AGGREGATION, null);
+		UmlRelationship rel2 = new UmlRelationship(class2, class3, UmlRelationshipType.ASSOCIATION, null);
+		UmlRelationship rel3 = new UmlRelationship(class3, class1, UmlRelationshipType.DIRECTEDASSOCIATION, null);
+		UmlRelationship rel4 = new UmlRelationship(class3, class2, UmlRelationshipType.DEPENDENCY, null);
 		
 		List<UmlClass> classes = Arrays.asList(class1, class2, class3);
 		List<UmlRelationship> relationships = Arrays.asList(rel1, rel2, rel3, rel4);
