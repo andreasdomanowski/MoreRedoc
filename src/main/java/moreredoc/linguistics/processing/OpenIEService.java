@@ -12,12 +12,14 @@ import moreredoc.project.data.RelationTripleWrapper;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Properties;
 
-/**
- * A demo illustrating how to call the OpenIE system programmatically.
- */
 public class OpenIEService {
+	/**
+	 * Hide implicit constructor.
+	 */
+	private OpenIEService() {
+		
+	}
 
 	public static List<RelationTripleWrapper> performIE(String text) throws Exception {
 		List<RelationTripleWrapper> toReturn = new ArrayList<>();

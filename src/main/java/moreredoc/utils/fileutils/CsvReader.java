@@ -13,7 +13,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.apache.log4j.Logger;
+
 public class CsvReader {
+	
+	private static Logger logger = Logger.getLogger(CsvReader.class);
+	
+	/**
+	 * Not to be instantiated
+	 */
+	private CsvReader(){
+		
+	}
 
 	/**
 	 * Parses a csv file and breaks it down into a list of lists, which contain each rows values
@@ -21,8 +32,8 @@ public class CsvReader {
 	 * @param delimiter delimiter of the csv, normally a comma
 	 * @return
 	 */
-	public List<List<String>> readCsv(String filepath, String delimiter) {
-		List<List<String>> result = new ArrayList<List<String>>();
+	public static List<List<String>> readCsv(String filepath, String delimiter) {
+		List<List<String>> result = new ArrayList<>();
 
 		String line = "";
 
@@ -36,7 +47,7 @@ public class CsvReader {
 			}
 
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error("Error while parsing CSV" + e);
 		}
 		
 		return result;

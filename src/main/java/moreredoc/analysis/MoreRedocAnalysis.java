@@ -4,11 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-
 import org.apache.log4j.Logger;
 
-import edu.stanford.nlp.ie.KBPRelationExtractor.RelationType;
 import edu.stanford.nlp.ie.util.RelationTriple;
 import moreredoc.analysis.data.PossessionTuple;
 import moreredoc.analysis.data.VerbCandidate;
@@ -24,6 +21,8 @@ import moreredoc.umldata.UmlRelationship;
 import moreredoc.umldata.UmlRelationshipType;
 
 public class MoreRedocAnalysis {
+	private static Logger logger = Logger.getLogger(MoreRedocAnalysis.class);
+	
 	private MoreRedocAnalysisConfiguration configuration;
 
 	private MoreRedocProject project;

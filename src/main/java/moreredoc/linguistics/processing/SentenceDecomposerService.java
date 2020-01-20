@@ -1,15 +1,12 @@
 package moreredoc.linguistics.processing;
 
 import edu.stanford.nlp.ling.Label;
-import edu.stanford.nlp.pipeline.*;
 import edu.stanford.nlp.simple.*;
-import edu.stanford.nlp.trees.SimpleTree;
 import edu.stanford.nlp.trees.Tree;
 import moreredoc.project.data.DecomposedSentenceTripel;
 
 import java.util.*;
 import java.util.function.Consumer;
-import java.util.function.Predicate;
 
 public class SentenceDecomposerService {
 	
@@ -27,7 +24,7 @@ public class SentenceDecomposerService {
 		for (int i = 0; i < doc.sentences().size(); i++) {
 			DecomposedSentenceTripel currentTripel = new DecomposedSentenceTripel();
 
-			List<Tree> sbarPartsOfSentences = new ArrayList();
+			List<Tree> sbarPartsOfSentences = new ArrayList<>();
 			Tree depTree = doc.sentence(i).parse();
 
 			depTree.forEach(new Consumer<Tree>() {

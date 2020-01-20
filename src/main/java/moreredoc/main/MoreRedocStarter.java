@@ -3,27 +3,19 @@ package moreredoc.main;
 import java.io.File;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
-import edu.stanford.nlp.ie.util.RelationTriple;
 import moreredoc.analysis.MoreRedocAnalysis;
-import moreredoc.analysis.data.CompoundType;
-import moreredoc.analysis.data.PossessionTuple;
-import moreredoc.analysis.data.VerbCandidate;
-import moreredoc.analysis.services.AttributiveRelationshipService;
-import moreredoc.analysis.services.CompoundAnalysisService;
-import moreredoc.analysis.services.VerbAnalyzerService;
 import moreredoc.datainput.SoftRedocDataHandler;
 import moreredoc.project.data.MoreRedocProject;
-import moreredoc.project.data.ProcessedRequirement;
-import moreredoc.project.data.RelationTripleWrapper;
 import moreredoc.project.data.Requirement;
 import moreredoc.umlgenerator.ModelGenerator;
 import moreredoc.utils.fileutils.CsvReader;
-import net.sourceforge.plantuml.project3.Verb;
 
 public class MoreRedocStarter {
+	
+	private static Logger logger = Logger.getLogger(MoreRedocStarter.class);
 
 	public static void main(String[] args) throws Exception {
 		if(args.length < 2) {
@@ -37,9 +29,10 @@ public class MoreRedocStarter {
 				+ File.separator + "resources" + File.separator + "logger" + File.separator + "log4j.properties";
 		PropertyConfigurator.configure(log4jConfPath);
 
-		CsvReader reader = new CsvReader();
-		List<List<String>> keywordsRaw = reader.readCsv(filepathKeywords, ";");
-		List<List<String>> sentencesRaw = reader.readCsv(filepathText, ";");
+		String csvDelimiter = ";";
+		
+		List<List<String>> keywordsRaw = CsvReader.readCsv(filepathKeywords, csvDelimiter);
+		List<List<String>> sentencesRaw = CsvReader.readCsv(filepathText, csvDelimiter);
 	
 
 		SoftRedocDataHandler softReadocDataHandler = new SoftRedocDataHandler();
