@@ -1,4 +1,4 @@
-package moreredoc.main;
+package moreredoc.application;
 
 import java.io.File;
 import java.util.List;
@@ -13,9 +13,9 @@ import moreredoc.project.data.Requirement;
 import moreredoc.umlgenerator.ModelGenerator;
 import moreredoc.utils.fileutils.CsvReader;
 
-public class MoreRedocStarter {
+public class MoreRedocLogicStarter {
 	
-	private static Logger logger = Logger.getLogger(MoreRedocStarter.class);
+	private static Logger logger = Logger.getLogger(MoreRedocLogicStarter.class);
 
 	public static void main(String[] args) throws Exception {
 		if(args.length < 2) {

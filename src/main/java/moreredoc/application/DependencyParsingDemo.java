@@ -1,4 +1,4 @@
-package moreredoc.main;
+package moreredoc.application;
 
 import java.util.List;
 import java.util.Properties;
