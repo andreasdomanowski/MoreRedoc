@@ -17,7 +17,7 @@ public class MoreRedocGuiStarter extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
-		this.primaryStage.setTitle("MyTitle");
+		this.primaryStage.setTitle("MoreRedoc");
 
 		initRootLayout();
 
@@ -41,6 +41,7 @@ public class MoreRedocGuiStarter extends Application {
 			Scene scene = new Scene(rootLayout);
 			primaryStage.setScene(scene);
 			primaryStage.show();
+			primaryStage.setResizable(false);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

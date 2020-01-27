@@ -1,6 +1,7 @@
 package moreredoc.application;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -13,17 +14,15 @@ import moreredoc.project.data.Requirement;
 import moreredoc.umlgenerator.ModelGenerator;
 import moreredoc.utils.fileutils.CsvReader;
 
-public class MoreRedocLogicStarter {
+public class MoreRedocLogicStarter  {
 	
 	private static Logger logger = Logger.getLogger(MoreRedocLogicStarter.class);
 
-	public static void main(String[] args) throws Exception {
-		if(args.length < 2) {
-			System.exit(-1);
-		}
+	public static void runMoreRedocLogic(String pathCsvKeywords, String pathCsvText, String pathOutputFolder) throws Exception {
+		
 				
-		String filepathKeywords = args[0];
-		String filepathText = args[1];
+		//String filepathKeywords = "D:\\Cloud\\Dropbox\\Informatik\\Beleg\\_ORDERS.CSV";
+		//String filepathText = "D:\\Cloud\\Dropbox\\Informatik\\Beleg\\_OrderEntry.CSV";
 		
 		String log4jConfPath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
 				+ File.separator + "resources" + File.separator + "logger" + File.separator + "log4j.properties";
@@ -31,8 +30,8 @@ public class MoreRedocLogicStarter {
 
 		String csvDelimiter = ";";
 		
-		List<List<String>> keywordsRaw = CsvReader.readCsv(filepathKeywords, csvDelimiter);
-		List<List<String>> sentencesRaw = CsvReader.readCsv(filepathText, csvDelimiter);
+		List<List<String>> keywordsRaw = CsvReader.readCsv(pathCsvKeywords, csvDelimiter);
+		List<List<String>> sentencesRaw = CsvReader.readCsv(pathCsvText, csvDelimiter);
 	
 
 		SoftRedocDataHandler softReadocDataHandler = new SoftRedocDataHandler();
@@ -54,12 +53,13 @@ public class MoreRedocLogicStarter {
 		ModelGenerator modGen = new ModelGenerator();
 		String dslString = analysis.getModel().toPlantUmlDslString();
 		
-		modGen.drawPng(new File("model.png"), dslString) ;
-		modGen.drawSvg(new File("model.svg"), dslString);
-		modGen.generateRawXMI(new File("xmiRaw.xmi"), dslString);
-		modGen.generateArgoXMI(new File("xmiArgo.xmi"), dslString);
-		modGen.generateStarXMI(new File("xmiStar.xmi"), dslString);
+		modGen.drawPng(new File(pathOutputFolder + File.separator + "/model.png"), dslString) ;
+		modGen.drawSvg(new File(pathOutputFolder + File.separator + "model.svg"), dslString);
+		modGen.generateRawXMI(new File(pathOutputFolder + File.separator + "xmiRaw.xmi"), dslString);
+		modGen.generateArgoXMI(new File(pathOutputFolder + File.separator + "xmiArgo.xmi"), dslString);
+		modGen.generateStarXMI(new File(pathOutputFolder + File.separator + "xmiStar.xmi"), dslString);
 
 	}
+
 
 }

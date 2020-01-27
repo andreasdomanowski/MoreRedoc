@@ -10,6 +10,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -62,7 +63,7 @@
         </Menu>
       </menus>
     </MenuBar>
-    <SplitPane dividerPositions="0.2505567928730512, 0.7505567928730512" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+    <SplitPane dividerPositions="0.20489977728285078, 0.8207126948775055" focusTraversable="true" VBox.vgrow="ALWAYS">
       <items>
         <AnchorPane>
           <children>
@@ -88,10 +89,11 @@
             <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="545.0" prefWidth="430.0">
               <children>
                 <Label alignment="CENTER" font="$x1" layoutX="14.0" layoutY="14.0" style="&#10;" text="Input/Output" textAlignment="CENTER" textFill="$x2" wrapText="false" />
-                        <GridPane layoutX="14.0" layoutY="41.0">
+                        <GridPane layoutX="10.0" layoutY="41.0" prefHeight="180.0" prefWidth="421.0">
                           <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="208.0" minWidth="10.0" prefWidth="89.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="332.0" minWidth="10.0" prefWidth="280.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="332.0" minWidth="10.0" prefWidth="61.0" />
                           </columnConstraints>
                           <rowConstraints>
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -104,12 +106,9 @@
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CSV1" />
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CSV2" GridPane.rowIndex="1" />
-                              <Label fx:id="pathCsv1" text="Path" GridPane.columnIndex="1" />
-                              <Label fx:id="pathCsv2" text="Path" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Output" GridPane.rowIndex="2" />
-                              <Label fx:id="pathOutput" text="Path" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Output format" GridPane.rowIndex="4" />
-                              <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                              <VBox prefHeight="200.0" prefWidth="307.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                                  <children>
                                     <CheckBox fx:id="cbXMI" mnemonicParsing="false" text="XMI" />
                                     <CheckBox fx:id="cbArgo" mnemonicParsing="false" text="Argo" />
@@ -117,16 +116,22 @@
                                     <CheckBox fx:id="cvPng" mnemonicParsing="false" text="PNG" />
                                  </children>
                               </VBox>
+                              <TextField fx:id="pathCsvKeywords" disable="true" prefWidth="273.0" GridPane.columnIndex="1" />
+                              <TextField fx:id="pathCsvText" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <TextField fx:id="pathOutputFolder" disable="true" prefWidth="314.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <Button fx:id="buttonSelectCsvKeywords" mnemonicParsing="false" onAction="#selectCsvKeywords" text="Select" GridPane.columnIndex="2" />
+                              <Button fx:id="buttonSelectCsvText" mnemonicParsing="false" onAction="#selectCsvText" text="Select" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                              <Button fx:id="buttonSelectOutputFolder" mnemonicParsing="false" onAction="#selectOutputFolder" text="Select" GridPane.columnIndex="2" GridPane.rowIndex="2" />
                            </children>
                         </GridPane>
               </children>
             </AnchorPane>
           </content>
         </ScrollPane>
-        <AnchorPane>
+        <AnchorPane prefHeight="567.0" prefWidth="120.0">
           <children>
             <Label alignment="CENTER" font="$x1" layoutX="14.0" layoutY="14.0" style="&#10;" text="Actions" textAlignment="CENTER" textFill="$x2" wrapText="false" />
-                  <Button layoutX="18.0" layoutY="41.0" mnemonicParsing="false" onAction="#runGenerateModel" text="Generate Model" />
+                  <Button fx:id="buttonRun" layoutX="18.0" layoutY="41.0" mnemonicParsing="false" onAction="#runGenerateModel" text="Generate Model" />
                   <Button layoutX="18.0" layoutY="73.0" mnemonicParsing="false" onAction="#reset" prefHeight="25.0" prefWidth="102.0" text="Reset" />
           </children>
         </AnchorPane>
