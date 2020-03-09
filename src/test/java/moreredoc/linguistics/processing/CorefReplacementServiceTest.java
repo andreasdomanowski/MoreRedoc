@@ -1,7 +1,5 @@
 package moreredoc.linguistics.processing;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
 
 public class CorefReplacementServiceTest {

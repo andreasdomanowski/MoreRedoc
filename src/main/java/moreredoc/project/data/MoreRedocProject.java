@@ -9,7 +9,6 @@ import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 
-import edu.stanford.nlp.ling.Word;
 import moreredoc.linguistics.processing.WordRegularizerService;
 
 public class MoreRedocProject {

@@ -7,10 +7,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import moreredoc.umldata.UmlClass;
 import moreredoc.umldata.UmlModel;
 import moreredoc.umldata.UmlRelationship;
 import moreredoc.umldata.UmlRelationshipType;
-import moreredoc.umldata.UmlClass;
 import moreredoc.umlgenerator.ModelGenerator;
 
 public class ModelGeneratorExample {

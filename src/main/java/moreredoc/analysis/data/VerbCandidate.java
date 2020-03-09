@@ -1,7 +1,5 @@
 package moreredoc.analysis.data;
 
-import moreredoc.umldata.UmlRelationshipType;
-
 public class VerbCandidate {
 	private String from;
 	private String to;

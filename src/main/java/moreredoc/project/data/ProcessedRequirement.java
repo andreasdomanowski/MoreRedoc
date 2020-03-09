@@ -3,7 +3,6 @@ package moreredoc.project.data;
 import java.util.List;
 import java.util.Set;
 
-import edu.stanford.nlp.ie.util.RelationTriple;
 import moreredoc.linguistics.processing.CorefReplacementService;
 import moreredoc.linguistics.processing.OpenIEService;
 import moreredoc.linguistics.processing.SentenceDecomposerService;

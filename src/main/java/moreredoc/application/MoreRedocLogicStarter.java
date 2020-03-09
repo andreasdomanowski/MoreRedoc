@@ -1,7 +1,6 @@
 package moreredoc.application;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 import org.apache.log4j.Logger;

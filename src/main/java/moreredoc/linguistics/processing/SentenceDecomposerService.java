@@ -1,12 +1,13 @@
 package moreredoc.linguistics.processing;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Consumer;
+
 import edu.stanford.nlp.ling.Label;
-import edu.stanford.nlp.simple.*;
+import edu.stanford.nlp.simple.Document;
 import edu.stanford.nlp.trees.Tree;
 import moreredoc.project.data.DecomposedSentenceTripel;
-
-import java.util.*;
-import java.util.function.Consumer;
 
 public class SentenceDecomposerService {
 	

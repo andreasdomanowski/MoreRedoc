@@ -2,12 +2,10 @@ package moreredoc.analysis.services;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 
-import moreredoc.analysis.data.CompoundType;
 import moreredoc.analysis.data.PossessionTuple;
 import moreredoc.linguistics.processing.MoreRedocStringUtils;
 import moreredoc.linguistics.processing.SentenceRegularizerService;

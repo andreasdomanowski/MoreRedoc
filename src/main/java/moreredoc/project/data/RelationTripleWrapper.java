@@ -1,7 +1,5 @@
 package moreredoc.project.data;
 
-import java.util.List;
-
 import edu.stanford.nlp.ie.util.RelationTriple;
 
 public class RelationTripleWrapper {

@@ -3,6 +3,7 @@ package moreredoc.linguistics.processing;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
 import edu.stanford.nlp.coref.CorefCoreAnnotations;
 import edu.stanford.nlp.coref.CorefCoreAnnotations.CorefChainAnnotation;
 import edu.stanford.nlp.coref.data.CorefChain;

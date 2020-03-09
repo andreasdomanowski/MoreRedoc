@@ -1,12 +1,10 @@
 package moreredoc.analysis.services;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
-import org.jboss.dna.common.text.Inflector;
 
 import moreredoc.analysis.data.PossessionTuple;
 import moreredoc.linguistics.processing.MoreRedocStringUtils;

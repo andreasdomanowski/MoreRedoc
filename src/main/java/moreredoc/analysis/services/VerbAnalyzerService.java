@@ -11,9 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import edu.stanford.nlp.ie.util.RelationTriple;
 import moreredoc.analysis.data.VerbCandidate;
-import moreredoc.linguistics.processing.MoreRedocStringUtils;
 import moreredoc.linguistics.processing.SentenceRegularizerService;
-import moreredoc.linguistics.processing.WordRegularizerService;
 import moreredoc.project.data.RelationTripleWrapper;
 
 public class VerbAnalyzerService {

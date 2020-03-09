@@ -1,17 +1,17 @@
 package moreredoc.linguistics.processing;
 
-import edu.stanford.nlp.ie.util.RelationTriple;
-import edu.stanford.nlp.ling.CoreAnnotations;
-import edu.stanford.nlp.pipeline.Annotation;
-import edu.stanford.nlp.pipeline.StanfordCoreNLP;
-import edu.stanford.nlp.naturalli.NaturalLogicAnnotations;
-import edu.stanford.nlp.util.CoreMap;
-import moreredoc.linguistics.MoreRedocNlpPipeline;
-import moreredoc.project.data.RelationTripleWrapper;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import edu.stanford.nlp.ie.util.RelationTriple;
+import edu.stanford.nlp.ling.CoreAnnotations;
+import edu.stanford.nlp.naturalli.NaturalLogicAnnotations;
+import edu.stanford.nlp.pipeline.Annotation;
+import edu.stanford.nlp.pipeline.StanfordCoreNLP;
+import edu.stanford.nlp.util.CoreMap;
+import moreredoc.linguistics.MoreRedocNlpPipeline;
+import moreredoc.project.data.RelationTripleWrapper;
 
 public class OpenIEService {
 	/**
