@@ -9,6 +9,7 @@ import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 
+import moreredoc.datainput.IInputDataProcessor;
 import moreredoc.linguistics.processing.WordRegularizerService;
 
 public class MoreRedocProject {
@@ -31,20 +32,10 @@ public class MoreRedocProject {
 
 	}
 
-	public String getWholeText() {
-		return wholeText;
-	}
-
-	public String getWholeCorefResolvedRegularizedText() {
-		return wholeCorefResolvedRegularizedText;
-	}
-
-	public String getWholeProcessedText() {
-		return wholeProcessedText;
-	}
-
-	public MoreRedocProject(List<Requirement> projectRequirements) throws Exception {
-		this.projectRequirements = projectRequirements;
+	public MoreRedocProject(List<List<String>> keywordsRaw, List<List<String>> sentencesRaw,
+			IInputDataProcessor softRedocDataHandler) throws Exception {
+		
+		this.projectRequirements = softRedocDataHandler.getRequirementsFromCsvInputs(keywordsRaw, sentencesRaw);;
 
 		// process requirements via the ProcessedRequirement constructor
 		for (Requirement r : projectRequirements) {
@@ -63,7 +54,9 @@ public class MoreRedocProject {
 	}
 
 	/**
-	 * Generates a string containing all processed (normalization, coref, decomposition) requirement texts
+	 * Generates a string containing all processed (normalization, coref,
+	 * decomposition) requirement texts
+	 * 
 	 * @return Processed Text for the whole Project
 	 */
 	private String generateWholeProcessedText() {
@@ -142,6 +135,18 @@ public class MoreRedocProject {
 			conceptCount.put(s, count);
 		}
 
+	}
+
+	public String getWholeText() {
+		return wholeText;
+	}
+
+	public String getWholeCorefResolvedRegularizedText() {
+		return wholeCorefResolvedRegularizedText;
+	}
+
+	public String getWholeProcessedText() {
+		return wholeProcessedText;
 	}
 
 	public Set<String> getProjectDomainConcepts() {

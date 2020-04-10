@@ -3,6 +3,7 @@ package moreredoc.application;
 import java.io.File;
 import java.util.List;
 
+import moreredoc.datainput.IInputDataProcessor;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
@@ -33,10 +34,10 @@ public class MoreRedocLogicStarter  {
 		List<List<String>> sentencesRaw = CsvReader.readCsv(pathCsvText, csvDelimiter);
 	
 
-		SoftRedocDataHandler softReadocDataHandler = new SoftRedocDataHandler();
-		List<Requirement> requirements = softReadocDataHandler.getRequirementsFromCsvInputs(keywordsRaw, sentencesRaw);
-		MoreRedocProject project = new MoreRedocProject(requirements);
-
+		IInputDataProcessor softRedocDataHandler = new SoftRedocDataHandler();
+		
+		MoreRedocProject project = new MoreRedocProject(keywordsRaw, sentencesRaw, softRedocDataHandler);
+		
 		MoreRedocAnalysis analysis = new MoreRedocAnalysis(project, null);
 		
 
