@@ -24,9 +24,9 @@ public class MoreRedocLogicStarter  {
 		//String filepathKeywords = "D:\\Cloud\\Dropbox\\Informatik\\Beleg\\_ORDERS.CSV";
 		//String filepathText = "D:\\Cloud\\Dropbox\\Informatik\\Beleg\\_OrderEntry.CSV";
 		
-		String log4jConfPath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
-				+ File.separator + "resources" + File.separator + "logger" + File.separator + "log4j.properties";
-		PropertyConfigurator.configure(log4jConfPath);
+//		String log4jConfPath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+//				+ File.separator + "resources" + File.separator + "logger" + File.separator + "log4j.properties";
+//		PropertyConfigurator.configure(log4jConfPath);
 
 		String csvDelimiter = ";";
 		
