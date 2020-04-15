@@ -1,9 +1,6 @@
 package moreredoc.application;
 
 import org.apache.log4j.Logger;
-import org.junit.rules.DisableOnDebug;
-
-import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -15,7 +12,6 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.FutureTask;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Hastily developed UI to make application usable without using the API. Code
@@ -31,16 +27,16 @@ public class MoreRedocGui extends JFrame {
 	private static final long serialVersionUID = 618505241078949953L;
 	private static final String APPLICATION_TITLE = "MoreRedoc";
 
-	private static Logger logger = Logger.getLogger(MoreRedocGui.class);
+	private static final Logger logger = Logger.getLogger(MoreRedocGui.class);
 
 	// ui elements
-	private JTextField textfieldCsvKeywords;
-	private JTextField textfieldCsvText;
-	private JTextField textfieldOutputFolder;
-	private JCheckBox cbRawXmi;
-	private JCheckBox cbArgoUml;
-	private JCheckBox cbStarUml;
-	private JButton buttonGenerateModels;
+	private final JTextField textfieldCsvKeywords;
+	private final JTextField textfieldCsvText;
+	private final JTextField textfieldOutputFolder;
+	private final JCheckBox cbRawXmi;
+	private final JCheckBox cbArgoUml;
+	private final JCheckBox cbStarUml;
+	private final JButton buttonGenerateModels;
 	// private JButton buttonCancel;
 
 	private Thread modelingThread;
@@ -48,9 +44,9 @@ public class MoreRedocGui extends JFrame {
 	// preload file chooser, on demand would take noticeably long.
 	private FutureTask<JFileChooser> futureFileChooser = new FutureTask<>(JFileChooser::new);
 	private SwingWorker<Void, Void> backgroundWorker;
-	private JButton buttonChooseKeywordsCsv;
-	private JButton buttonChooseTextCsv;
-	private JButton buttonChooseOutputFolder;
+	private final JButton buttonChooseKeywordsCsv;
+	private final JButton buttonChooseTextCsv;
+	private final JButton buttonChooseOutputFolder;
 
 	public MoreRedocGui() {
 		super(APPLICATION_TITLE);
