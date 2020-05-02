@@ -290,6 +290,7 @@ public class MoreRedocGui extends JFrame {
                 return null;
             }
 
+            @Override
             protected void done() {
                 try {
                     get();
@@ -299,8 +300,11 @@ public class MoreRedocGui extends JFrame {
                         logger.error("InvalidRequirementInput");
                         JOptionPane.showMessageDialog(parentComponentForDialog, ERRORMESSAGE_INVALID_INPUT, ERRORHEADER_INVALID_INPUT, JOptionPane.ERROR_MESSAGE);
                     }
+                    else{
+                        e.printStackTrace();
+                    }
                 } catch (InterruptedException e) {
-                    // Process e here
+                    e.printStackTrace();
                 }finally {
                     setUiActive(true);
                 }
