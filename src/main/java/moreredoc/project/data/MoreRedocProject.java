@@ -9,7 +9,7 @@ import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 
-import moreredoc.datainput.IInputDataProcessor;
+import moreredoc.datainput.InputDataHandler;
 import moreredoc.linguistics.processing.WordRegularizerService;
 
 public class MoreRedocProject {
@@ -33,9 +33,9 @@ public class MoreRedocProject {
 	}
 
 	public MoreRedocProject(List<List<String>> keywordsRaw, List<List<String>> sentencesRaw,
-			IInputDataProcessor softRedocDataHandler) throws Exception {
+			InputDataHandler softRedocDataHandler) throws Exception {
 		
-		this.projectRequirements = softRedocDataHandler.getRequirementsFromCsvInputs(keywordsRaw, sentencesRaw);;
+		this.projectRequirements = softRedocDataHandler.getRequirementsFromCsvInputs(keywordsRaw, sentencesRaw);
 
 		// process requirements via the ProcessedRequirement constructor
 		for (Requirement r : projectRequirements) {
@@ -90,11 +90,11 @@ public class MoreRedocProject {
 	}
 
 	private void initializeDomainConcepts() {
-		String wholeProcessedText = "";
+		StringBuilder wholeProcessedText = new StringBuilder();
 
 		for (ProcessedRequirement r : processedProjectRequirements) {
 			// concatenate processed text
-			wholeProcessedText = wholeProcessedText + r.getCorefResolvedRegularizedText();
+			wholeProcessedText.append(r.getCorefResolvedRegularizedText());
 			// regularize strings, put in set
 			for (String s : r.getKeywords()) {
 				String regularizedConcept = WordRegularizerService.regularize(s);
@@ -116,7 +116,7 @@ public class MoreRedocProject {
 		}
 		// normalize each word of whole processed text
 		// split by whitespaces via regex
-		String[] splitProcessedText = StringUtils.split(wholeProcessedText);
+		String[] splitProcessedText = StringUtils.split(wholeProcessedText.toString());
 		String regularizedWholeProcessedText = "";
 		for (int i = 0; i < splitProcessedText.length; i++) {
 			splitProcessedText[i] = WordRegularizerService.regularize(splitProcessedText[i]);

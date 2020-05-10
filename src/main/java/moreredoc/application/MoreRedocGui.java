@@ -52,7 +52,7 @@ public class MoreRedocGui extends JFrame {
     public MoreRedocGui() {
         super(APPLICATION_TITLE);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setSize(700, 400);
+        setSize(700, 300);
 
         JPanel mainPanel = new JPanel();
 
@@ -189,21 +189,22 @@ public class MoreRedocGui extends JFrame {
         gbcLabelSettings.gridy = 4;
         mainPanel.add(labelSettings, gbcLabelSettings);
 
-        /*
-         * JCheckBox chckbxNewCheckBox_3 = new JCheckBox("New check box");
-         * GridBagConstraints gbc_chckbxNewCheckBox_3 = new GridBagConstraints();
-         * gbc_chckbxNewCheckBox_3.anchor = GridBagConstraints.WEST;
-         * gbc_chckbxNewCheckBox_3.insets = new Insets(0, 0, 5, 5);
-         * gbc_chckbxNewCheckBox_3.gridx = 1; gbc_chckbxNewCheckBox_3.gridy = 4;
-         * mainPanel.add(chckbxNewCheckBox_3, gbc_chckbxNewCheckBox_3);
-         *
-         * JCheckBox chckbxNewCheckBox_4 = new JCheckBox("New check box");
-         * GridBagConstraints gbc_chckbxNewCheckBox_4 = new GridBagConstraints();
-         * gbc_chckbxNewCheckBox_4.anchor = GridBagConstraints.WEST;
-         * gbc_chckbxNewCheckBox_4.insets = new Insets(0, 0, 5, 5);
-         * gbc_chckbxNewCheckBox_4.gridx = 1; gbc_chckbxNewCheckBox_4.gridy = 5;
-         * mainPanel.add(chckbxNewCheckBox_4, gbc_chckbxNewCheckBox_4);
-         */
+        JCheckBox chckbxNewCheckBox_3 = new JCheckBox("New check box");
+        GridBagConstraints gbc_chckbxNewCheckBox_3 = new GridBagConstraints();
+        gbc_chckbxNewCheckBox_3.anchor = GridBagConstraints.WEST;
+        gbc_chckbxNewCheckBox_3.insets = new Insets(0, 0, 5, 5);
+        gbc_chckbxNewCheckBox_3.gridx = 1;
+        gbc_chckbxNewCheckBox_3.gridy = 4;
+        mainPanel.add(chckbxNewCheckBox_3, gbc_chckbxNewCheckBox_3);
+
+        JCheckBox chckbxNewCheckBox_4 = new JCheckBox("New check box");
+        GridBagConstraints gbc_chckbxNewCheckBox_4 = new GridBagConstraints();
+        gbc_chckbxNewCheckBox_4.anchor = GridBagConstraints.WEST;
+        gbc_chckbxNewCheckBox_4.insets = new Insets(0, 0, 5, 5);
+        gbc_chckbxNewCheckBox_4.gridx = 1;
+        gbc_chckbxNewCheckBox_4.gridy = 5;
+        mainPanel.add(chckbxNewCheckBox_4, gbc_chckbxNewCheckBox_4);
+
         JLabel labelOutput = new JLabel("Output:");
         GridBagConstraints gbcLabelOutput = new GridBagConstraints();
         gbcLabelOutput.anchor = GridBagConstraints.WEST;
@@ -296,16 +297,15 @@ public class MoreRedocGui extends JFrame {
                     get();
                 } catch (ExecutionException e) {
                     // working around getting into swing too deep..
-                    if(e.getCause().toString().equals(InvalidRequirementInputException.class.getName())){
+                    if (e.getCause() instanceof InvalidRequirementInputException) {
                         logger.error("InvalidRequirementInput");
                         JOptionPane.showMessageDialog(parentComponentForDialog, ERRORMESSAGE_INVALID_INPUT, ERRORHEADER_INVALID_INPUT, JOptionPane.ERROR_MESSAGE);
-                    }
-                    else{
+                    } else {
                         e.printStackTrace();
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
-                }finally {
+                } finally {
                     setUiActive(true);
                 }
             }

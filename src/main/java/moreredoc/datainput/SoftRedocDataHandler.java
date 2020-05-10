@@ -10,7 +10,7 @@ import org.jboss.dna.common.text.Inflector;
 
 import moreredoc.project.data.Requirement;
 
-public final class SoftRedocDataHandler implements IInputDataProcessor {
+public final class SoftRedocDataHandler implements InputDataHandler {
 
     private static final String EXPRESSION_TEST = "TEST";
     private static final String EXPRESSION_DATA = "DATA";
