@@ -1,5 +1,5 @@
 package moreredoc.umlgenerator;
 
 public enum XMITools {
-	RAW, STARUML, ARGOUML
+	RAW, STAR_UML, ARGO_UML;
 }

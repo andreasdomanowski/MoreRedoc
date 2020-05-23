@@ -65,7 +65,7 @@ public class CompoundAnalysisService {
 
 			// check, whether preOccurence would be out of bounds of array, if not, compute,
 			// whether preOccurence offers information about CompoundType
-			if (!(preOccurence < 0)) {
+			if (preOccurence >= 0) {
 				// iterate over all domain concepts
 				for (String domainConcept : domainConcepts) {
 					// if there is a match at index preoccurence and it does not equal
@@ -80,7 +80,7 @@ public class CompoundAnalysisService {
 			}
 
 			// TODO : refactor
-			if (!(postOccurence > maxIndex)) {
+			if (postOccurence <= maxIndex) {
 				// iterate over all domain concepts
 				for (String domainConcept : domainConcepts) {
 					// if there is a match at index preoccurence and it does not equal

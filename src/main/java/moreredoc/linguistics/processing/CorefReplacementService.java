@@ -33,7 +33,7 @@ public class CorefReplacementService {
 		Map<Integer, CorefChain> corefs = doc.get(CorefChainAnnotation.class);
 		List<CoreMap> sentences = doc.get(CoreAnnotations.SentencesAnnotation.class);
 
-		List<String> resolved = new ArrayList<String>();
+		List<String> resolved = new ArrayList<>();
 
 		for (CoreMap sentence : sentences) {
 
