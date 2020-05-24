@@ -62,25 +62,7 @@ public class VerbAnalyzerService {
 			}
 			
 		}
-		
-		// TODO: methoden
-		oneOccurenceList.forEach(new Consumer<VerbCandidate>() {
 
-			@Override
-			public void accept(VerbCandidate t) {
-				//System.out.println("one: "+t);
-			}
-			
-		});
-		twoOccurencesList.forEach(new Consumer<VerbCandidate>() {
-
-			@Override
-			public void accept(VerbCandidate t) {
-				//System.out.println("two: "+t);
-			}
-			
-		});
-		
 		toReturn.addAll(oneOccurenceList);
 		toReturn.addAll(twoOccurencesList);
 		

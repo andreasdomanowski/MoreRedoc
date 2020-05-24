@@ -3,6 +3,10 @@ package moreredoc.linguistics.processing;
 import org.jboss.dna.common.text.Inflector;
 
 public class WordRegularizerService {
+	private WordRegularizerService(){
+
+	}
+
 	private static Inflector inflector = new Inflector();
 	
 	/**

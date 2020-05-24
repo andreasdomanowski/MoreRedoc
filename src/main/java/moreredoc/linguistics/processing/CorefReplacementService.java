@@ -75,9 +75,7 @@ public class CorefReplacementService {
 
 		StringBuilder stringBuilder = new StringBuilder();
 
-		for (String str : resolved) {
-			stringBuilder.append(str + " ");
-		}
+		resolved.stream().forEach(str -> stringBuilder.append(str + " "));
 
 		return stringBuilder.toString();
 

@@ -6,7 +6,6 @@ import java.util.Map;
 
 public class UmlModel {
 	private Map<String, UmlClass> classes;
-	//private List<UmlClass> classes;
 	private List<UmlRelationship> relationships;
 	
 	public String toPlantUmlDslString() {

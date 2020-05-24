@@ -1,5 +1,7 @@
 package moreredoc.project.data;
 
+import org.apache.log4j.Logger;
+
 import java.util.ArrayList;
 import java.util.List;
 /**
@@ -8,11 +10,12 @@ import java.util.List;
  */
 public class DecomposedSentenceTripel {
 	private String originalSentence;
-	private List<String> subsentences = new ArrayList<String>();
+	private List<String> subsentences = new ArrayList<>();
 	private String originalWithoutPartSentences;
 
-	public DecomposedSentenceTripel() {
+	private static final Logger logger = Logger.getLogger(DecomposedSentenceTripel.class);
 
+	public DecomposedSentenceTripel() {
 	}
 
 	public DecomposedSentenceTripel(String originalSentence, List<String> subsentences,
@@ -47,19 +50,16 @@ public class DecomposedSentenceTripel {
 	}
 	
 	public void prettyPrint() {
-		System.out.println("Original sentence:\n\t" + this.originalSentence);
+		logger.info("Original sentence:\n\t" + this.originalSentence);
 		
 		if(!subsentences.isEmpty()) {
 			
-			System.out.println("Original without subsentences:\n\t " + this.originalWithoutPartSentences);
-			System.out.println("Subsentences:");
+			logger.info("Original without subsentences:\n\t " + this.originalWithoutPartSentences);
+			logger.info("Subsentences:");
 			for(String s : this.subsentences) {
-				System.out.println("\t " + s);
+				logger.info("\t " + s);
 			}
 		}
-		
-		System.out.println();
-
 		
 	}
 

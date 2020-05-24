@@ -40,7 +40,7 @@ public class MoreRedocGui extends JFrame {
     // private JButton buttonCancel;
 
     // preload file chooser, on demand would take noticeably long.
-    private final FutureTask<JFileChooser> futureFileChooser = new FutureTask<>(JFileChooser::new);
+    private final transient FutureTask<JFileChooser> futureFileChooser = new FutureTask<>(JFileChooser::new);
     private final JButton buttonChooseKeywordsCsv;
     private final JButton buttonChooseTextCsv;
     private final JButton buttonChooseOutputFolder;
@@ -286,6 +286,7 @@ public class MoreRedocGui extends JFrame {
                 setUiActive(false);
                 MoreRedocOutputConfiguration outputConfiguration = new MoreRedocOutputConfiguration(outputRawXmi, outputArgoXmi, outputStarUml, outputPng, outputSvg);
                 MoreRedocStarter.generateModel(textfieldCsvText.getText(), textfieldOutputFolder.getText(), textfieldCsvKeywords.getText(), outputConfiguration);
+                JOptionPane.showMessageDialog(parentComponentForDialog, "Models were successfully generated.");
                 logger.info("Model generation done");
                 setUiActive(true);
                 return null;
@@ -305,6 +306,7 @@ public class MoreRedocGui extends JFrame {
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
+                    Thread.currentThread().interrupt();
                 } finally {
                     setUiActive(true);
                 }
