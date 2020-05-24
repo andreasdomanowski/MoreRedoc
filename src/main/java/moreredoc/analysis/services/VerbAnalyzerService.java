@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.function.Consumer;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -18,8 +17,8 @@ public class VerbAnalyzerService {
 	public static Set<VerbCandidate> analyzeIETriples(List<RelationTripleWrapper> wrappedTriples, Set<String> domainConcepts) {
 		Set<VerbCandidate> toReturn = new HashSet<>();
 		
-		List<VerbCandidate> oneOccurenceList = new ArrayList<>();
-		List<VerbCandidate> twoOccurencesList = new ArrayList<>();
+		List<VerbCandidate> oneOccurrenceList = new ArrayList<>();
+		List<VerbCandidate> twoOccurrencesList = new ArrayList<>();
 
 		// iterate over relation triples, compute, which are candidates for methods and for relationships
 		// methods: domain concept in subject
@@ -54,17 +53,17 @@ public class VerbAnalyzerService {
 			}
 			
 			if(domainConceptInSubject && !domainConceptInObject) {
-				oneOccurenceList.add(new VerbCandidate(subjectMatch, null, currentTriple.relationGloss()));
+				oneOccurrenceList.add(new VerbCandidate(subjectMatch, null, currentTriple.relationGloss()));
 			}
 			
 			if(domainConceptInSubject && domainConceptInObject) {
-				twoOccurencesList.add(new VerbCandidate(subjectMatch, objectMatch, currentTriple.relationGloss()));
+				twoOccurrencesList.add(new VerbCandidate(subjectMatch, objectMatch, currentTriple.relationGloss()));
 			}
 			
 		}
 
-		toReturn.addAll(oneOccurenceList);
-		toReturn.addAll(twoOccurencesList);
+		toReturn.addAll(oneOccurrenceList);
+		toReturn.addAll(twoOccurrencesList);
 		
 		return toReturn;
 	}

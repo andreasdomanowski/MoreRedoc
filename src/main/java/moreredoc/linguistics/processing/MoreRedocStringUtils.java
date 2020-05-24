@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MoreRedocStringUtils {
+	private MoreRedocStringUtils(){
+	}
+
 	/**
 	 * Computes indices for occurences of a certain string in an array. Input has to
 	 * be normalized.

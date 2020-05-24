@@ -12,12 +12,15 @@ import moreredoc.project.data.Requirement;
 
 public final class SoftRedocDataHandler implements InputDataHandler {
 
+    @SuppressWarnings("unsused")
     private static final String EXPRESSION_TEST = "TEST";
+    @SuppressWarnings("unsused")
+    private static final String PREFIX_FUNQ_REQ = "FUNC-REQ";
+
     private static final String EXPRESSION_DATA = "DATA";
     private static final String EXPRESSION_NEW_REQU = "REQU";
     private static final String EXPRESSION_NONFUNCT_REQU = "Non-Functional  requirements";
     private static final String EXPRESSION_BUSINESS_OBJECTS = "Business-Objects";
-    private static final String PREFIX_FUNQ_REQ = "FUNC-REQ";
 
     private static final int INDEX_TYPE = 3;
     private static final int INDEX_TARGET_ENTITY = 4;
@@ -25,8 +28,8 @@ public final class SoftRedocDataHandler implements InputDataHandler {
     private static final int INDEX_SENTENCE_REQU_ID = 0;
     private static final int INDEX_LN = 5;
     private static final int INDEX_SENTENCE = 6;
-    private static final String lineNumberMetadata1 = "1";
-    private static final String lineNumberMetadata2 = "2";
+    private static final String LINE_NUMBER_METADATA_1 = "1";
+    private static final String LINE_NUMBER_METADATA_2 = "2";
 
     @Override
     public List<Requirement> getRequirementsFromCsvInputs(List<List<String>> keywordInput,
@@ -48,8 +51,8 @@ public final class SoftRedocDataHandler implements InputDataHandler {
             for (Requirement r : requirements) {
                 //if requirements id in sentence csv matches one in the given requirements
                 if (r.getId().trim().contains(currentRequId.trim())
-                        && !currentCsvLine.get(INDEX_LN).contains(lineNumberMetadata1)
-                        && !currentCsvLine.get(INDEX_LN).contains(lineNumberMetadata2)) {
+                        && !currentCsvLine.get(INDEX_LN).contains(LINE_NUMBER_METADATA_1)
+                        && !currentCsvLine.get(INDEX_LN).contains(LINE_NUMBER_METADATA_2)) {
                     r.concatenateUnprocessedText(currentSentence);
                 }
             }

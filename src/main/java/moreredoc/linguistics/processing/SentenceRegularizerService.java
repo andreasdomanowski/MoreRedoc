@@ -10,8 +10,7 @@ public class SentenceRegularizerService {
 	}
 	
 	public static String removeKeywordIndicators(String sentence) {
-		return sentence.replaceAll("<", "").replaceAll(">", "");
-		//.replaceAll("_", " ")
+		return sentence.replace("<", "").replace(">", "");
 	}
 	
 	public static String removeStopwords(String sentence) {

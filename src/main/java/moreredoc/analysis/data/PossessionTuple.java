@@ -2,6 +2,8 @@ package moreredoc.analysis.data;
 
 import moreredoc.umldata.Multiplicity;
 
+import java.util.Objects;
+
 public class PossessionTuple {
 	private String owner;
 	private String owned;
@@ -30,6 +32,7 @@ public class PossessionTuple {
 		return owner + " owns " + owned;
 	}
 
+	@Override
 	public boolean equals(Object object) {
 		if (!(object instanceof PossessionTuple)) {
 			return false;
@@ -38,6 +41,11 @@ public class PossessionTuple {
 			return this.owned.equals(castedObject.getOwned()) && this.owner.equals(castedObject.getOwner())
 					&& this.multiplicity.equals(castedObject.getMultiplicity());
 		}
+	}
+
+	@Override
+	public int hashCode(){
+		return Objects.hash(owner, owned, multiplicity);
 	}
 
 }

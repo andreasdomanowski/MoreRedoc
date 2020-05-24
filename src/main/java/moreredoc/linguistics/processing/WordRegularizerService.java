@@ -15,9 +15,6 @@ public class WordRegularizerService {
 	 * @return Regularized word
 	 */
 	public static String regularize(String input) {
-		//input = input.replace("<", "");
-		//input = input.replace(">", "");
-		//input = input.replace("_", " ");
 		return inflector.singularize(input).toLowerCase().trim();
 	}
 	
