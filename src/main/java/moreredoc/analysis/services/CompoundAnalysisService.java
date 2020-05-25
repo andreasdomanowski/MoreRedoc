@@ -97,7 +97,7 @@ public class CompoundAnalysisService {
 	}
 
 	public static List<PossessionTuple> computeCompoundTypeOfConcept(Set<String> allConcepts) {
-		List<PossessionTuple> toReturn = new ArrayList<>();
+		List<PossessionTuple> result = new ArrayList<>();
 
 		for (String concept : allConcepts) {
 			String[] splittedConcept = StringUtils.split(concept, "_");
@@ -111,12 +111,12 @@ public class CompoundAnalysisService {
 				if (allConcepts.contains(currentWord) && postIndex < splittedAndRegularized.length) {
 					String followingWord = splittedAndRegularized[postIndex];
 					if (allConcepts.contains(followingWord)) {
-						toReturn.add(new PossessionTuple(currentWord, followingWord, Multiplicity.NO_INFO));
+						result.add(new PossessionTuple(currentWord, followingWord, Multiplicity.NO_INFO));
 					}
 				}
 			}
 		}
 
-		return toReturn;
+		return result;
 	}
 }

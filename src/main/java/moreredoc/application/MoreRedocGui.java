@@ -55,7 +55,7 @@ public class MoreRedocGui extends JFrame {
     private final JButton buttonChooseOutputFolder;
 
     private static final String TEXT_CHOOSE_BUTTON = "Select";
-    private static final String ERROR_MESSAGE_INVALID_INPUT = "An error occured while the input files were parsed. Please make sure that both requirement inputs are valid.";
+    private static final String ERROR_MESSAGE_INVALID_INPUT = "An error occurred while the input files were parsed. Please make sure that both requirement inputs are valid.";
     private static final String ERROR_HEADER_INVALID_INPUT = "Error parsing input files";
 
     public MoreRedocGui() {

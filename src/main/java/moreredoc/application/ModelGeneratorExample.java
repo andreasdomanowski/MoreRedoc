@@ -1,17 +1,17 @@
 package moreredoc.application;
 
+import moreredoc.umldata.UmlClass;
+import moreredoc.umldata.UmlModel;
+import moreredoc.umldata.UmlRelationship;
+import moreredoc.umldata.UmlRelationshipType;
+import moreredoc.umlgenerator.ModelGenerator;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import moreredoc.umldata.UmlClass;
-import moreredoc.umldata.UmlModel;
-import moreredoc.umldata.UmlRelationship;
-import moreredoc.umldata.UmlRelationshipType;
-import moreredoc.umlgenerator.ModelGenerator;
 
 public class ModelGeneratorExample {
 	private ModelGeneratorExample(){
@@ -29,10 +29,10 @@ public class ModelGeneratorExample {
 		UmlClass class2 = new UmlClass("Class2", class2Attributes, methods);
 		UmlClass class3 = new UmlClass("Class3", class3Attributes, methods);
 		
-		UmlRelationship rel1 = new UmlRelationship(class1, class2, UmlRelationshipType.AGGREGATION, null);
-		UmlRelationship rel2 = new UmlRelationship(class2, class3, UmlRelationshipType.ASSOCIATION, null);
-		UmlRelationship rel3 = new UmlRelationship(class3, class1, UmlRelationshipType.DIRECTEDASSOCIATION, null);
-		UmlRelationship rel4 = new UmlRelationship(class3, class2, UmlRelationshipType.DEPENDENCY, null);
+		UmlRelationship rel1 = new UmlRelationship(class1, class2, UmlRelationshipType.AGGREGATION, null, null);
+		UmlRelationship rel2 = new UmlRelationship(class2, class3, UmlRelationshipType.ASSOCIATION, null, null);
+		UmlRelationship rel3 = new UmlRelationship(class3, class1, UmlRelationshipType.DIRECTED_ASSOCIATION, null, null);
+		UmlRelationship rel4 = new UmlRelationship(class3, class2, UmlRelationshipType.DEPENDENCY, null, null);
 		
 		List<UmlRelationship> relationships = Arrays.asList(rel1, rel2, rel3, rel4);
 		

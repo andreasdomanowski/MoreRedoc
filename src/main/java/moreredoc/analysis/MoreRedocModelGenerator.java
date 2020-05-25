@@ -18,7 +18,7 @@ import org.apache.log4j.Logger;
 import java.util.*;
 
 public class MoreRedocModelGenerator {
-    private static Logger logger = Logger.getLogger(MoreRedocModelGenerator.class);
+    private static final Logger logger = Logger.getLogger(MoreRedocModelGenerator.class);
 
     private MoreRedocProject project;
     private MoreRedocAnalysisConfiguration configuration;
@@ -41,23 +41,8 @@ public class MoreRedocModelGenerator {
     public MoreRedocModelGenerator(MoreRedocProject project, MoreRedocAnalysisConfiguration configuration) {
         this.project = project;
         this.setConfiguration(configuration);
-
-        logger.info("Analysis started");
-
-        initializePossessionTuples();
-        logger.info("\tPossession tuples initialized");
-
-        initializeClasses();
-        logger.info("\tClasses initialized");
-
-        initializeModel();
-        logger.info("\tUML Model initialized");
-
-        analyzeVerbs();
-        logger.info("\tAnalysis of verbs initialized");
-
-        logger.info("Analysis done");
     }
+
 
     private void initializePossessionTuples() {
         possessionTuples = new ArrayList<>();
@@ -84,7 +69,6 @@ public class MoreRedocModelGenerator {
                     possessionTuples.addAll(CompoundAnalysisService.computePossessionTuples(object, s,
                             project.getProjectDomainConcepts()));
                 }
-
             }
         }
     }
@@ -98,7 +82,7 @@ public class MoreRedocModelGenerator {
             // possible owner class for an attribute
             String ownerClassName = null;
 
-            // iterate over all possession tuples, check for occurences indicating either
+            // iterate over all possession tuples, check for occurrences indicating either
             // class or attribute type
             // if domain concept is a subject in a tuple, it will be a candidate for a class
             // if its an object, it will be a candidate for an attribute
@@ -128,8 +112,8 @@ public class MoreRedocModelGenerator {
                     this.classMapping.put(ownerClassName, classForAttribute);
                 }
             }
-            // if its class AND attribute candidate, it will be a class, but theres an
-            // aggregration between to classes
+            // if its class AND attribute candidate, it will be a class, but there's an
+            // aggregation between these two classes
             if (isClassCandidate && isAttributeCandidate) {
                 // class representing the attribute
                 UmlClass attributeClass;
@@ -148,7 +132,7 @@ public class MoreRedocModelGenerator {
                     this.classMapping.put(ownerClassName, ownerClass);
                 }
                 UmlRelationship newRelationship = new UmlRelationship(ownerClass, attributeClass,
-                        UmlRelationshipType.AGGREGATION, null);
+                        UmlRelationshipType.AGGREGATION, null, null);
                 this.relationships.add(newRelationship);
             }
 
@@ -186,7 +170,7 @@ public class MoreRedocModelGenerator {
                     if (configuration.getModelVerbsAsRelationships() && this.classMapping.containsKey(c.getTo())) {
                         UmlClass currentToClass = this.classMapping.get(c.getTo());
                         UmlRelationship newRelationship = new UmlRelationship(currentFromClass, currentToClass,
-                                UmlRelationshipType.ASSOCIATION, c.getVerb());
+                                UmlRelationshipType.ASSOCIATION, c.getVerb(), null);
                         model.getRelationships().add(newRelationship);
 
                     }
@@ -201,6 +185,18 @@ public class MoreRedocModelGenerator {
         }
     }
 
+    private void initializeMultiplicities() {
+        for(PossessionTuple tuple : possessionTuples){
+            System.out.println(tuple);
+            for(UmlRelationship relationship : relationships){
+                System.out.println(relationship);
+                if(tuple.getOwner().equals(relationship.getFrom()) && tuple.getOwned().equals(relationship.getTo())){
+                    relationship.setMultiplicity(tuple.getMultiplicity());
+                }
+            }
+        }
+    }
+
     private void initializeModel() {
         this.model = new UmlModel(classMapping, relationships);
     }
@@ -210,6 +206,25 @@ public class MoreRedocModelGenerator {
     }
 
     public UmlModel generateModel() {
+        logger.info("Analysis started");
+
+        initializePossessionTuples();
+        logger.info("\tPossession tuples initialized");
+
+        initializeClasses();
+        logger.info("\tClasses initialized");
+
+        initializeModel();
+        logger.info("\tUML Model initialized");
+
+        analyzeVerbs();
+        logger.info("\tAnalysis of verbs initialized");
+
+        initializeMultiplicities();
+        logger.info("\tMultiplicities initialized");
+
+        logger.info("Analysis done");
+
         return model;
     }
 

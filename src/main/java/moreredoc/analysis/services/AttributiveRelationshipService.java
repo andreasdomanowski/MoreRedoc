@@ -1,94 +1,147 @@
 package moreredoc.analysis.services;
 
+import edu.stanford.nlp.ling.TaggedWord;
+import moreredoc.analysis.data.PossessionTuple;
+import moreredoc.linguistics.processing.Commons;
+import moreredoc.linguistics.processing.MoreRedocStringUtils;
+import moreredoc.linguistics.processing.PosTaggerService;
+import moreredoc.linguistics.processing.WordRegularizerService;
+import moreredoc.umldata.Multiplicity;
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.lang3.StringUtils;
-
-import moreredoc.analysis.data.PossessionTuple;
-import moreredoc.linguistics.processing.MoreRedocStringUtils;
-import moreredoc.linguistics.processing.WordRegularizerService;
-import moreredoc.umldata.Multiplicity;
-
 public class AttributiveRelationshipService {
-	/**
-	 * Service class, hide constructor
-	 */
-	private AttributiveRelationshipService() {
+    /**
+     * Service class, hide constructor
+     */
+    private AttributiveRelationshipService() {
 
-	}
+    }
 
-	public static List<PossessionTuple> computeRelationshipTuples(String inputText, Set<String> domainConcepts) {
-		String[] regularizedInputSplittedByWhitespace = StringUtils.split(inputText.trim());
+    public static List<PossessionTuple> computeRelationshipTuples(String inputText, Set<String> domainConcepts) {
+        String[] regularizedInputSplittedByWhitespace = StringUtils.split(inputText.trim());
 
-		List<PossessionTuple> toReturn = new ArrayList<>();
+        List<PossessionTuple> result = new ArrayList<>();
 
-		addPossessivesWithOf(regularizedInputSplittedByWhitespace, toReturn, domainConcepts);
-		addPossessivesWithGenitive(regularizedInputSplittedByWhitespace, toReturn, domainConcepts);
+        result.addAll(addPossessivesWithOf(regularizedInputSplittedByWhitespace, domainConcepts));
+		result.addAll(addPossessivesWithGenitive(regularizedInputSplittedByWhitespace, domainConcepts));
 
-		return toReturn;
-	}
+        return result;
+    }
 
-	private static void addPossessivesWithOf(String[] splittedInput, List<PossessionTuple> toReturn,
-			Set<String> domainConcepts) {
+    private static List<PossessionTuple> addPossessivesWithOf(String[] splittedInput,
+            Set<String> domainConcepts) {
 
-		// find matches with "of" indicating a possessive case, compute their indices
-		List<Integer> ofMatches = MoreRedocStringUtils.getIndicesForMatches(splittedInput, "of");
+        List<PossessionTuple> result = new ArrayList<>();
 
-		for (int i : ofMatches) {
-			int preOccurence = i - 1;
-			int postOccurence = i + 1;
+        // find matches with "of" indicating a possessive case, compute their indices
+        List<Integer> ofMatches = MoreRedocStringUtils.getIndicesForMatches(splittedInput, "of");
 
-			// break, if word before or after "of" is out of bounds of array - then no
-			// analysis can be done, both words have to be present
-			if (preOccurence < 0 || postOccurence >= splittedInput.length) {
-				break;
-			}
+        for (int i : ofMatches) {
+            int preOccurrence = i - 1;
+            int postOccurrence = i + 1;
 
-			String preWord = splittedInput[preOccurence];
-			String postWord = splittedInput[postOccurence];
+            // break, if word before or after "of" is out of bounds of array - then no
+            // analysis can be done, both words have to be present
+            if (preOccurrence < 0 || postOccurrence >= splittedInput.length) {
+                break;
+            }
 
-			String preWordRegularized = WordRegularizerService.regularize(preWord);
-			String postWordRegularized = WordRegularizerService.regularize(postWord);
+            String ownedRaw = splittedInput[preOccurrence];
+            String ownerRaw = splittedInput[postOccurrence];
 
-			// if pre and post words are domain concepts, add this relationship to list
-			if (domainConcepts.contains(preWordRegularized) && domainConcepts.contains(postWordRegularized)) {
-				// initialize new attributive relationship
-				// calculate multiplicity
-				toReturn.add(new PossessionTuple(postWordRegularized, preWordRegularized, Multiplicity.NO_INFO));
-				// toReturn.add(arg0)
-			}
-		}
+            Multiplicity multiplicity = computeMultiplicity(ownedRaw, ownerRaw);
 
-	}
+			String ownerRegularized = WordRegularizerService.regularize(ownerRaw);
+			String ownedRegularized = WordRegularizerService.regularize(ownedRaw);
 
-	private static void addPossessivesWithGenitive(String[] splittedInput, List<PossessionTuple> toReturn,
-			Set<String> domainConcepts) {
-		// approach: search domainconcept+'s or +s'
-		String genitiveIndicator = "'";
+            // if pre and post words are domain concepts, add this relationship to list
+            if (domainConcepts.contains(ownedRegularized) && domainConcepts.contains(ownerRegularized)) {
+                // initialize new attributive relationship
+                // calculate multiplicity
+                result.add(new PossessionTuple(ownerRegularized, ownedRegularized, multiplicity));
+            }
+        }
 
-		// iterate over splitted Input, find words containing genitive indicator " ' "
-		for (int i = 0; i < splittedInput.length; i++) {
-			// if genitive indicactor found, check if current word (scraped and regularized)
-			// is a domain concept and if there is another word in array
-			if (splittedInput[i].contains(genitiveIndicator)
-					&& domainConcepts.contains(WordRegularizerService.scrapGenitive(splittedInput[i]))
-					&& (i + 1) < splittedInput.length) {
-				String followingWordRegularized = WordRegularizerService.regularize(splittedInput[i + 1]);
+        return result;
 
-				// if following word is a domnain concept, there's a possessive relationship
-				if (domainConcepts.contains(followingWordRegularized)) {
+    }
+
+    private static List<PossessionTuple> addPossessivesWithGenitive(String[] splittedInput, Set<String> domainConcepts) {
+        List<PossessionTuple> result = new ArrayList<>();
+        // approach: search domainconcept+'s or +s'
+        // iterate over splitted Input, find words containing genitive indicator " ' "
+        for (int i = 0; i < splittedInput.length; i++) {
+            // if genitive indicactor found, check if current word (scraped and regularized)
+            // is a domain concept and if there is another word in array
+            if (splittedInput[i].contains(Commons.GENITIVE_INDICATOR)
+                    && domainConcepts.contains(WordRegularizerService.scrapGenitive(splittedInput[i]))
+                    && (i + 1) < splittedInput.length) {
+
+				String followingWordRaw = splittedInput[i + 1];
+				String followingWordRegularized = WordRegularizerService.regularize(followingWordRaw);
+
+                // if following word is a domnain concept, there's a possessive relationship
+                if (domainConcepts.contains(followingWordRegularized)) {
+					String ownerConceptRaw = splittedInput[i];
 					// delete genitive indicator from string, then regularize word
-					String ownerConcept = WordRegularizerService
-							.regularize(splittedInput[i].replace(genitiveIndicator, ""));
-					if (domainConcepts.contains(ownerConcept)) {
-						// add to list
-						toReturn.add(new PossessionTuple(ownerConcept, followingWordRegularized, Multiplicity.NO_INFO));
-					}
-				}
-			}
-		}
+					String ownerConceptRegularized = WordRegularizerService
+                            .regularize(ownerConceptRaw.replace(Commons.GENITIVE_INDICATOR, ""));
+                    if (domainConcepts.contains(ownerConceptRegularized)) {
+                        // add to list
+						Multiplicity multiplicity = computeMultiplicity(ownerConceptRaw, followingWordRaw);
+                        result.add(new PossessionTuple(ownerConceptRegularized, followingWordRegularized, multiplicity));
+                    }
+                }
+            }
+        }
+        return result;
+    }
 
-	}
+    private static Multiplicity computeMultiplicity(String genitiveOwner, String genitiveOwned) {
+        List<TaggedWord> ownerPos = PosTaggerService.tag(genitiveOwner);
+        List<TaggedWord> ownedPos = PosTaggerService.tag(genitiveOwned);
+
+        Boolean ownerSingular = null;
+        Boolean ownedSingular = null;
+
+        if (ownerPos.size() != 1 || ownedPos.size() != 1) {
+            return Multiplicity.NO_INFO;
+        }
+
+        String ownerPosTag = ownerPos.get(0).tag();
+        String ownedPosTag = ownedPos.get(0).tag();
+
+        if (ownerPosTag.equals(Commons.POS_NOUN_PROPER_SINGULAR) || ownerPosTag.equals(Commons.POS_NOUN_SINGULAR_OR_MASS)) {
+            ownerSingular = Boolean.TRUE;
+        }
+        if (ownerPosTag.equals(Commons.POS_NOUN_PLURAL) || ownerPosTag.equals(Commons.POS_NOUN_PROPER_PLURAL)) {
+            ownerSingular = Boolean.FALSE;
+        }
+
+        if (ownedPosTag.equals(Commons.POS_NOUN_PROPER_SINGULAR) || ownedPosTag.equals(Commons.POS_NOUN_SINGULAR_OR_MASS)) {
+            ownedSingular = Boolean.TRUE;
+        }
+        if (ownedPosTag.equals(Commons.POS_NOUN_PLURAL) || ownedPosTag.equals(Commons.POS_NOUN_PROPER_PLURAL)) {
+            ownedSingular = Boolean.FALSE;
+        }
+
+        if (ownerSingular == null || ownedSingular == null) {
+            return Multiplicity.NO_INFO;
+        }
+
+        if (Boolean.TRUE.equals(ownerSingular) && Boolean.TRUE.equals(ownedSingular)) {
+            return Multiplicity.ONE_TO_ONE;
+        } else if (Boolean.TRUE.equals(ownerSingular)) {
+            return Multiplicity.ONE_TO_MANY;
+        } else if (Boolean.TRUE.equals(ownedSingular)) {
+            return Multiplicity.MANY_TO_ONE;
+        } else {
+            return Multiplicity.MANY_TO_MANY;
+        }
+
+    }
 }
