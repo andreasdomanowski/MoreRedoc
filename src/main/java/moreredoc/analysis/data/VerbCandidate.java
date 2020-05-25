@@ -50,8 +50,6 @@ public class VerbCandidate {
 				// if both "to"s are not null, compare them
 				if (this.to != null && cand.to != null) {
 					return this.to.equals(cand.to);
-				// if 
-					// TODO
 				} else {
 					return (this.to == null && cand.to == null);
 				}

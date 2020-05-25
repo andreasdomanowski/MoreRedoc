@@ -3,7 +3,6 @@ package moreredoc.project.data;
 import java.util.List;
 import java.util.Set;
 
-import moreredoc.linguistics.PosTaggerService;
 import moreredoc.linguistics.processing.CorefReplacementService;
 import moreredoc.linguistics.processing.OpenIEService;
 import moreredoc.linguistics.processing.SentenceDecomposerService;
@@ -32,7 +31,7 @@ public class ProcessedRequirement {
 		// no-op, won't be called!
 	}
 
-	public ProcessedRequirement(Requirement requirement) throws Exception {
+	public ProcessedRequirement(Requirement requirement) {
 		this.wrappedRequirement = requirement;
 		this.corefResolvedRegularizedText = processText();
 		this.decomposedSentences = decomposeSentences();

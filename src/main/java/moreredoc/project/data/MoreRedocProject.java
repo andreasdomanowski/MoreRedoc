@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import moreredoc.application.exceptions.InvalidRequirementInputException;
 import org.apache.commons.lang3.StringUtils;
 
 import moreredoc.datainput.InputDataHandler;
@@ -33,7 +34,7 @@ public class MoreRedocProject {
 	}
 
 	public MoreRedocProject(List<List<String>> keywordsRaw, List<List<String>> sentencesRaw,
-			InputDataHandler softRedocDataHandler) throws Exception {
+			InputDataHandler softRedocDataHandler) throws InvalidRequirementInputException {
 		
 		this.projectRequirements = softRedocDataHandler.getRequirementsFromCsvInputs(keywordsRaw, sentencesRaw);
 

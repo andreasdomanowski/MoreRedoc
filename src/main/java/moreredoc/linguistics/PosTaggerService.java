@@ -1,9 +1,6 @@
 package moreredoc.linguistics;
 
-import java.io.IOException;
-
 import edu.stanford.nlp.tagger.maxent.MaxentTagger;
-import moreredoc.application.MoreRedocGui;
 import org.apache.log4j.Logger;
 
 public class PosTaggerService {

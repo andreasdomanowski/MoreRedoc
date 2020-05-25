@@ -1,9 +1,11 @@
 package moreredoc.application;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import moreredoc.analysis.MoreRedocAnalysisConfiguration;
+import moreredoc.application.exceptions.InvalidRequirementInputException;
 import moreredoc.datainput.InputDataHandler;
 import org.apache.log4j.Logger;
 
@@ -20,28 +22,17 @@ public class MoreRedocStarter {
 	
 	private static Logger logger = Logger.getLogger(MoreRedocStarter.class);
 
-	public static void generateModel(String pathCsvText, String pathOutputFolder, String pathCsvKeywords, MoreRedocOutputConfiguration outputConfiguration, MoreRedocAnalysisConfiguration analysisConfiguration) throws Exception {
+	public static void generateModel(String pathCsvText, String pathOutputFolder, String pathCsvKeywords, MoreRedocOutputConfiguration outputConfiguration, MoreRedocAnalysisConfiguration analysisConfiguration) throws InvalidRequirementInputException, IOException {
 		String csvDelimiter = ";";
 		
 		List<List<String>> keywordsRaw = CsvReader.readCsv(pathCsvKeywords, csvDelimiter);
 		List<List<String>> sentencesRaw = CsvReader.readCsv(pathCsvText, csvDelimiter);
-	
 
 		InputDataHandler softRedocDataHandler = new SoftRedocDataHandler();
 		
 		MoreRedocProject project = new MoreRedocProject(keywordsRaw, sentencesRaw, softRedocDataHandler);
 		
 		MoreRedocAnalysis analysis = new MoreRedocAnalysis(project, analysisConfiguration);
-		
-
-//		System.out.println("Verb Analysis");
-//		for (ProcessedRequirement r : project.getProcessedProjectRequirements()) {
-////			System.out.println(r.toString());
-////			r.printIE();
-////			VerbAnalyzerService.analyzeIETriples(r.getRelationTriples(), project.getProjectDomainConcepts());
-//		}
-
-		// System.out.println(analysis.getModel().toPlantUmlDslString());
 		
 		ModelGenerator modGen = new ModelGenerator();
 		String dslString = analysis.getModel().toPlantUmlDslString();
