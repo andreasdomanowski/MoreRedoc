@@ -187,9 +187,7 @@ public class MoreRedocModelGenerator {
 
     private void initializeMultiplicities() {
         for(PossessionTuple tuple : possessionTuples){
-            System.out.println(tuple);
             for(UmlRelationship relationship : relationships){
-                System.out.println(relationship);
                 if(tuple.getOwner().equals(relationship.getFrom()) && tuple.getOwned().equals(relationship.getTo())){
                     relationship.setMultiplicity(tuple.getMultiplicity());
                 }
