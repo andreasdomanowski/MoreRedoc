@@ -70,14 +70,12 @@ public class VerbAnalyzerService {
 
 	public Map<String, List<String>> getMethodsFromIETriples(List<RelationTripleWrapper> wrappedTriples,
 			Set<String> domainConcepts) {
-		return null;
-
+		throw new UnsupportedOperationException();
 	}
 
 	public List<VerbCandidate> getRelationshipsFromIETriples(List<RelationTripleWrapper> wrappedTriples,
 			Set<String> domainConcepts) {
-		List<VerbCandidate> toReturn = null;
-		return toReturn;
+		throw new UnsupportedOperationException();
 	}
 	
 	

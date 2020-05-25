@@ -1,11 +1,15 @@
 package moreredoc.linguistics.processing;
 
 public class SentenceRegularizerService {
-	private static String[] stopwords = {"The ", " the ", " an ", " a "};
+	private SentenceRegularizerService(){
+
+	}
+
+	private static String[] STOPWORDS = {"The ", " the ", "An ", " an ","A ", " a "};
 	
 	public static String regularizeSentence(String sentence) {
 		String toReturn = removeKeywordIndicators(sentence);
-		toReturn = removeStopwords(sentence);
+		toReturn = removeStopwords(toReturn);
 		return toReturn;
 	}
 	
@@ -14,14 +18,11 @@ public class SentenceRegularizerService {
 	}
 	
 	public static String removeStopwords(String sentence) {
-//		String toReturn = sentence;
-//		
-//		for(int i = 0; i < stopwords.length;i++	) {
-//			toReturn = toReturn.replaceAll(stopwords[i], " ");
-//		}
-//		
-//		return toReturn;
-		return sentence.replaceAll("The ", "").replaceAll(" the ", " ").replaceAll(" an ", " ").replaceAll(" a ", " ");
+		String toReturn = sentence;
+		for(int i = 0; i < STOPWORDS.length;i++	) {
+			toReturn = toReturn.replace(STOPWORDS[i], " ");
+		}
+		return toReturn;
 	}
 	
 	public static String[] normalizeStringArray(String[] in) {
@@ -29,8 +30,7 @@ public class SentenceRegularizerService {
 		for(int i = 0; i < in.length; i++) {
 			clonedArray[i] = WordRegularizerService.regularize(in[i]);
 		}
-		
-		
+
 		return clonedArray;
 	}
 }

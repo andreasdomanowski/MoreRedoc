@@ -287,8 +287,8 @@ public class MoreRedocGui extends JFrame {
                 MoreRedocOutputConfiguration outputConfiguration = new MoreRedocOutputConfiguration(outputRawXmi, outputArgoXmi, outputStarUml, outputPng, outputSvg);
                 MoreRedocStarter.generateModel(textfieldCsvText.getText(), textfieldOutputFolder.getText(), textfieldCsvKeywords.getText(), outputConfiguration);
                 JOptionPane.showMessageDialog(parentComponentForDialog, "Models were successfully generated.");
-                logger.info("Model generation done");
                 setUiActive(true);
+                logger.info("Model generation done");
                 return null;
             }
 

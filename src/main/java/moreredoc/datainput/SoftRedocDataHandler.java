@@ -58,15 +58,6 @@ public final class SoftRedocDataHandler implements InputDataHandler {
             }
         }
 
-        //delete every first two entries in sentences of requirements, because they just contain metadata, no sentences
-//		for(Requirement r : requirements) {
-//			//TODO
-//			if(r.getUnprocessedText().size() > 2) {
-//				r.getUnprocessedText().remove(0);
-//				r.getUnprocessedText().remove(0);
-//			}
-//		}
-
         return requirements;
     }
 
