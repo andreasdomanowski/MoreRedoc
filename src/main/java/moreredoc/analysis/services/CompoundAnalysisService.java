@@ -1,19 +1,20 @@
 package moreredoc.analysis.services;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
-import moreredoc.analysis.data.CompoundType;
-import org.apache.commons.lang3.StringUtils;
-
 import moreredoc.analysis.data.PossessionTuple;
 import moreredoc.linguistics.processing.MoreRedocStringUtils;
 import moreredoc.linguistics.processing.SentenceRegularizerService;
 import moreredoc.linguistics.processing.WordRegularizerService;
 import moreredoc.umldata.Multiplicity;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 public class CompoundAnalysisService {
+	private static Logger logger = Logger.getLogger(CompoundAnalysisService.class);
+
 	private CompoundAnalysisService() {
 	}
 
@@ -51,12 +52,6 @@ public class CompoundAnalysisService {
 		List<Integer> occurenceIndices = MoreRedocStringUtils.getIndicesForMatches(inputSplittedByWhitespace,
 				domainConceptToTest);
 
-		// if no domainConceptToTest was found, there can be no compound type for this
-		// domain concept
-//		if (occurenceIndices.isEmpty()) {
-//			return CompoundType.NONE;
-//		}
-
 		int maxIndex = inputSplittedByWhitespace.length - 1;
 
 		// iterate once again, check neighbourhood of occurences
@@ -76,6 +71,7 @@ public class CompoundAnalysisService {
 					if (inputSplittedByWhitespace[preOccurence].equals(domainConcept)
 							&& !inputSplittedByWhitespace[preOccurence].equals(domainConceptToTest)) {
 						isAttributeType = true;
+						logger.debug(domainConcept + "/AttributeType: " + isAttributeType);
 						String preClass = inputSplittedByWhitespace[preOccurence];
 						toReturn.add(new PossessionTuple(preClass, domainConceptToTest, Multiplicity.NO_INFO));
 					}
@@ -90,21 +86,13 @@ public class CompoundAnalysisService {
 					if (inputSplittedByWhitespace[postOccurence].equals(domainConcept)
 							&& !inputSplittedByWhitespace[postOccurence].equals(domainConceptToTest)) {
 						isClassType = true;
+						logger.debug(domainConcept + "/ClassType: " + isClassType);
 						String postAttribute = inputSplittedByWhitespace[postOccurence];
 						toReturn.add(new PossessionTuple(domainConceptToTest, postAttribute, Multiplicity.NO_INFO));
 					}
 				}
 			}
 		}
-
-		@SuppressWarnings("unused")
-		CompoundType compoundType;
-
-		if(isAttributeType && isClassType) compoundType =  CompoundType.COMPOUND_BOTH;
-		else if(isAttributeType && !isClassType) compoundType = CompoundType.COMPOUND_ATTRIBUTE;
-		else if(!isAttributeType && isClassType) compoundType = CompoundType.COMPOUND_CLASS;
-		else compoundType = CompoundType.NONE;
-
 		return toReturn;
 	}
 

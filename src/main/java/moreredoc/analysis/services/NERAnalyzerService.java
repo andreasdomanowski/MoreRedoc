@@ -1,16 +1,14 @@
 package moreredoc.analysis.services;
 
-
-import java.util.ArrayList;
-import java.util.List;
-
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.simple.Sentence;
 import moreredoc.analysis.data.NERType;
 import moreredoc.linguistics.MoreRedocNlpPipeline;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class NERAnalyzerService {
-	// TODO: replace simple api with pipeline
 	private StanfordCoreNLP pipeline = MoreRedocNlpPipeline.getCoreNlpPipeline();
 	
 	// tags strings from https://stanfordnlp.github.io/CoreNLP/ner.html
