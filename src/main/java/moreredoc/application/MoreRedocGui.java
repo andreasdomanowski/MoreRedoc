@@ -78,7 +78,8 @@ public class MoreRedocGui extends JFrame {
         JLabel labelKeywords = new JLabel("Keywords:");
         GridBagConstraints gbcLabelKeywords = new GridBagConstraints();
         gbcLabelKeywords.anchor = GridBagConstraints.WEST;
-        gbcLabelKeywords.insets = new Insets(0, 0, 5, 5);
+        Insets defaultInsets = new Insets(0, 0, 5, 5);
+        gbcLabelKeywords.insets = defaultInsets;
         gbcLabelKeywords.gridx = 0;
         gbcLabelKeywords.gridy = 0;
         mainPanel.add(labelKeywords, gbcLabelKeywords);
@@ -86,7 +87,7 @@ public class MoreRedocGui extends JFrame {
         textfieldCsvKeywords = new JTextField();
         textfieldCsvKeywords.setEnabled(false);
         GridBagConstraints gbcTextfieldCsvKeywords = new GridBagConstraints();
-        gbcTextfieldCsvKeywords.insets = new Insets(0, 0, 5, 5);
+        gbcTextfieldCsvKeywords.insets = defaultInsets;
         gbcTextfieldCsvKeywords.fill = GridBagConstraints.HORIZONTAL;
         gbcTextfieldCsvKeywords.gridx = 1;
         gbcTextfieldCsvKeywords.gridy = 0;
@@ -118,7 +119,7 @@ public class MoreRedocGui extends JFrame {
         labelCsvText.setHorizontalAlignment(SwingConstants.CENTER);
         GridBagConstraints gbcLabelCsvText = new GridBagConstraints();
         gbcLabelCsvText.anchor = GridBagConstraints.WEST;
-        gbcLabelCsvText.insets = new Insets(0, 0, 5, 5);
+        gbcLabelCsvText.insets = defaultInsets;
         gbcLabelCsvText.gridx = 0;
         gbcLabelCsvText.gridy = 1;
         mainPanel.add(labelCsvText, gbcLabelCsvText);
@@ -126,7 +127,7 @@ public class MoreRedocGui extends JFrame {
         textfieldCsvText = new JTextField();
         textfieldCsvText.setEnabled(false);
         GridBagConstraints gbcTextfieldCsvText = new GridBagConstraints();
-        gbcTextfieldCsvText.insets = new Insets(0, 0, 5, 5);
+        gbcTextfieldCsvText.insets = defaultInsets;
         gbcTextfieldCsvText.fill = GridBagConstraints.HORIZONTAL;
         gbcTextfieldCsvText.gridx = 1;
         gbcTextfieldCsvText.gridy = 1;
@@ -154,7 +155,7 @@ public class MoreRedocGui extends JFrame {
         JLabel labelOutputFolder = new JLabel("Output folder:");
         GridBagConstraints gbcLabelOutputFolder = new GridBagConstraints();
         gbcLabelOutputFolder.anchor = GridBagConstraints.WEST;
-        gbcLabelOutputFolder.insets = new Insets(0, 0, 5, 5);
+        gbcLabelOutputFolder.insets = defaultInsets;
         gbcLabelOutputFolder.gridx = 0;
         gbcLabelOutputFolder.gridy = 2;
         mainPanel.add(labelOutputFolder, gbcLabelOutputFolder);
@@ -162,7 +163,7 @@ public class MoreRedocGui extends JFrame {
         textfieldOutputFolder = new JTextField();
         textfieldOutputFolder.setEnabled(false);
         GridBagConstraints gbcTextfieldOutputFolder = new GridBagConstraints();
-        gbcTextfieldOutputFolder.insets = new Insets(0, 0, 5, 5);
+        gbcTextfieldOutputFolder.insets = defaultInsets;
         gbcTextfieldOutputFolder.fill = GridBagConstraints.HORIZONTAL;
         gbcTextfieldOutputFolder.gridx = 1;
         gbcTextfieldOutputFolder.gridy = 2;
@@ -190,23 +191,25 @@ public class MoreRedocGui extends JFrame {
         JLabel labelSettings = new JLabel("Settings:");
         GridBagConstraints gbcLabelSettings = new GridBagConstraints();
         gbcLabelSettings.anchor = GridBagConstraints.WEST;
-        gbcLabelSettings.insets = new Insets(0, 0, 5, 5);
+        gbcLabelSettings.insets = defaultInsets;
         gbcLabelSettings.gridx = 0;
         gbcLabelSettings.gridy = 4;
         mainPanel.add(labelSettings, gbcLabelSettings);
 
         cbVerbsMethods = new JCheckBox("Model verbs as methods");
+        cbVerbsMethods.setSelected(true);
         GridBagConstraints gbcCbVerbsMethods = new GridBagConstraints();
         gbcCbVerbsMethods.anchor = GridBagConstraints.WEST;
-        gbcCbVerbsMethods.insets = new Insets(0, 0, 5, 5);
+        gbcCbVerbsMethods.insets = defaultInsets;
         gbcCbVerbsMethods.gridx = 1;
         gbcCbVerbsMethods.gridy = 4;
         mainPanel.add(cbVerbsMethods, gbcCbVerbsMethods);
 
         cbVerbsRelationships = new JCheckBox("Model verbs as relationships");
+        cbVerbsRelationships.setSelected(true);
         GridBagConstraints gbcCbVerbsRelationships = new GridBagConstraints();
         gbcCbVerbsRelationships.anchor = GridBagConstraints.WEST;
-        gbcCbVerbsRelationships.insets = new Insets(0, 0, 5, 5);
+        gbcCbVerbsRelationships.insets = defaultInsets;
         gbcCbVerbsRelationships.gridx = 1;
         gbcCbVerbsRelationships.gridy = 5;
         mainPanel.add(cbVerbsRelationships, gbcCbVerbsRelationships);
@@ -214,7 +217,7 @@ public class MoreRedocGui extends JFrame {
         JLabel labelOutput = new JLabel("Output:");
         GridBagConstraints gbcLabelOutput = new GridBagConstraints();
         gbcLabelOutput.anchor = GridBagConstraints.WEST;
-        gbcLabelOutput.insets = new Insets(0, 0, 5, 5);
+        gbcLabelOutput.insets = defaultInsets;
         gbcLabelOutput.gridx = 0;
         gbcLabelOutput.gridy = 7;
         mainPanel.add(labelOutput, gbcLabelOutput);
@@ -223,7 +226,7 @@ public class MoreRedocGui extends JFrame {
         cbRawXmi.setSelected(true);
         GridBagConstraints gbcCbRawXmi = new GridBagConstraints();
         gbcCbRawXmi.anchor = GridBagConstraints.WEST;
-        gbcCbRawXmi.insets = new Insets(0, 0, 5, 5);
+        gbcCbRawXmi.insets = defaultInsets;
         gbcCbRawXmi.gridx = 1;
         gbcCbRawXmi.gridy = 7;
         mainPanel.add(cbRawXmi, gbcCbRawXmi);
@@ -232,7 +235,7 @@ public class MoreRedocGui extends JFrame {
         cbArgoUml.setSelected(true);
         GridBagConstraints gbcCbArgoUml = new GridBagConstraints();
         gbcCbArgoUml.anchor = GridBagConstraints.WEST;
-        gbcCbArgoUml.insets = new Insets(0, 0, 5, 5);
+        gbcCbArgoUml.insets = defaultInsets;
         gbcCbArgoUml.gridx = 1;
         gbcCbArgoUml.gridy = 8;
         mainPanel.add(cbArgoUml, gbcCbArgoUml);
@@ -241,7 +244,7 @@ public class MoreRedocGui extends JFrame {
         cbStarUml.setSelected(true);
         GridBagConstraints gbcCbStarUml = new GridBagConstraints();
         gbcCbStarUml.anchor = GridBagConstraints.WEST;
-        gbcCbStarUml.insets = new Insets(0, 0, 5, 5);
+        gbcCbStarUml.insets = defaultInsets;
         gbcCbStarUml.gridx = 1;
         gbcCbStarUml.gridy = 9;
         mainPanel.add(cbStarUml, gbcCbStarUml);
@@ -250,7 +253,7 @@ public class MoreRedocGui extends JFrame {
         cbPng.setSelected(true);
         GridBagConstraints gbcCbPng = new GridBagConstraints();
         gbcCbPng.anchor = GridBagConstraints.WEST;
-        gbcCbPng.insets = new Insets(0, 0, 5, 5);
+        gbcCbPng.insets = defaultInsets;
         gbcCbPng.gridx = 1;
         gbcCbPng.gridy = 10;
         mainPanel.add(cbPng, gbcCbPng);
@@ -259,7 +262,7 @@ public class MoreRedocGui extends JFrame {
         cbSvg.setSelected(true);
         GridBagConstraints gbcCbSvg = new GridBagConstraints();
         gbcCbSvg.anchor = GridBagConstraints.WEST;
-        gbcCbSvg.insets = new Insets(0, 0, 5, 5);
+        gbcCbSvg.insets = defaultInsets;
         gbcCbSvg.gridx = 1;
         gbcCbSvg.gridy = 11;
         mainPanel.add(cbSvg, gbcCbSvg);
@@ -313,7 +316,7 @@ public class MoreRedocGui extends JFrame {
                 try {
                     get();
                 } catch (ExecutionException e) {
-                    // working around getting into swing too deep..
+                    // working around getting into swing too deeply..
                     if (e.getCause() instanceof InvalidRequirementInputException) {
                         logger.error("InvalidRequirementInput");
                         JOptionPane.showMessageDialog(parentComponentForDialog, ERROR_MESSAGE_INVALID_INPUT, ERROR_HEADER_INVALID_INPUT, JOptionPane.ERROR_MESSAGE);

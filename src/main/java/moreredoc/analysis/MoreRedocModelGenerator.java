@@ -78,15 +78,11 @@ public class MoreRedocModelGenerator {
                 String object = triple.objectGloss();
 
                 for (String s : project.getProjectDomainConcepts()) {
-                    for (PossessionTuple tuple : CompoundAnalysisService.computePossessionTuples(subject, s,
-                            project.getProjectDomainConcepts())) {
-                        possessionTuples.add(tuple);
-                    }
+                    possessionTuples.addAll(CompoundAnalysisService.computePossessionTuples(subject, s,
+                            project.getProjectDomainConcepts()));
 
-                    for (PossessionTuple tuple : CompoundAnalysisService.computePossessionTuples(object, s,
-                            project.getProjectDomainConcepts())) {
-                        possessionTuples.add(tuple);
-                    }
+                    possessionTuples.addAll(CompoundAnalysisService.computePossessionTuples(object, s,
+                            project.getProjectDomainConcepts()));
                 }
 
             }
@@ -136,7 +132,7 @@ public class MoreRedocModelGenerator {
             // aggregration between to classes
             if (isClassCandidate && isAttributeCandidate) {
                 // class representing the attribute
-                UmlClass attributeClass = null;
+                UmlClass attributeClass;
                 if (this.classMapping.containsKey(domainConcept)) {
                     attributeClass = this.classMapping.get(domainConcept);
                 } else {
@@ -194,7 +190,7 @@ public class MoreRedocModelGenerator {
                         model.getRelationships().add(newRelationship);
 
                     }
-                    methodStringBuilder.append("(" + c.getTo() + ")");
+                    methodStringBuilder.append("(").append(c.getTo()).append(")");
 
                 }
 
