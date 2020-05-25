@@ -3,15 +3,19 @@ package moreredoc.project.data;
 import java.util.List;
 import java.util.Set;
 
+import moreredoc.linguistics.PosTaggerService;
 import moreredoc.linguistics.processing.CorefReplacementService;
 import moreredoc.linguistics.processing.OpenIEService;
 import moreredoc.linguistics.processing.SentenceDecomposerService;
 import moreredoc.linguistics.processing.SentenceRegularizerService;
+import org.apache.log4j.Logger;
 
 /*
  * Wrapper class for Requirements which represents processed (coref, normalized) requirements
  */
 public class ProcessedRequirement {
+	private static final Logger logger = Logger.getLogger(ProcessedRequirement.class);
+
 	private Requirement wrappedRequirement;
 	private String corefResolvedRegularizedText;
 	private List<DecomposedSentenceTripel> decomposedSentences;
@@ -118,11 +122,11 @@ public class ProcessedRequirement {
 
 	public void printIE() {
 		for (RelationTripleWrapper triple : this.relationTriples) {
-			System.out.println("New Triple for sentence \"" + triple.getSentence() + "\"");
-			System.out.println("\tConfidence: " + triple.getTriple().confidence);
-			System.out.println("\tSubject: " + triple.getTriple().subjectGloss());
-			System.out.println("\tRelation: " + triple.getTriple().relationGloss());
-			System.out.println("\tObject: " + triple.getTriple().objectGloss());
+			logger.info("New Triple for sentence \"" + triple.getSentence() + "\"");
+			logger.info(("\tConfidence: " + triple.getTriple().confidence));
+			logger.info(("\tSubject: " + triple.getTriple().subjectGloss()));
+			logger.info(("\tRelation: " + triple.getTriple().relationGloss()));
+			logger.info(("\tObject: " + triple.getTriple().objectGloss()));
 		}
 	}
 

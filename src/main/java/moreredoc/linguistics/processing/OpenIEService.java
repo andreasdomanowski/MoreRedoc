@@ -21,7 +21,7 @@ public class OpenIEService {
 		
 	}
 
-	public static List<RelationTripleWrapper> performIE(String text) throws Exception {
+	public static List<RelationTripleWrapper> performIE(String text)  {
 		List<RelationTripleWrapper> toReturn = new ArrayList<>();
 
 		StanfordCoreNLP pipeline = MoreRedocNlpPipeline.getCoreNlpPipeline();
@@ -43,21 +43,9 @@ public class OpenIEService {
 
 			if (triples.isEmpty()) {
 				sentencesWithoutOpenIeResult.add(sentence.toString());
-			} else {
-				// System.out.println("analyzing: " + sentence);
-				for (RelationTriple triple : triples) {
-//					System.out.println(triple.confidence + "\t" + triple.subjectLemmaGloss() + "\t"
-//							+ triple.relationLemmaGloss() + "\t" + triple.objectLemmaGloss());
-				}
 			}
 
 		}
-
-		// System.out.println("sentences without results:");
-		// for (String s : sentencesWithoutOpenIeResult)
-		// System.out.println("\t" + s);
-
-		// System.out.println("\t analysis end\n\n");
 
 		return toReturn;
 	}

@@ -3,6 +3,7 @@ package moreredoc.application;
 import java.io.File;
 import java.util.List;
 
+import moreredoc.analysis.MoreRedocAnalysisConfiguration;
 import moreredoc.datainput.InputDataHandler;
 import org.apache.log4j.Logger;
 
@@ -19,7 +20,7 @@ public class MoreRedocStarter {
 	
 	private static Logger logger = Logger.getLogger(MoreRedocStarter.class);
 
-	public static void generateModel(String pathCsvText, String pathOutputFolder, String pathCsvKeywords, MoreRedocOutputConfiguration outputConfiguration) throws Exception {
+	public static void generateModel(String pathCsvText, String pathOutputFolder, String pathCsvKeywords, MoreRedocOutputConfiguration outputConfiguration, MoreRedocAnalysisConfiguration analysisConfiguration) throws Exception {
 		String csvDelimiter = ";";
 		
 		List<List<String>> keywordsRaw = CsvReader.readCsv(pathCsvKeywords, csvDelimiter);
@@ -30,7 +31,7 @@ public class MoreRedocStarter {
 		
 		MoreRedocProject project = new MoreRedocProject(keywordsRaw, sentencesRaw, softRedocDataHandler);
 		
-		MoreRedocAnalysis analysis = new MoreRedocAnalysis(project, null);
+		MoreRedocAnalysis analysis = new MoreRedocAnalysis(project, analysisConfiguration);
 		
 
 //		System.out.println("Verb Analysis");

@@ -27,10 +27,6 @@ public class SentenceRegularizerServiceTest {
 	}
 
 	@Test
-	public void regularizeSentence() {
-	}
-
-	@Test
 	public void removeKeywordIndicatorsTest() {
 		String sentenceWithStopwords = "Hello <name>. I am <years> old.";
 		String sentenceWithoutStopwords = SentenceRegularizerService.removeKeywordIndicators(sentenceWithStopwords);

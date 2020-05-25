@@ -90,11 +90,11 @@ public class MoreRedocProject {
 	}
 
 	private void initializeDomainConcepts() {
-		StringBuilder wholeProcessedText = new StringBuilder();
+		StringBuilder wholeProcessedTextBuilder = new StringBuilder();
 
 		for (ProcessedRequirement r : processedProjectRequirements) {
 			// concatenate processed text
-			wholeProcessedText.append(r.getCorefResolvedRegularizedText());
+			wholeProcessedTextBuilder.append(r.getCorefResolvedRegularizedText());
 			// regularize strings, put in set
 			for (String s : r.getKeywords()) {
 				String regularizedConcept = WordRegularizerService.regularize(s);
@@ -116,8 +116,7 @@ public class MoreRedocProject {
 		}
 		// normalize each word of whole processed text
 		// split by whitespaces via regex
-		String[] splitProcessedText = StringUtils.split(wholeProcessedText.toString());
-		String regularizedWholeProcessedText = "";
+		String[] splitProcessedText = StringUtils.split(wholeProcessedTextBuilder.toString());
 		for (int i = 0; i < splitProcessedText.length; i++) {
 			splitProcessedText[i] = WordRegularizerService.regularize(splitProcessedText[i]);
 		}

@@ -15,14 +15,13 @@ import edu.stanford.nlp.util.CoreMap;
 public class DependencyParsingDemo {
 	public static void main(String[] args) {
         Properties props = new Properties();
-        //props.put("annotators", "tokenize, ssplit, pos, lemma, ner, parse, dcoref");
+
         props.put("annotators", "tokenize, ssplit, parse, lemma, ner, dcoref");
         StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
 
         String text = "The customer enters customer customer id."; // Add your text here!
         Annotation document = new Annotation(text);
         pipeline.annotate(document);
-        String[] myStringArray = {"SentencesAnnotation"};
         List<CoreMap> sentences = document.get(SentencesAnnotation.class);
         for(CoreMap sentence: sentences) {
             SemanticGraph dependencies = sentence.get(BasicDependenciesAnnotation.class);

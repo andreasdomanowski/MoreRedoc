@@ -2,7 +2,6 @@ package moreredoc.linguistics.processing;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
 import edu.stanford.nlp.ling.Label;
 import edu.stanford.nlp.simple.Document;

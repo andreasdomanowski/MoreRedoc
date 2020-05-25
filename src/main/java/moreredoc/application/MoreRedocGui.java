@@ -1,5 +1,6 @@
 package moreredoc.application;
 
+import moreredoc.analysis.MoreRedocAnalysisConfiguration;
 import moreredoc.application.exceptions.InvalidRequirementInputException;
 import org.apache.log4j.Logger;
 
@@ -33,11 +34,14 @@ public class MoreRedocGui extends JFrame {
     private final JTextField textfieldCsvKeywords;
     private final JTextField textfieldCsvText;
     private final JTextField textfieldOutputFolder;
+
+    private final JCheckBox cbVerbsMethods;
+    private final JCheckBox cbVerbsRelationships;
     private final JCheckBox cbRawXmi;
     private final JCheckBox cbArgoUml;
     private final JCheckBox cbStarUml;
+
     private final JButton buttonGenerateModels;
-    // private JButton buttonCancel;
 
     // preload file chooser, on demand would take noticeably long.
     private final transient FutureTask<JFileChooser> futureFileChooser = new FutureTask<>(JFileChooser::new);
@@ -189,21 +193,21 @@ public class MoreRedocGui extends JFrame {
         gbcLabelSettings.gridy = 4;
         mainPanel.add(labelSettings, gbcLabelSettings);
 
-        JCheckBox chckbxNewCheckBox_3 = new JCheckBox("New check box");
-        GridBagConstraints gbc_chckbxNewCheckBox_3 = new GridBagConstraints();
-        gbc_chckbxNewCheckBox_3.anchor = GridBagConstraints.WEST;
-        gbc_chckbxNewCheckBox_3.insets = new Insets(0, 0, 5, 5);
-        gbc_chckbxNewCheckBox_3.gridx = 1;
-        gbc_chckbxNewCheckBox_3.gridy = 4;
-        mainPanel.add(chckbxNewCheckBox_3, gbc_chckbxNewCheckBox_3);
+        cbVerbsMethods = new JCheckBox("Model verbs as methods");
+        GridBagConstraints gbcCbVerbsMethods = new GridBagConstraints();
+        gbcCbVerbsMethods.anchor = GridBagConstraints.WEST;
+        gbcCbVerbsMethods.insets = new Insets(0, 0, 5, 5);
+        gbcCbVerbsMethods.gridx = 1;
+        gbcCbVerbsMethods.gridy = 4;
+        mainPanel.add(cbVerbsMethods, gbcCbVerbsMethods);
 
-        JCheckBox chckbxNewCheckBox_4 = new JCheckBox("New check box");
-        GridBagConstraints gbc_chckbxNewCheckBox_4 = new GridBagConstraints();
-        gbc_chckbxNewCheckBox_4.anchor = GridBagConstraints.WEST;
-        gbc_chckbxNewCheckBox_4.insets = new Insets(0, 0, 5, 5);
-        gbc_chckbxNewCheckBox_4.gridx = 1;
-        gbc_chckbxNewCheckBox_4.gridy = 5;
-        mainPanel.add(chckbxNewCheckBox_4, gbc_chckbxNewCheckBox_4);
+        cbVerbsRelationships = new JCheckBox("Model verbs as relationships");
+        GridBagConstraints gbcCbVerbsRelationships = new GridBagConstraints();
+        gbcCbVerbsRelationships.anchor = GridBagConstraints.WEST;
+        gbcCbVerbsRelationships.insets = new Insets(0, 0, 5, 5);
+        gbcCbVerbsRelationships.gridx = 1;
+        gbcCbVerbsRelationships.gridy = 5;
+        mainPanel.add(cbVerbsRelationships, gbcCbVerbsRelationships);
 
         JLabel labelOutput = new JLabel("Output:");
         GridBagConstraints gbcLabelOutput = new GridBagConstraints();
@@ -214,6 +218,7 @@ public class MoreRedocGui extends JFrame {
         mainPanel.add(labelOutput, gbcLabelOutput);
 
         cbRawXmi = new JCheckBox("Raw XMI");
+        cbRawXmi.setSelected(true);
         GridBagConstraints gbcCbRawXmi = new GridBagConstraints();
         gbcCbRawXmi.anchor = GridBagConstraints.WEST;
         gbcCbRawXmi.insets = new Insets(0, 0, 5, 5);
@@ -222,6 +227,7 @@ public class MoreRedocGui extends JFrame {
         mainPanel.add(cbRawXmi, gbcCbRawXmi);
 
         cbArgoUml = new JCheckBox("XMI (ArgoUML)");
+        cbArgoUml.setSelected(true);
         GridBagConstraints gbcCbArgoUml = new GridBagConstraints();
         gbcCbArgoUml.anchor = GridBagConstraints.WEST;
         gbcCbArgoUml.insets = new Insets(0, 0, 5, 5);
@@ -230,6 +236,7 @@ public class MoreRedocGui extends JFrame {
         mainPanel.add(cbArgoUml, gbcCbArgoUml);
 
         cbStarUml = new JCheckBox("XMI (StarUML)");
+        cbStarUml.setSelected(true);
         GridBagConstraints gbcCbStarUml = new GridBagConstraints();
         gbcCbStarUml.anchor = GridBagConstraints.WEST;
         gbcCbStarUml.insets = new Insets(0, 0, 5, 5);
@@ -239,24 +246,12 @@ public class MoreRedocGui extends JFrame {
 
         buttonGenerateModels = new JButton("Run");
         buttonGenerateModels.setVerticalAlignment(SwingConstants.BOTTOM);
-        buttonGenerateModels.addActionListener(e -> runGenerateModel(cbRawXmi.isSelected(), cbArgoUml.isSelected(), cbStarUml.isSelected(), true, true));
+        buttonGenerateModels.addActionListener(e -> runGenerateModel(cbVerbsMethods.isSelected(), cbVerbsRelationships.isSelected(), cbRawXmi.isSelected(), cbArgoUml.isSelected(), cbStarUml.isSelected(), true, true));
         GridBagConstraints gbcButtonGenerateModels = new GridBagConstraints();
         gbcButtonGenerateModels.insets = new Insets(0, 0, 5, 0);
         gbcButtonGenerateModels.gridx = 2;
         gbcButtonGenerateModels.gridy = 11;
         mainPanel.add(buttonGenerateModels, gbcButtonGenerateModels);
-
-        // buttonCancel = new JButton("Cancel");
-        // buttonCancel.addActionListener( e -> {
-        // if(modelingThread != null) {
-        // modelingThread.interrupt();
-        // }
-        // });
-        // GridBagConstraints gbcButtonCancel = new GridBagConstraints();
-        // gbcButtonCancel.gridx = 2;
-        // gbcButtonCancel.gridy = 12;
-        // mainPanel.add(buttonCancel, gbcButtonCancel);
-        // buttonCancel.setEnabled(false);
     }
 
     private void chooseFileAndUpdateTextfield(JTextField textfield, Component parent, int selectionMode)
@@ -276,7 +271,7 @@ public class MoreRedocGui extends JFrame {
         }
     }
 
-    private void runGenerateModel(boolean outputRawXmi, boolean outputArgoXmi, boolean outputStarUml, boolean outputPng, boolean outputSvg) {
+    private void runGenerateModel(boolean verbsMethods, boolean verbsRelationships, boolean outputRawXmi, boolean outputArgoXmi, boolean outputStarUml, boolean outputPng, boolean outputSvg) {
         Component parentComponentForDialog = this;
 
         SwingWorker<Void, Void> backgroundWorker = new SwingWorker<Void, Void>() {
@@ -284,8 +279,9 @@ public class MoreRedocGui extends JFrame {
             protected Void doInBackground() throws Exception {
                 logger.info("Start model generation");
                 setUiActive(false);
+                MoreRedocAnalysisConfiguration analysisConfiguration = new MoreRedocAnalysisConfiguration(verbsMethods, verbsRelationships);
                 MoreRedocOutputConfiguration outputConfiguration = new MoreRedocOutputConfiguration(outputRawXmi, outputArgoXmi, outputStarUml, outputPng, outputSvg);
-                MoreRedocStarter.generateModel(textfieldCsvText.getText(), textfieldOutputFolder.getText(), textfieldCsvKeywords.getText(), outputConfiguration);
+                MoreRedocStarter.generateModel(textfieldCsvText.getText(), textfieldOutputFolder.getText(), textfieldCsvKeywords.getText(), outputConfiguration, analysisConfiguration);
                 JOptionPane.showMessageDialog(parentComponentForDialog, "Models were successfully generated.");
                 setUiActive(true);
                 logger.info("Model generation done");
@@ -302,10 +298,10 @@ public class MoreRedocGui extends JFrame {
                         logger.error("InvalidRequirementInput");
                         JOptionPane.showMessageDialog(parentComponentForDialog, ERRORMESSAGE_INVALID_INPUT, ERRORHEADER_INVALID_INPUT, JOptionPane.ERROR_MESSAGE);
                     } else {
-                        e.printStackTrace();
+                        logger.error(e);
                     }
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    logger.error(e);
                     Thread.currentThread().interrupt();
                 } finally {
                     setUiActive(true);
@@ -321,6 +317,8 @@ public class MoreRedocGui extends JFrame {
     private void setUiActive(boolean activeState) {
         this.setCursor(activeState ? Cursor.getDefaultCursor() : Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 
+        this.cbVerbsMethods.setEnabled(activeState);
+        this.cbVerbsRelationships.setEnabled(activeState);
         this.cbArgoUml.setEnabled(activeState);
         this.cbRawXmi.setEnabled(activeState);
         this.cbStarUml.setEnabled(activeState);
