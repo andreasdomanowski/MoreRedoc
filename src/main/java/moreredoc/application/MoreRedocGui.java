@@ -2,6 +2,7 @@ package moreredoc.application;
 
 import moreredoc.analysis.MoreRedocAnalysisConfiguration;
 import moreredoc.application.exceptions.InvalidRequirementInputException;
+import moreredoc.integration.tools.SupportedRedocumentationTools;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;
@@ -10,6 +11,7 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.io.File;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -31,6 +33,7 @@ public class MoreRedocGui extends JFrame {
     private static final Logger logger = Logger.getLogger(MoreRedocGui.class);
 
     // ui elements
+    private final JComboBox<SupportedRedocumentationTools> comboBoxToolSelection;
     private final JTextField textfieldCsvKeywords;
     private final JTextField textfieldCsvText;
     private final JTextField textfieldOutputFolder;
@@ -58,9 +61,12 @@ public class MoreRedocGui extends JFrame {
     public MoreRedocGui() {
         super(APPLICATION_TITLE);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setSize(700, 350);
+        setSize(700, 500);
 
         JPanel mainPanel = new JPanel();
+
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        executor.execute(futureFileChooser);
 
         Border border = BorderFactory.createDashedBorder(Color.BLACK);
         Border margin = new EmptyBorder(10, 10, 10, 10);
@@ -75,13 +81,29 @@ public class MoreRedocGui extends JFrame {
                 Double.MIN_VALUE };
         mainPanel.setLayout(gblPanel);
 
+        JLabel labelToolSelection = new JLabel("Tool:");
+        GridBagConstraints gbcLabelToolSelection = new GridBagConstraints();
+        gbcLabelToolSelection.anchor = GridBagConstraints.WEST;
+        Insets defaultInsets = new Insets(0, 0, 5, 5);
+        gbcLabelToolSelection.insets = defaultInsets;
+        gbcLabelToolSelection.gridx = 0;
+        gbcLabelToolSelection.gridy = 0;
+        mainPanel.add(labelToolSelection, gbcLabelToolSelection);
+
+        comboBoxToolSelection = new JComboBox<>(SupportedRedocumentationTools.values());
+        GridBagConstraints gbcComboBoxToolSelection = new GridBagConstraints();
+        gbcComboBoxToolSelection.insets = defaultInsets;
+        gbcComboBoxToolSelection.fill = GridBagConstraints.HORIZONTAL;
+        gbcComboBoxToolSelection.gridx = 1;
+        gbcComboBoxToolSelection.gridy = 0;
+        mainPanel.add(comboBoxToolSelection, gbcComboBoxToolSelection);
+
         JLabel labelKeywords = new JLabel("Keywords:");
         GridBagConstraints gbcLabelKeywords = new GridBagConstraints();
         gbcLabelKeywords.anchor = GridBagConstraints.WEST;
-        Insets defaultInsets = new Insets(0, 0, 5, 5);
         gbcLabelKeywords.insets = defaultInsets;
         gbcLabelKeywords.gridx = 0;
-        gbcLabelKeywords.gridy = 0;
+        gbcLabelKeywords.gridy = 1;
         mainPanel.add(labelKeywords, gbcLabelKeywords);
 
         textfieldCsvKeywords = new JTextField();
@@ -90,12 +112,9 @@ public class MoreRedocGui extends JFrame {
         gbcTextfieldCsvKeywords.insets = defaultInsets;
         gbcTextfieldCsvKeywords.fill = GridBagConstraints.HORIZONTAL;
         gbcTextfieldCsvKeywords.gridx = 1;
-        gbcTextfieldCsvKeywords.gridy = 0;
+        gbcTextfieldCsvKeywords.gridy = 1;
         mainPanel.add(textfieldCsvKeywords, gbcTextfieldCsvKeywords);
         textfieldCsvKeywords.setColumns(10);
-
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        executor.execute(futureFileChooser);
 
         buttonChooseKeywordsCsv = new JButton(TEXT_CHOOSE_BUTTON);
         buttonChooseKeywordsCsv.addActionListener(e -> {
@@ -112,7 +131,7 @@ public class MoreRedocGui extends JFrame {
         gbcButton.anchor = GridBagConstraints.WEST;
         gbcButton.insets = new Insets(0, 0, 5, 0);
         gbcButton.gridx = 2;
-        gbcButton.gridy = 0;
+        gbcButton.gridy = 1;
         mainPanel.add(buttonChooseKeywordsCsv, gbcButton);
 
         JLabel labelCsvText = new JLabel("Text:");
@@ -121,7 +140,7 @@ public class MoreRedocGui extends JFrame {
         gbcLabelCsvText.anchor = GridBagConstraints.WEST;
         gbcLabelCsvText.insets = defaultInsets;
         gbcLabelCsvText.gridx = 0;
-        gbcLabelCsvText.gridy = 1;
+        gbcLabelCsvText.gridy = 2;
         mainPanel.add(labelCsvText, gbcLabelCsvText);
 
         textfieldCsvText = new JTextField();
@@ -130,7 +149,7 @@ public class MoreRedocGui extends JFrame {
         gbcTextfieldCsvText.insets = defaultInsets;
         gbcTextfieldCsvText.fill = GridBagConstraints.HORIZONTAL;
         gbcTextfieldCsvText.gridx = 1;
-        gbcTextfieldCsvText.gridy = 1;
+        gbcTextfieldCsvText.gridy = 2;
         mainPanel.add(textfieldCsvText, gbcTextfieldCsvText);
         textfieldCsvText.setColumns(10);
 
@@ -149,7 +168,7 @@ public class MoreRedocGui extends JFrame {
         gbcButtonChooseTextCsv.anchor = GridBagConstraints.WEST;
         gbcButtonChooseTextCsv.insets = new Insets(0, 0, 5, 0);
         gbcButtonChooseTextCsv.gridx = 2;
-        gbcButtonChooseTextCsv.gridy = 1;
+        gbcButtonChooseTextCsv.gridy = 2;
         mainPanel.add(buttonChooseTextCsv, gbcButtonChooseTextCsv);
 
         JLabel labelOutputFolder = new JLabel("Output folder:");
@@ -157,7 +176,7 @@ public class MoreRedocGui extends JFrame {
         gbcLabelOutputFolder.anchor = GridBagConstraints.WEST;
         gbcLabelOutputFolder.insets = defaultInsets;
         gbcLabelOutputFolder.gridx = 0;
-        gbcLabelOutputFolder.gridy = 2;
+        gbcLabelOutputFolder.gridy = 3;
         mainPanel.add(labelOutputFolder, gbcLabelOutputFolder);
 
         textfieldOutputFolder = new JTextField();
@@ -166,7 +185,7 @@ public class MoreRedocGui extends JFrame {
         gbcTextfieldOutputFolder.insets = defaultInsets;
         gbcTextfieldOutputFolder.fill = GridBagConstraints.HORIZONTAL;
         gbcTextfieldOutputFolder.gridx = 1;
-        gbcTextfieldOutputFolder.gridy = 2;
+        gbcTextfieldOutputFolder.gridy = 3;
         mainPanel.add(textfieldOutputFolder, gbcTextfieldOutputFolder);
         textfieldOutputFolder.setColumns(10);
 
@@ -185,7 +204,7 @@ public class MoreRedocGui extends JFrame {
         gbcButtonChooseOutputFolder.anchor = GridBagConstraints.WEST;
         gbcButtonChooseOutputFolder.insets = new Insets(0, 0, 5, 0);
         gbcButtonChooseOutputFolder.gridx = 2;
-        gbcButtonChooseOutputFolder.gridy = 2;
+        gbcButtonChooseOutputFolder.gridy = 3;
         mainPanel.add(buttonChooseOutputFolder, gbcButtonChooseOutputFolder);
 
         JLabel labelSettings = new JLabel("Settings:");
@@ -302,9 +321,14 @@ public class MoreRedocGui extends JFrame {
             protected Void doInBackground() throws Exception {
                 logger.info("Start model generation");
                 setUiActive(false);
+
                 MoreRedocAnalysisConfiguration analysisConfiguration = new MoreRedocAnalysisConfiguration(verbsMethods, verbsRelationships);
                 MoreRedocOutputConfiguration outputConfiguration = new MoreRedocOutputConfiguration(outputRawXmi, outputArgoXmi, outputStarUml, outputPng, outputSvg);
-                MoreRedocStarter.generateModel(textfieldCsvText.getText(), textfieldOutputFolder.getText(), textfieldCsvKeywords.getText(), outputConfiguration, analysisConfiguration);
+
+                SupportedRedocumentationTools tool = (SupportedRedocumentationTools) comboBoxToolSelection.getSelectedItem();
+                Objects.requireNonNull(tool);
+
+                MoreRedocStarter.generateModel(textfieldCsvText.getText(), textfieldOutputFolder.getText(), textfieldCsvKeywords.getText(), outputConfiguration, analysisConfiguration, tool.getDataHandler());
                 JOptionPane.showMessageDialog(parentComponentForDialog, "Models were successfully generated.");
                 setUiActive(true);
                 logger.info("Model generation done");

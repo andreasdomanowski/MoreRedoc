@@ -4,7 +4,6 @@ import moreredoc.analysis.MoreRedocAnalysisConfiguration;
 import moreredoc.analysis.MoreRedocModelGenerator;
 import moreredoc.application.exceptions.InvalidRequirementInputException;
 import moreredoc.datainput.InputDataHandler;
-import moreredoc.datainput.SoftRedocDataHandler;
 import moreredoc.project.data.MoreRedocProject;
 import moreredoc.umlgenerator.ModelGenerator;
 import moreredoc.utils.fileutils.CsvReader;
@@ -20,15 +19,13 @@ public class MoreRedocStarter {
 
     private static Logger logger = Logger.getLogger(MoreRedocStarter.class);
 
-    public static void generateModel(String pathCsvText, String pathOutputFolder, String pathCsvKeywords, MoreRedocOutputConfiguration outputConfiguration, MoreRedocAnalysisConfiguration analysisConfiguration) throws InvalidRequirementInputException, IOException {
+    public static void generateModel(String pathCsvText, String pathOutputFolder, String pathCsvKeywords, MoreRedocOutputConfiguration outputConfiguration, MoreRedocAnalysisConfiguration analysisConfiguration, InputDataHandler inputDataHandler) throws InvalidRequirementInputException, IOException {
         String csvDelimiter = ";";
 
         List<List<String>> keywordsRaw = CsvReader.readCsv(pathCsvKeywords, csvDelimiter);
         List<List<String>> sentencesRaw = CsvReader.readCsv(pathCsvText, csvDelimiter);
 
-        InputDataHandler softRedocDataHandler = new SoftRedocDataHandler();
-
-        MoreRedocProject project = new MoreRedocProject(keywordsRaw, sentencesRaw, softRedocDataHandler);
+        MoreRedocProject project = new MoreRedocProject(keywordsRaw, sentencesRaw, inputDataHandler);
 
 		logger.info("Start analysis");
 		MoreRedocModelGenerator analysis = new MoreRedocModelGenerator(project, analysisConfiguration);
