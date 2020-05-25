@@ -12,8 +12,11 @@ import org.apache.commons.lang3.StringUtils;
 
 import moreredoc.datainput.InputDataHandler;
 import moreredoc.linguistics.processing.WordRegularizerService;
+import org.apache.log4j.Logger;
 
 public class MoreRedocProject {
+	private static Logger logger = Logger.getLogger(MoreRedocProject.class);
+
 	// Set of all concepts
 	private Set<String> projectDomainConcepts = new HashSet<>();
 	private List<Requirement> projectRequirements;
@@ -168,9 +171,9 @@ public class MoreRedocProject {
 	public void printEntityCount() {
 		Set<String> keySet = conceptCount.keySet();
 		for (String s : keySet) {
-			System.out.println("Keyword: " + s);
-			System.out.println("\tabsolute: " + conceptCount.get(s));
-			System.out.println("\trelative: " + getRelativeFrequencyOfKeyword(s));
+			logger.info("Keyword: " + s);
+			logger.info("\tabsolute: " + conceptCount.get(s));
+			logger.info("\trelative: " + getRelativeFrequencyOfKeyword(s));
 		}
 	}
 

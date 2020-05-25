@@ -17,33 +17,32 @@ import moreredoc.utils.fileutils.CsvReader;
 
 public class MoreRedocStarter {
 
-	private MoreRedocStarter(){
-	}
-	
-	private static Logger logger = Logger.getLogger(MoreRedocStarter.class);
+    private MoreRedocStarter() {
+    }
 
-	public static void generateModel(String pathCsvText, String pathOutputFolder, String pathCsvKeywords, MoreRedocOutputConfiguration outputConfiguration, MoreRedocAnalysisConfiguration analysisConfiguration) throws InvalidRequirementInputException, IOException {
-		String csvDelimiter = ";";
-		
-		List<List<String>> keywordsRaw = CsvReader.readCsv(pathCsvKeywords, csvDelimiter);
-		List<List<String>> sentencesRaw = CsvReader.readCsv(pathCsvText, csvDelimiter);
+    private static Logger logger = Logger.getLogger(MoreRedocStarter.class);
 
-		InputDataHandler softRedocDataHandler = new SoftRedocDataHandler();
-		
-		MoreRedocProject project = new MoreRedocProject(keywordsRaw, sentencesRaw, softRedocDataHandler);
-		
+    public static void generateModel(String pathCsvText, String pathOutputFolder, String pathCsvKeywords, MoreRedocOutputConfiguration outputConfiguration, MoreRedocAnalysisConfiguration analysisConfiguration) throws InvalidRequirementInputException, IOException {
+        String csvDelimiter = ";";
+
+        List<List<String>> keywordsRaw = CsvReader.readCsv(pathCsvKeywords, csvDelimiter);
+        List<List<String>> sentencesRaw = CsvReader.readCsv(pathCsvText, csvDelimiter);
+
+        InputDataHandler softRedocDataHandler = new SoftRedocDataHandler();
+
+        MoreRedocProject project = new MoreRedocProject(keywordsRaw, sentencesRaw, softRedocDataHandler);
+
+		logger.info("Start analysis");
 		MoreRedocAnalysis analysis = new MoreRedocAnalysis(project, analysisConfiguration);
-		
-		ModelGenerator modGen = new ModelGenerator();
-		String dslString = analysis.getModel().toPlantUmlDslString();
-		
-		modGen.drawPng(new File(pathOutputFolder + File.separator + "/model.png"), dslString) ;
-		modGen.drawSvg(new File(pathOutputFolder + File.separator + "model.svg"), dslString);
-		modGen.generateRawXMI(new File(pathOutputFolder + File.separator + "xmiRaw.xmi"), dslString);
-		modGen.generateArgoXMI(new File(pathOutputFolder + File.separator + "xmiArgo.xmi"), dslString);
-		modGen.generateStarXMI(new File(pathOutputFolder + File.separator + "xmiStar.xmi"), dslString);
+		logger.info("Analysis done.");
 
+        String dslString = analysis.getModel().toPlantUmlDslString();
+        logger.debug("PlantUML dsl string: " + dslString);
+
+        logger.info("Start output file generation");
+		ModelGenerator modGen = new ModelGenerator(dslString, outputConfiguration);
+		modGen.generateModels(pathOutputFolder);
+		logger.info("Output files generated");
 	}
-
 
 }

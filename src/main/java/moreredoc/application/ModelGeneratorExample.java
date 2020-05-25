@@ -43,14 +43,8 @@ public class ModelGeneratorExample {
 		
 		UmlModel exampleModel = new UmlModel(classMapping, relationships);
 		
-		ModelGenerator modGen = new ModelGenerator();
 		String dslString = exampleModel.toPlantUmlDslString();
-		
-		modGen.drawPng(new File("model.png"), dslString) ;
-		modGen.drawSvg(new File("model.svg"), dslString);
-		modGen.generateRawXMI(new File("xmiRaw.xmi"), dslString);
-		modGen.generateArgoXMI(new File("xmiArgo.xmi"), dslString);
-		modGen.generateStarXMI(new File("xmiStar.xmi"), dslString);
-
+		ModelGenerator modGen = new ModelGenerator(dslString, new MoreRedocOutputConfiguration(true,true,true,true,true));
+		modGen.generateModels(new File("").getAbsolutePath());
 	}
 }

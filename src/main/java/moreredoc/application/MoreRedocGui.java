@@ -40,6 +40,8 @@ public class MoreRedocGui extends JFrame {
     private final JCheckBox cbRawXmi;
     private final JCheckBox cbArgoUml;
     private final JCheckBox cbStarUml;
+    private final JCheckBox cbPng;
+    private final JCheckBox cbSvg;
 
     private final JButton buttonGenerateModels;
 
@@ -50,13 +52,13 @@ public class MoreRedocGui extends JFrame {
     private final JButton buttonChooseOutputFolder;
 
     private static final String TEXT_CHOOSE_BUTTON = "Select";
-    private static final String ERRORMESSAGE_INVALID_INPUT = "An error occured while the input files were parsed. Please make sure that both requirement inputs are valid.";
-    private static final String ERRORHEADER_INVALID_INPUT = "Error parsing input files";
+    private static final String ERROR_MESSAGE_INVALID_INPUT = "An error occured while the input files were parsed. Please make sure that both requirement inputs are valid.";
+    private static final String ERROR_HEADER_INVALID_INPUT = "Error parsing input files";
 
     public MoreRedocGui() {
         super(APPLICATION_TITLE);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setSize(700, 300);
+        setSize(700, 350);
 
         JPanel mainPanel = new JPanel();
 
@@ -244,13 +246,31 @@ public class MoreRedocGui extends JFrame {
         gbcCbStarUml.gridy = 9;
         mainPanel.add(cbStarUml, gbcCbStarUml);
 
+        cbPng = new JCheckBox("PNG");
+        cbPng.setSelected(true);
+        GridBagConstraints gbcCbPng = new GridBagConstraints();
+        gbcCbPng.anchor = GridBagConstraints.WEST;
+        gbcCbPng.insets = new Insets(0, 0, 5, 5);
+        gbcCbPng.gridx = 1;
+        gbcCbPng.gridy = 10;
+        mainPanel.add(cbPng, gbcCbPng);
+
+        cbSvg = new JCheckBox("SVG");
+        cbSvg.setSelected(true);
+        GridBagConstraints gbcCbSvg = new GridBagConstraints();
+        gbcCbSvg.anchor = GridBagConstraints.WEST;
+        gbcCbSvg.insets = new Insets(0, 0, 5, 5);
+        gbcCbSvg.gridx = 1;
+        gbcCbSvg.gridy = 11;
+        mainPanel.add(cbSvg, gbcCbSvg);
+
         buttonGenerateModels = new JButton("Run");
         buttonGenerateModels.setVerticalAlignment(SwingConstants.BOTTOM);
-        buttonGenerateModels.addActionListener(e -> runGenerateModel(cbVerbsMethods.isSelected(), cbVerbsRelationships.isSelected(), cbRawXmi.isSelected(), cbArgoUml.isSelected(), cbStarUml.isSelected(), true, true));
+        buttonGenerateModels.addActionListener(e -> runGenerateModel(cbVerbsMethods.isSelected(), cbVerbsRelationships.isSelected(), cbRawXmi.isSelected(), cbArgoUml.isSelected(), cbStarUml.isSelected(), cbPng.isSelected(), cbSvg.isSelected()));
         GridBagConstraints gbcButtonGenerateModels = new GridBagConstraints();
         gbcButtonGenerateModels.insets = new Insets(0, 0, 5, 0);
         gbcButtonGenerateModels.gridx = 2;
-        gbcButtonGenerateModels.gridy = 11;
+        gbcButtonGenerateModels.gridy = 12;
         mainPanel.add(buttonGenerateModels, gbcButtonGenerateModels);
     }
 
@@ -296,7 +316,7 @@ public class MoreRedocGui extends JFrame {
                     // working around getting into swing too deep..
                     if (e.getCause() instanceof InvalidRequirementInputException) {
                         logger.error("InvalidRequirementInput");
-                        JOptionPane.showMessageDialog(parentComponentForDialog, ERRORMESSAGE_INVALID_INPUT, ERRORHEADER_INVALID_INPUT, JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(parentComponentForDialog, ERROR_MESSAGE_INVALID_INPUT, ERROR_HEADER_INVALID_INPUT, JOptionPane.ERROR_MESSAGE);
                     } else {
                         logger.error(e);
                     }
@@ -322,6 +342,8 @@ public class MoreRedocGui extends JFrame {
         this.cbArgoUml.setEnabled(activeState);
         this.cbRawXmi.setEnabled(activeState);
         this.cbStarUml.setEnabled(activeState);
+        this.cbPng.setEnabled(activeState);
+        this.cbSvg.setEnabled(activeState);
 
         this.buttonChooseKeywordsCsv.setEnabled(activeState);
         this.buttonChooseOutputFolder.setEnabled(activeState);
@@ -345,7 +367,7 @@ public class MoreRedocGui extends JFrame {
             return false;
         }
 
-        if (!cbArgoUml.isSelected() && !cbRawXmi.isSelected() && !cbStarUml.isSelected()) {
+        if (!cbArgoUml.isSelected() && !cbRawXmi.isSelected() && !cbStarUml.isSelected() && !cbPng.isSelected() && !cbSvg.isSelected()) {
             JOptionPane.showMessageDialog(this, "Please select at least one output file type.");
             return false;
         }

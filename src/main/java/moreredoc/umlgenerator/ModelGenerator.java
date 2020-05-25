@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
+import moreredoc.application.MoreRedocOutputConfiguration;
 import org.apache.commons.io.FileUtils;
 
 import net.sourceforge.plantuml.FileFormat;
@@ -13,13 +14,43 @@ import net.sourceforge.plantuml.FileFormatOption;
 import net.sourceforge.plantuml.SourceStringReader;
 
 public class ModelGenerator {
-	public void drawPng(File file, String umlInput) throws IOException {
+	private final String plantUmlModel;
+	private final MoreRedocOutputConfiguration outputConfiguration;
+
+	public ModelGenerator(String plantUmlModel, MoreRedocOutputConfiguration outputConfiguration) {
+		this.plantUmlModel = plantUmlModel;
+		this.outputConfiguration = outputConfiguration;
+	}
+
+	public void generateModels(String pathOutputFolder) throws IOException {
+		if (outputConfiguration.isOutputPng()) {
+			drawPng(new File(pathOutputFolder + File.separator + "/model.png"), plantUmlModel);
+		}
+
+		if (outputConfiguration.isOutputSvg()) {
+			drawSvg(new File(pathOutputFolder + File.separator + "model.svg"), plantUmlModel);
+		}
+
+		if (outputConfiguration.isXmiRaw()) {
+			generateRawXMI(new File(pathOutputFolder + File.separator + "xmiRaw.xmi"), plantUmlModel);
+		}
+
+		if (outputConfiguration.isXmiArgo()) {
+			generateArgoXMI(new File(pathOutputFolder + File.separator + "xmiArgo.xmi"), plantUmlModel);
+		}
+
+		if (outputConfiguration.isXmiStar()) {
+			generateStarXMI(new File(pathOutputFolder + File.separator + "xmiStar.xmi"), plantUmlModel);
+		}
+	}
+
+	private void drawPng(File file, String umlInput) throws IOException {
 		SourceStringReader reader = new SourceStringReader(umlInput);
 		FileOutputStream outStream = new FileOutputStream(file);
 		reader.generateImage(outStream);
 	}
 
-	public void drawSvg(File file, String umlInput) throws IOException {
+	private void drawSvg(File file, String umlInput) throws IOException {
 		SourceStringReader reader = new SourceStringReader(umlInput);
 		try(ByteArrayOutputStream os = new ByteArrayOutputStream()){
 			reader.generateImage(os, new FileFormatOption(FileFormat.SVG));
@@ -28,15 +59,15 @@ public class ModelGenerator {
 		}
 	}
 
-	public void generateRawXMI(File file, String umlInput) throws IOException {
+	private void generateRawXMI(File file, String umlInput) throws IOException {
 		generateXMI(file, umlInput, XMITools.RAW);
 	}
 
-	public void generateStarXMI(File file, String umlInput) throws IOException {
+	private void generateStarXMI(File file, String umlInput) throws IOException {
 		generateXMI(file, umlInput, XMITools.STAR_UML);
 	}
 
-	public void generateArgoXMI(File file, String umlInput) throws IOException {
+	private void generateArgoXMI(File file, String umlInput) throws IOException {
 		generateXMI(file, umlInput, XMITools.ARGO_UML);
 	}
 

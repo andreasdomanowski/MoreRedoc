@@ -56,7 +56,6 @@ public class AttributiveRelationshipService {
 			if (domainConcepts.contains(preWordRegularized) && domainConcepts.contains(postWordRegularized)) {
 				// initialize new attributive relationship
 				// calculate multiplicity
-				// TODO: implement multiplicity
 				toReturn.add(new PossessionTuple(postWordRegularized, preWordRegularized, Multiplicity.NO_INFO));
 				// toReturn.add(arg0)
 			}
@@ -66,9 +65,7 @@ public class AttributiveRelationshipService {
 
 	private static void addPossessivesWithGenitive(String[] splittedInput, List<PossessionTuple> toReturn,
 			Set<String> domainConcepts) {
-		// TODO: implement multiplicity
-		// vorgehen: suche domainconcept+'s oder +s'
-		// bei matches prüfen, ob folgendes wort domain concept ist, oder nicht
+		// approach: search domainconcept+'s or +s'
 		String genitiveIndicator = "'";
 
 		// iterate over splitted Input, find words containing genitive indicator " ' "

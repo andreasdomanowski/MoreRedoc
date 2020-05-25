@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import moreredoc.analysis.data.CompoundType;
 import org.apache.commons.lang3.StringUtils;
 
 import moreredoc.analysis.data.PossessionTuple;
@@ -25,12 +26,14 @@ public class CompoundAnalysisService {
 	 * @param domainConcepts
 	 * @return
 	 */
-	public static List<PossessionTuple> computeCompoundType(String in, String domainConceptToTest,
+	public static List<PossessionTuple> computePossessionTuples(String in, String domainConceptToTest,
 			Set<String> domainConcepts) {
 		List<PossessionTuple> toReturn = new ArrayList<>();
 		// domain concept can be attribute or/AND class type, initialize flags for this
 		// combinations
+		@SuppressWarnings("unused")
 		boolean isAttributeType = false;
+		@SuppressWarnings("unused")
 		boolean isClassType = false;
 
 		// regularized domain concept to test
@@ -79,7 +82,6 @@ public class CompoundAnalysisService {
 				}
 			}
 
-			// TODO : refactor
 			if (postOccurence <= maxIndex) {
 				// iterate over all domain concepts
 				for (String domainConcept : domainConcepts) {
@@ -95,10 +97,14 @@ public class CompoundAnalysisService {
 			}
 		}
 
-//		if(isAttributeType && isClassType) return CompoundType.COMPOUND_BOTH; 
-//		else if(isAttributeType && !isClassType) return CompoundType.COMPOUND_ATTRIBUTE;
-//		else if(!isAttributeType && isClassType) return CompoundType.COMPOUND_CLASS;
-//		else return CompoundType.NONE;
+		@SuppressWarnings("unused")
+		CompoundType compoundType;
+
+		if(isAttributeType && isClassType) compoundType =  CompoundType.COMPOUND_BOTH;
+		else if(isAttributeType && !isClassType) compoundType = CompoundType.COMPOUND_ATTRIBUTE;
+		else if(!isAttributeType && isClassType) compoundType = CompoundType.COMPOUND_CLASS;
+		else compoundType = CompoundType.NONE;
+
 		return toReturn;
 	}
 

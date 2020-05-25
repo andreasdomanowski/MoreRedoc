@@ -22,199 +22,199 @@ import moreredoc.umldata.UmlRelationship;
 import moreredoc.umldata.UmlRelationshipType;
 
 public class MoreRedocAnalysis {
-	private static Logger logger = Logger.getLogger(MoreRedocAnalysis.class);
-	
-	private MoreRedocAnalysisConfiguration configuration;
+    private static Logger logger = Logger.getLogger(MoreRedocAnalysis.class);
 
-	private MoreRedocProject project;
-	private List<PossessionTuple> possessionTuples;
+    private MoreRedocAnalysisConfiguration configuration;
 
-	// model parts
-	private UmlModel model;
-	private Map<String, UmlClass> classMapping = new HashMap<>();
-	private List<UmlRelationship> relationships = new ArrayList<>();
+    private MoreRedocProject project;
+    private List<PossessionTuple> possessionTuples;
 
-	/**
-	 * Hide constructor with no arguments.
-	 */
-	@SuppressWarnings("unused")
-	private MoreRedocAnalysis() {
+    // model parts
+    private UmlModel model;
+    private Map<String, UmlClass> classMapping = new HashMap<>();
+    private List<UmlRelationship> relationships = new ArrayList<>();
 
-	}
+    /**
+     * Hide constructor with no arguments.
+     */
+    @SuppressWarnings("unused")
+    private MoreRedocAnalysis() {
 
-	public MoreRedocAnalysis(MoreRedocProject project, MoreRedocAnalysisConfiguration configuration) {
-		this.project = project;
-		this.setConfiguration(configuration);
-		initializePossessionTuples();
-		initializeClasses();
-		generateModel();
-		analyzeVerbs();
-	}
+    }
 
-	private void initializePossessionTuples() {
-		possessionTuples = new ArrayList<>();
-		// add compound concepts from domain concept set
-		possessionTuples
-				.addAll(CompoundAnalysisService.computeCompoundTypeOfConcept(project.getProjectDomainConcepts()));
+    public MoreRedocAnalysis(MoreRedocProject project, MoreRedocAnalysisConfiguration configuration) {
+        this.project = project;
+        this.setConfiguration(configuration);
+        initializePossessionTuples();
+        initializeClasses();
+        generateModel();
+        analyzeVerbs();
+    }
 
-		// add possession tuples from attribute relationships
-		possessionTuples.addAll(AttributiveRelationshipService
-				.computeRelationshipTuples(project.getWholeProcessedText(), project.getProjectDomainConcepts()));
+    private void initializePossessionTuples() {
+        possessionTuples = new ArrayList<>();
+        // add compound concepts from domain concept set
+        possessionTuples
+                .addAll(CompoundAnalysisService.computeCompoundTypeOfConcept(project.getProjectDomainConcepts()));
 
-		// add possesion tuples from compound analysis
-		for (ProcessedRequirement r : project.getProcessedProjectRequirements()) {
-			// analyze every subject and every object from the triples
-			for (RelationTripleWrapper w : r.getRelationTriples()) {
-				RelationTriple triple = w.getTriple();
-				String subject = triple.subjectGloss();
-				String object = triple.objectGloss();
+        // add possession tuples from attribute relationships
+        possessionTuples.addAll(AttributiveRelationshipService
+                .computeRelationshipTuples(project.getWholeProcessedText(), project.getProjectDomainConcepts()));
 
-				for (String s : project.getProjectDomainConcepts()) {
-					for (PossessionTuple tuple : CompoundAnalysisService.computeCompoundType(subject, s,
-							project.getProjectDomainConcepts())) {
-						possessionTuples.add(tuple);
-					}
+        // add possesion tuples from compound analysis
+        for (ProcessedRequirement r : project.getProcessedProjectRequirements()) {
+            // analyze every subject and every object from the triples
+            for (RelationTripleWrapper w : r.getRelationTriples()) {
+                RelationTriple triple = w.getTriple();
+                String subject = triple.subjectGloss();
+                String object = triple.objectGloss();
 
-					for (PossessionTuple tuple : CompoundAnalysisService.computeCompoundType(object, s,
-							project.getProjectDomainConcepts())) {
-						possessionTuples.add(tuple);
-					}
-				}
+                for (String s : project.getProjectDomainConcepts()) {
+                    for (PossessionTuple tuple : CompoundAnalysisService.computePossessionTuples(subject, s,
+                            project.getProjectDomainConcepts())) {
+                        possessionTuples.add(tuple);
+                    }
 
-			}
-		}
-	}
+                    for (PossessionTuple tuple : CompoundAnalysisService.computePossessionTuples(object, s,
+                            project.getProjectDomainConcepts())) {
+                        possessionTuples.add(tuple);
+                    }
+                }
 
-	private void initializeClasses() {
-		// iterate over all domain concepts, check whether it is class or attribute
-		for (String domainConcept : project.getProjectDomainConcepts()) {
-			boolean isClassCandidate = false;
-			boolean isAttributeCandidate = false;
+            }
+        }
+    }
 
-			// possible owner class for an attribute
-			String ownerClassName = null;
+    private void initializeClasses() {
+        // iterate over all domain concepts, check whether it is class or attribute
+        for (String domainConcept : project.getProjectDomainConcepts()) {
+            boolean isClassCandidate = false;
+            boolean isAttributeCandidate = false;
 
-			// iterate over all possession tuples, check for occurences indicating either
-			// class or attribute type
-			// if domain concept is a subject in a tuple, it will be a candidate for a class
-			// if its an object, it will be a candidate for an attribute
-			for (PossessionTuple tuple : this.possessionTuples) {
-				if (tuple.getOwner().equals(domainConcept))
-					isClassCandidate = true;
-				if (tuple.getOwned().equals(domainConcept)) {
-					isAttributeCandidate = true;
-					ownerClassName = tuple.getOwner();
-				}
-			}
+            // possible owner class for an attribute
+            String ownerClassName = null;
 
-			// if its just class candidate -> class
-			if (isClassCandidate && !isAttributeCandidate && !this.classMapping.containsKey(domainConcept)) {
-				UmlClass newClass = new UmlClass(domainConcept);
-				this.classMapping.put(domainConcept, newClass);
-			}
-			// if its just attribute candidate -> attribute to respective class
-			if (!isClassCandidate && isAttributeCandidate) {
-				UmlClass classForAttribute;
-				if (this.classMapping.containsKey(ownerClassName)) {
-					classForAttribute = this.classMapping.get(ownerClassName);
-					classForAttribute.addAttribute(domainConcept);
-				} else {
-					classForAttribute = new UmlClass(ownerClassName);
-					classForAttribute.addAttribute(domainConcept);
-					this.classMapping.put(ownerClassName, classForAttribute);
-				}
-			}
-			// if its class AND attribute candidate, it will be a class, but theres an
-			// aggregration between to classes
-			if (isClassCandidate && isAttributeCandidate) {
-				// class representing the attribute
-				UmlClass attributeClass = null;
-				if (this.classMapping.containsKey(domainConcept)) {
-					attributeClass = this.classMapping.get(domainConcept);
-				} else {
-					attributeClass = new UmlClass(domainConcept);
-					this.classMapping.put(domainConcept, attributeClass);
-				}
-				// class representing the parent class of the attribute
-				UmlClass ownerClass;
-				if (this.classMapping.containsKey(ownerClassName)) {
-					ownerClass = this.classMapping.get(ownerClassName);
-				} else {
-					ownerClass = new UmlClass(ownerClassName);
-					this.classMapping.put(ownerClassName, ownerClass);
-				}
-				UmlRelationship newRelationship = new UmlRelationship(ownerClass, attributeClass,
-						UmlRelationshipType.AGGREGATION, null);
-				this.relationships.add(newRelationship);
-			}
+            // iterate over all possession tuples, check for occurences indicating either
+            // class or attribute type
+            // if domain concept is a subject in a tuple, it will be a candidate for a class
+            // if its an object, it will be a candidate for an attribute
+            for (PossessionTuple tuple : this.possessionTuples) {
+                if (tuple.getOwner().equals(domainConcept))
+                    isClassCandidate = true;
+                if (tuple.getOwned().equals(domainConcept)) {
+                    isAttributeCandidate = true;
+                    ownerClassName = tuple.getOwner();
+                }
+            }
 
-			if (!isClassCandidate && !isAttributeCandidate && !this.classMapping.containsKey(domainConcept)) {
-				UmlClass newClass;
-				newClass = new UmlClass(domainConcept);
-				this.classMapping.put(domainConcept, newClass);
-			}
+            // if its just class candidate -> class
+            if (isClassCandidate && !isAttributeCandidate && !this.classMapping.containsKey(domainConcept)) {
+                UmlClass newClass = new UmlClass(domainConcept);
+                this.classMapping.put(domainConcept, newClass);
+            }
+            // if its just attribute candidate -> attribute to respective class
+            if (!isClassCandidate && isAttributeCandidate) {
+                UmlClass classForAttribute;
+                if (this.classMapping.containsKey(ownerClassName)) {
+                    classForAttribute = this.classMapping.get(ownerClassName);
+                    classForAttribute.addAttribute(domainConcept);
+                } else {
+                    classForAttribute = new UmlClass(ownerClassName);
+                    classForAttribute.addAttribute(domainConcept);
+                    this.classMapping.put(ownerClassName, classForAttribute);
+                }
+            }
+            // if its class AND attribute candidate, it will be a class, but theres an
+            // aggregration between to classes
+            if (isClassCandidate && isAttributeCandidate) {
+                // class representing the attribute
+                UmlClass attributeClass = null;
+                if (this.classMapping.containsKey(domainConcept)) {
+                    attributeClass = this.classMapping.get(domainConcept);
+                } else {
+                    attributeClass = new UmlClass(domainConcept);
+                    this.classMapping.put(domainConcept, attributeClass);
+                }
+                // class representing the parent class of the attribute
+                UmlClass ownerClass;
+                if (this.classMapping.containsKey(ownerClassName)) {
+                    ownerClass = this.classMapping.get(ownerClassName);
+                } else {
+                    ownerClass = new UmlClass(ownerClassName);
+                    this.classMapping.put(ownerClassName, ownerClass);
+                }
+                UmlRelationship newRelationship = new UmlRelationship(ownerClass, attributeClass,
+                        UmlRelationshipType.AGGREGATION, null);
+                this.relationships.add(newRelationship);
+            }
 
-		}
-	}
+            if (!isClassCandidate && !isAttributeCandidate && !this.classMapping.containsKey(domainConcept)) {
+                UmlClass newClass;
+                newClass = new UmlClass(domainConcept);
+                this.classMapping.put(domainConcept, newClass);
+            }
 
-	private void analyzeVerbs() {
-		if (this.model == null)
-			return;
+        }
+    }
 
-		List<VerbCandidate> verbList = new ArrayList<>();
+    private void analyzeVerbs() {
+        if (this.model == null)
+            return;
 
-		for (ProcessedRequirement r : project.getProcessedProjectRequirements()) {
-			verbList.addAll(
-					VerbAnalyzerService.analyzeIETriples(r.getRelationTriples(), project.getProjectDomainConcepts()));
-		}
+        List<VerbCandidate> verbList = new ArrayList<>();
 
-		for (VerbCandidate c : verbList) {
-			String currentFrom = c.getFrom();
-			if (this.classMapping.containsKey(currentFrom)) {
-				UmlClass currentFromClass = this.classMapping.get(currentFrom);
-				
-				StringBuilder methodStringBuilder = new StringBuilder(c.getVerb());
+        for (ProcessedRequirement r : project.getProcessedProjectRequirements()) {
+            verbList.addAll(
+                    VerbAnalyzerService.analyzeIETriples(r.getRelationTriples(), project.getProjectDomainConcepts()));
+        }
 
-				// if getTo != null, check if it is modelled as class
-				// if so, add relationship
-				// if not, just add it as method argument
-				if (c.getTo() != null) {
-					if (this.classMapping.containsKey(c.getTo())) {
-						// TODO 
-						UmlClass currentToClass = this.classMapping.get(c.getTo());
-						UmlRelationship newRelationship = new UmlRelationship(currentFromClass, currentToClass,
-								UmlRelationshipType.ASSOCIATION, c.getVerb());
-						model.getRelationships().add(newRelationship);
+        for (VerbCandidate c : verbList) {
+            String currentFrom = c.getFrom();
+            if (this.classMapping.containsKey(currentFrom)) {
+                UmlClass currentFromClass = this.classMapping.get(currentFrom);
 
-					}
-					methodStringBuilder.append("(" + c.getTo() + ")");
+                StringBuilder methodStringBuilder = new StringBuilder(c.getVerb());
 
-				}
+                // if getTo != null, check if it is modelled as class
+                // if so, add relationship
+                // if not, just add it as method argument
+                if (c.getTo() != null) {
+                    if (this.classMapping.containsKey(c.getTo())) {
+                        // TODO
+                        UmlClass currentToClass = this.classMapping.get(c.getTo());
+                        UmlRelationship newRelationship = new UmlRelationship(currentFromClass, currentToClass,
+                                UmlRelationshipType.ASSOCIATION, c.getVerb());
+                        model.getRelationships().add(newRelationship);
 
-				currentFromClass.addMethod(methodStringBuilder.toString());
-			}
-		}
+                    }
+                    methodStringBuilder.append("(" + c.getTo() + ")");
 
-	}
+                }
 
-	private void generateModel() {
-		this.model = (new UmlModel(classMapping, relationships));
-	}
+                currentFromClass.addMethod(methodStringBuilder.toString());
+            }
+        }
 
-	public List<PossessionTuple> getPossessionTuples() {
-		return this.possessionTuples;
-	}
+    }
 
-	public UmlModel getModel() {
-		return model;
-	}
+    private void generateModel() {
+        this.model = (new UmlModel(classMapping, relationships));
+    }
 
-	public MoreRedocAnalysisConfiguration getConfiguration() {
-		return configuration;
-	}
+    public List<PossessionTuple> getPossessionTuples() {
+        return this.possessionTuples;
+    }
 
-	public void setConfiguration(MoreRedocAnalysisConfiguration configuration) {
-		this.configuration = configuration;
-	}
+    public UmlModel getModel() {
+        return model;
+    }
+
+    public MoreRedocAnalysisConfiguration getConfiguration() {
+        return configuration;
+    }
+
+    public void setConfiguration(MoreRedocAnalysisConfiguration configuration) {
+        this.configuration = configuration;
+    }
 
 }

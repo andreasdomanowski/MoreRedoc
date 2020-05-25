@@ -52,24 +52,20 @@ public class CorefReplacementService {
 					int sentINdx = chain.getRepresentativeMention().sentNum - 1;
 					CoreMap corefSentence = sentences.get(sentINdx);
 					List<CoreLabel> corefSentenceTokens = corefSentence.get(TokensAnnotation.class);
-					String newwords = "";
+					StringBuilder newWordsBuilder = new StringBuilder();
 					CorefMention reprMent = chain.getRepresentativeMention();
 					if (token.index() <= reprMent.startIndex || token.index() >= reprMent.endIndex) {
 						for (int i = reprMent.startIndex; i < reprMent.endIndex; i++) {
 							CoreLabel matchedLabel = corefSentenceTokens.get(i - 1);
 							resolved.add(matchedLabel.word().replace("'s", ""));
-							newwords += matchedLabel.word() + " ";
-
+							newWordsBuilder.append(matchedLabel.word() + " ");
 						}
 					}
-
 					else {
 						resolved.add(token.word());
 					}
 				}
-
 			}
-
 		}
 
 		StringBuilder stringBuilder = new StringBuilder();
