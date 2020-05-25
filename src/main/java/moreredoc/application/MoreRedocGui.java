@@ -61,7 +61,7 @@ public class MoreRedocGui extends JFrame {
     public MoreRedocGui() {
         super(APPLICATION_TITLE);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setSize(700, 500);
+        setSize(700, 400);
 
         JPanel mainPanel = new JPanel();
 
@@ -325,7 +325,7 @@ public class MoreRedocGui extends JFrame {
                 MoreRedocAnalysisConfiguration analysisConfiguration = new MoreRedocAnalysisConfiguration(verbsMethods, verbsRelationships);
                 MoreRedocOutputConfiguration outputConfiguration = new MoreRedocOutputConfiguration(outputRawXmi, outputArgoXmi, outputStarUml, outputPng, outputSvg);
 
-                SupportedRedocumentationTools tool = (SupportedRedocumentationTools) comboBoxToolSelection.getSelectedItem();
+                SupportedRedocumentationTools tool = comboBoxToolSelection.getItemAt(comboBoxToolSelection.getSelectedIndex());
                 Objects.requireNonNull(tool);
 
                 MoreRedocStarter.generateModel(textfieldCsvText.getText(), textfieldOutputFolder.getText(), textfieldCsvKeywords.getText(), outputConfiguration, analysisConfiguration, tool.getDataHandler());
