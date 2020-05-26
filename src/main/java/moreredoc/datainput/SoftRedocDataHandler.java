@@ -1,14 +1,13 @@
 package moreredoc.datainput;
 
+import moreredoc.application.exceptions.InvalidRequirementInputException;
+import moreredoc.project.data.Requirement;
+import org.jboss.dna.common.text.Inflector;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import moreredoc.application.exceptions.InvalidRequirementInputException;
-import org.jboss.dna.common.text.Inflector;
-
-import moreredoc.project.data.Requirement;
 
 public final class SoftRedocDataHandler implements InputDataHandler {
 
@@ -31,6 +30,8 @@ public final class SoftRedocDataHandler implements InputDataHandler {
     private static final String LINE_NUMBER_METADATA_1 = "1";
     private static final String LINE_NUMBER_METADATA_2 = "2";
 
+    public static final String CSV_DELIMITER = ";";
+
     @Override
     public List<Requirement> getRequirementsFromCsvInputs(List<List<String>> keywordInput,
             List<List<String>> sentencesInput) throws InvalidRequirementInputException {
@@ -39,6 +40,11 @@ public final class SoftRedocDataHandler implements InputDataHandler {
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new InvalidRequirementInputException();
         }
+    }
+
+    @Override
+    public String getCsvDelimiter() {
+        return CSV_DELIMITER;
     }
 
     private List<Requirement> getRequirementSentences(List<Requirement> requirements, List<List<String>> sentencesInput) {

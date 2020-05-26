@@ -11,9 +11,10 @@ This software was developed for my minor thesis (*Towards an Automatic Generatio
 - JDK 1.8
 - Maven 3
 - at least 8 GiB of RAM
-    - run with *-Xmx8G*
+    - VM Option *-Xmx8G*
 
 ## Build and run
+### Via maven
 1. Download or clone this repo
 2. Build the project via
 `mvn clean compile assembly:single`
@@ -22,9 +23,14 @@ This software was developed for my minor thesis (*Towards an Automatic Generatio
 4. Select the respective CSVs and modeling options
 5. Generate the model. Output can be found in the specified folder
 
+### Via IDE
+For Integrating it in your IDE, just import the maven project.
+* `moreredoc.application.MoreRedocGuiStarter` starts the GUI
+* `moreredoc.application.MoreRedocStarter` provides an API for the modeling
+
 ## License
 - GPLv3, see [LICENSE](LICENSE)
 
 ## Support for other (Re)documentation tools
 - Implement a `moreredoc.datainput.InputDataHandler`for your tool
-- Add the tool with a reference to an *InputDataHandler* to the enum of supported tools in `moreredoc.datainput.tools.SupportedRedocumentationTools`
+- Add the tool with a reference to your *InputDataHandler* to the enum of supported tools in `moreredoc.datainput.tools.SupportedRedocumentationTools`
