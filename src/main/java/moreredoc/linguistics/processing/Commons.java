@@ -4,6 +4,9 @@ package moreredoc.linguistics.processing;
  * Commons concerning linguistic analysis for this project.
  */
 public class Commons {
+    private Commons(){
+    }
+
     public static final String GENITIVE_INDICATOR = "'";
 
     // relevant POS Tags
