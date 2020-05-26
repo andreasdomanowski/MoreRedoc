@@ -1,17 +1,16 @@
 package moreredoc.analysis.services;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import moreredoc.analysis.data.PossessionTuple;
+import moreredoc.umldata.Multiplicity;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.junit.Before;
-import org.junit.Test;
-
-import moreredoc.analysis.data.PossessionTuple;
-import moreredoc.umldata.Multiplicity;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 public class AttributiveRelationshipServiceTest {
 	private String genitiveOwnershipSentenceSingular = "customer's id";
@@ -38,7 +37,8 @@ public class AttributiveRelationshipServiceTest {
 		}
 		
 		for(PossessionTuple tuple : calculated) {
-			assertEquals(possession, tuple);
+			assertEquals(possession.getOwner(), tuple.getOwner());
+			assertEquals(possession.getOwned(), tuple.getOwned());
 		}
 	}
 	

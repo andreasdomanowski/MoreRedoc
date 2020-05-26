@@ -48,7 +48,7 @@ public class MoreRedocModelGenerator {
         possessionTuples = new ArrayList<>();
         // add compound concepts from domain concept set
         possessionTuples
-                .addAll(CompoundAnalysisService.computeCompoundTypeOfConcept(project.getProjectDomainConcepts()));
+                .addAll(CompoundAnalysisService.computeCompoundConceptsFromAllConcepts(project.getProjectDomainConcepts()));
 
         // add possession tuples from attribute relationships
         possessionTuples.addAll(AttributiveRelationshipService

@@ -1,4 +1,4 @@
-package moreredoc.integration.tools;
+package moreredoc.datainput.tools;
 
 import moreredoc.datainput.InputDataHandler;
 import moreredoc.datainput.SoftRedocDataHandler;

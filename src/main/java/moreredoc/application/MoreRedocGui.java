@@ -2,7 +2,7 @@ package moreredoc.application;
 
 import moreredoc.analysis.MoreRedocAnalysisConfiguration;
 import moreredoc.application.exceptions.InvalidRequirementInputException;
-import moreredoc.integration.tools.SupportedRedocumentationTools;
+import moreredoc.datainput.tools.SupportedRedocumentationTools;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;

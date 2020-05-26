@@ -18,15 +18,6 @@ public class CompoundAnalysisService {
 	private CompoundAnalysisService() {
 	}
 
-	/**
-	 * Computes the compound type (Enumeration CompoundType, either) of a given
-	 * domain concept for a given sentence
-	 * 
-	 * @param in
-	 * @param domainConceptToTest
-	 * @param domainConcepts
-	 * @return
-	 */
 	public static List<PossessionTuple> computePossessionTuples(String in, String domainConceptToTest,
 			Set<String> domainConcepts) {
 		List<PossessionTuple> toReturn = new ArrayList<>();
@@ -48,46 +39,46 @@ public class CompoundAnalysisService {
 			inputSplittedByWhitespace[i] = WordRegularizerService.regularize(inputSplittedByWhitespace[i]);
 		}
 
-		// list containing every index of a occurence in the array
-		List<Integer> occurenceIndices = MoreRedocStringUtils.getIndicesForMatches(inputSplittedByWhitespace,
+		// list containing every index of a occurrence in the array
+		List<Integer> occurrenceIndices = MoreRedocStringUtils.getIndicesForMatches(inputSplittedByWhitespace,
 				domainConceptToTest);
 
 		int maxIndex = inputSplittedByWhitespace.length - 1;
 
-		// iterate once again, check neighbourhood of occurences
-		for (int occurenceIndex : occurenceIndices) {
+		// iterate once again, check neighbourhood of occurrences
+		for (int occurrenceIndex : occurrenceIndices) {
 			// compute indices of words in input before and after occurence of domain
 			// concept
-			int preOccurence = occurenceIndex - 1;
-			int postOccurence = occurenceIndex + 1;
+			int preOccurrence = occurrenceIndex - 1;
+			int postOccurrence = occurrenceIndex + 1;
 
 			// check, whether preOccurence would be out of bounds of array, if not, compute,
 			// whether preOccurence offers information about CompoundType
-			if (preOccurence >= 0) {
+			if (preOccurrence >= 0) {
 				// iterate over all domain concepts
 				for (String domainConcept : domainConcepts) {
 					// if there is a match at index preoccurence and it does not equal
 					// domainConceptToTest -> attributeType
-					if (inputSplittedByWhitespace[preOccurence].equals(domainConcept)
-							&& !inputSplittedByWhitespace[preOccurence].equals(domainConceptToTest)) {
+					if (inputSplittedByWhitespace[preOccurrence].equals(domainConcept)
+							&& !inputSplittedByWhitespace[preOccurrence].equals(domainConceptToTest)) {
 						isAttributeType = true;
 						logger.debug(domainConcept + "/AttributeType: " + isAttributeType);
-						String preClass = inputSplittedByWhitespace[preOccurence];
+						String preClass = inputSplittedByWhitespace[preOccurrence];
 						toReturn.add(new PossessionTuple(preClass, domainConceptToTest, Multiplicity.NO_INFO));
 					}
 				}
 			}
 
-			if (postOccurence <= maxIndex) {
+			if (postOccurrence <= maxIndex) {
 				// iterate over all domain concepts
 				for (String domainConcept : domainConcepts) {
 					// if there is a match at index preoccurence and it does not equal
 					// domainConceptToTest -> attributeType
-					if (inputSplittedByWhitespace[postOccurence].equals(domainConcept)
-							&& !inputSplittedByWhitespace[postOccurence].equals(domainConceptToTest)) {
+					if (inputSplittedByWhitespace[postOccurrence].equals(domainConcept)
+							&& !inputSplittedByWhitespace[postOccurrence].equals(domainConceptToTest)) {
 						isClassType = true;
 						logger.debug(domainConcept + "/ClassType: " + isClassType);
-						String postAttribute = inputSplittedByWhitespace[postOccurence];
+						String postAttribute = inputSplittedByWhitespace[postOccurrence];
 						toReturn.add(new PossessionTuple(domainConceptToTest, postAttribute, Multiplicity.NO_INFO));
 					}
 				}
@@ -96,7 +87,10 @@ public class CompoundAnalysisService {
 		return toReturn;
 	}
 
-	public static List<PossessionTuple> computeCompoundTypeOfConcept(Set<String> allConcepts) {
+	/**
+	 * Analyzes all domain concepts and checks for the existence of compound concepts.
+	 */
+	public static List<PossessionTuple> computeCompoundConceptsFromAllConcepts(Set<String> allConcepts) {
 		List<PossessionTuple> result = new ArrayList<>();
 
 		for (String concept : allConcepts) {
