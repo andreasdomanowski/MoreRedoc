@@ -45,6 +45,10 @@ public class ModelGeneratorExample {
 		
 		String dslString = exampleModel.toPlantUmlDslString();
 		ModelGenerator modGen = new ModelGenerator(dslString, new MoreRedocOutputConfiguration(true,true,true,true,true));
-		modGen.generateModels(new File("").getAbsolutePath());
+		modGen.generateModels(new File("generatedModels").getAbsolutePath());
+	}
+
+	public static void main(String[] args) throws IOException {
+		demonstrateModeling();
 	}
 }

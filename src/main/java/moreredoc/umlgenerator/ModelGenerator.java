@@ -1,17 +1,16 @@
 package moreredoc.umlgenerator;
 
+import moreredoc.application.MoreRedocOutputConfiguration;
+import net.sourceforge.plantuml.FileFormat;
+import net.sourceforge.plantuml.FileFormatOption;
+import net.sourceforge.plantuml.SourceStringReader;
+import org.apache.commons.io.FileUtils;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-
-import moreredoc.application.MoreRedocOutputConfiguration;
-import org.apache.commons.io.FileUtils;
-
-import net.sourceforge.plantuml.FileFormat;
-import net.sourceforge.plantuml.FileFormatOption;
-import net.sourceforge.plantuml.SourceStringReader;
 
 public class ModelGenerator {
 	private final String plantUmlModel;
@@ -80,7 +79,8 @@ public class ModelGenerator {
 		else if(xmiTool == XMITools.STAR_UML) fileFormat = FileFormat.XMI_STAR;
 		else fileFormat = FileFormat.XMI_STANDARD;
 		
-		String desc = reader.generateImage(os, new FileFormatOption(fileFormat));
-		FileUtils.writeStringToFile(file, desc, StandardCharsets.UTF_8);
+		reader.generateImage(os, new FileFormatOption(fileFormat));
+		final String outString = new String(os.toByteArray(), StandardCharsets.UTF_8);
+		FileUtils.writeStringToFile(file, outString, StandardCharsets.UTF_8);
 	}
 }
