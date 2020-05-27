@@ -341,7 +341,15 @@ public class MoreRedocGui extends JFrame {
                 Objects.requireNonNull(tool);
 
                 MoreRedocStarter.generateModel(textfieldCsvText.getText(), textfieldOutputFolder.getText(), textfieldCsvKeywords.getText(), outputConfiguration, analysisConfiguration, tool.getDataHandler());
-                JOptionPane.showMessageDialog(parentComponentForDialog, "Models were successfully generated.");
+                int openFolderResult = JOptionPane.showConfirmDialog(parentComponentForDialog, "Models were successfully generated. Open target folder?");
+                if(openFolderResult == JOptionPane.YES_OPTION){
+                    Desktop desktop = Desktop.getDesktop();
+                    try {
+                        desktop.open(new File(textfieldOutputFolder.getText()));
+                    } catch (IllegalArgumentException iae) {
+                        logger.error("Output folder not found");
+                    }
+                }
                 setUiActive(true);
                 logger.info("Model generation done");
                 return null;
