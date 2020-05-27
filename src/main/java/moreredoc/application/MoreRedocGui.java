@@ -249,7 +249,7 @@ public class MoreRedocGui extends JFrame {
         gbcLabelOutput.gridy = currentRow;
         mainPanel.add(labelOutput, gbcLabelOutput);
 
-        cbRawXmi = new JCheckBox("Raw XMI");
+        cbRawXmi = new JCheckBox("XMI");
         cbRawXmi.setSelected(true);
         GridBagConstraints gbcCbRawXmi = new GridBagConstraints();
         gbcCbRawXmi.anchor = GridBagConstraints.WEST;
@@ -268,6 +268,7 @@ public class MoreRedocGui extends JFrame {
         gbcCbArgoUml.gridy = currentRow;
         mainPanel.add(cbArgoUml, gbcCbArgoUml);
 
+        currentRow++;
         cbStarUml = new JCheckBox("XMI (StarUML)");
         cbStarUml.setSelected(true);
         GridBagConstraints gbcCbStarUml = new GridBagConstraints();
