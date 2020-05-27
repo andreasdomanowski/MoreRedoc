@@ -4,7 +4,7 @@ jdk:
 
 dist: xenial
 
-script: mvn clean package
+script: mvn clean package -PskipMemoryIntensiveTests
 
 cache:
   directories:
