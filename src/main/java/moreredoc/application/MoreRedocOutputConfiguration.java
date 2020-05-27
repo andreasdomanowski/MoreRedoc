@@ -1,10 +1,14 @@
 package moreredoc.application;
 
+import java.util.Objects;
+
 /**
  * POJO for representing an output configuration.
  * Specified, which types of files are to be generated
  */
 public class MoreRedocOutputConfiguration {
+    private String outputFolder;
+
     private boolean xmiRaw;
     private boolean xmiArgo;
     private boolean xmiStar;
@@ -12,7 +16,9 @@ public class MoreRedocOutputConfiguration {
     private boolean outputPng;
     private boolean outputSvg;
 
-    public MoreRedocOutputConfiguration(boolean xmiRaw, boolean xmiArgo, boolean xmiStar, boolean outputPng, boolean outputSvg) {
+    public MoreRedocOutputConfiguration(String outputFolder, boolean xmiRaw, boolean xmiArgo, boolean xmiStar, boolean outputPng, boolean outputSvg) {
+        Objects.requireNonNull(outputFolder);
+        this.outputFolder = outputFolder;
         this.xmiRaw = xmiRaw;
         this.xmiArgo = xmiArgo;
         this.xmiStar = xmiStar;
@@ -58,5 +64,13 @@ public class MoreRedocOutputConfiguration {
 
     public void setOutputSvg(boolean outputSvg) {
         this.outputSvg = outputSvg;
+    }
+
+    public String getOutputFolder() {
+        return outputFolder;
+    }
+
+    public void setOutputFolder(String outputFolder) {
+        this.outputFolder = outputFolder;
     }
 }

@@ -19,7 +19,7 @@ public class MoreRedocStarter {
 
     private static Logger logger = Logger.getLogger(MoreRedocStarter.class);
 
-    public static void generateModel(String pathCsvText, String pathOutputFolder, String pathCsvKeywords, MoreRedocOutputConfiguration outputConfiguration, MoreRedocAnalysisConfiguration analysisConfiguration, InputDataHandler inputDataHandler) throws InvalidRequirementInputException, IOException {
+    public static void generateModel(String pathCsvText, String pathCsvKeywords, MoreRedocOutputConfiguration outputConfiguration, MoreRedocAnalysisConfiguration analysisConfiguration, InputDataHandler inputDataHandler) throws InvalidRequirementInputException, IOException {
         List<List<String>> keywordsRaw = CsvReader.readCsv(pathCsvKeywords, inputDataHandler.getCsvDelimiter());
         List<List<String>> sentencesRaw = CsvReader.readCsv(pathCsvText, inputDataHandler.getCsvDelimiter());
 
@@ -34,7 +34,7 @@ public class MoreRedocStarter {
 
         logger.info("Start output file generation");
 		ModelGenerator modGen = new ModelGenerator(dslString, outputConfiguration);
-		modGen.generateModels(pathOutputFolder);
+		modGen.generateModels(outputConfiguration.getOutputFolder());
 		logger.info("Output files generated");
 	}
 

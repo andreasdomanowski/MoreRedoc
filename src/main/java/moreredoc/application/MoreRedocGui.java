@@ -335,14 +335,14 @@ public class MoreRedocGui extends JFrame {
                 setUiActive(false);
 
                 MoreRedocAnalysisConfiguration analysisConfiguration = new MoreRedocAnalysisConfiguration(verbsMethods, verbsRelationships);
-                MoreRedocOutputConfiguration outputConfiguration = new MoreRedocOutputConfiguration(outputRawXmi, outputArgoXmi, outputStarUml, outputPng, outputSvg);
+                MoreRedocOutputConfiguration outputConfiguration = new MoreRedocOutputConfiguration(textfieldOutputFolder.getText(), outputRawXmi, outputArgoXmi, outputStarUml, outputPng, outputSvg);
 
                 SupportedRedocumentationTools tool = comboBoxToolSelection.getItemAt(comboBoxToolSelection.getSelectedIndex());
                 Objects.requireNonNull(tool);
 
-                MoreRedocStarter.generateModel(textfieldCsvText.getText(), textfieldOutputFolder.getText(), textfieldCsvKeywords.getText(), outputConfiguration, analysisConfiguration, tool.getDataHandler());
+                MoreRedocStarter.generateModel(textfieldCsvText.getText(), textfieldCsvKeywords.getText(), outputConfiguration, analysisConfiguration, tool.getDataHandler());
                 int openFolderResult = JOptionPane.showConfirmDialog(parentComponentForDialog, "Models were successfully generated. Open target folder?");
-                if(openFolderResult == JOptionPane.YES_OPTION){
+                if (openFolderResult == JOptionPane.YES_OPTION) {
                     Desktop desktop = Desktop.getDesktop();
                     try {
                         desktop.open(new File(textfieldOutputFolder.getText()));
