@@ -213,18 +213,11 @@ public class MoreRedocGui extends JFrame {
         mainPanel.add(buttonChooseOutputFolder, gbcButtonChooseOutputFolder);
 
         currentRow++;
-        JLabel labelSettings = new JLabel("Settings:");
-        GridBagConstraints gbcLabelSettings = new GridBagConstraints();
-        gbcLabelSettings.anchor = GridBagConstraints.WEST;
-        gbcLabelSettings.insets = defaultInsets;
-        gbcLabelSettings.gridx = 0;
-        gbcLabelSettings.gridy = currentRow;
-        mainPanel.add(labelSettings, gbcLabelSettings);
-
         cbVerbsMethods = new JCheckBox("Model verbs as methods");
         cbVerbsMethods.setSelected(true);
+        cbVerbsMethods.setHorizontalTextPosition(SwingConstants.LEFT);
         GridBagConstraints gbcCbVerbsMethods = new GridBagConstraints();
-        gbcCbVerbsMethods.anchor = GridBagConstraints.WEST;
+        gbcCbVerbsMethods.anchor = GridBagConstraints.EAST;
         gbcCbVerbsMethods.insets = defaultInsets;
         gbcCbVerbsMethods.gridx = 1;
         gbcCbVerbsMethods.gridy = currentRow;
@@ -233,8 +226,9 @@ public class MoreRedocGui extends JFrame {
         currentRow++;
         cbVerbsRelationships = new JCheckBox("Model verbs as relationships");
         cbVerbsRelationships.setSelected(true);
+        cbVerbsRelationships.setHorizontalTextPosition(SwingConstants.LEFT);
         GridBagConstraints gbcCbVerbsRelationships = new GridBagConstraints();
-        gbcCbVerbsRelationships.anchor = GridBagConstraints.WEST;
+        gbcCbVerbsRelationships.anchor = GridBagConstraints.EAST;
         gbcCbVerbsRelationships.insets = defaultInsets;
         gbcCbVerbsRelationships.gridx = 1;
         gbcCbVerbsRelationships.gridy = currentRow;
