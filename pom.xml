@@ -5,11 +5,14 @@
     <groupId>de.andhub</groupId>
     <artifactId>MoreRedoc</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <description>Modeling of Redocumented Requirement Documents</description>
 
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <stanford.corenlp.version>3.8.0</stanford.corenlp.version>
         <log4j-version>2.13.3</log4j-version>
         <slf4j-version>1.7.30</slf4j-version>
+        <exclude.tests></exclude.tests>
     </properties>
 
     <!-- additional repo for jboss dna commons dependency -->
@@ -105,11 +108,30 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-help-plugin</artifactId>
+                <version>3.2.0</version>
+                <executions>
+                    <execution>
+                        <id>show-profiles</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>active-profiles</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.22.0</version>
+                <configuration>
+                    <excludes>
+                        <exclude>${exclude.tests}</exclude>
+                    </excludes>
+                </configuration>
             </plugin>
 
             <plugin>
@@ -135,8 +157,18 @@
                     </descriptorRefs>
                 </configuration>
             </plugin>
-
         </plugins>
+
+
     </build>
-    <description>Modeling of Redocumented Requirement Documents</description>
+
+    <!-- profile for skipping tests requiring a bigger heap than provided in the CI environment !-->
+    <profiles>
+        <profile>
+            <id>skipMemoryIntensiveTests</id>
+            <properties>
+                <exclude.tests>**/CorefReplacementServiceTest.java</exclude.tests>
+            </properties>
+        </profile>
+    </profiles>
 </project>
