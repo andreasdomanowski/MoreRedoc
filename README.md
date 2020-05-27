@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/andauh/MoreRedoc.svg?branch=master)](https://travis-ci.com/andauh/MoreRedoc)
+
 # MoreRedoc
 **Mo**deling of **Re**documented **Re**quirement **Doc**uments
 
