@@ -17,7 +17,7 @@
         <repository>
             <id>spring-plugins</id>
             <name>Spring Plugins Repository</name>
-            <url>http://repo.spring.io/plugins-release/</url>
+            <url>https://repo.spring.io/plugins-release/</url>
         </repository>
     </repositories>
 
@@ -25,8 +25,9 @@
         <dependency>
             <groupId>org.jboss.dna</groupId>
             <artifactId>dna-common</artifactId>
-            <version>0.3</version>
+            <version>0.7</version>
         </dependency>
+
 
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -114,6 +115,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
