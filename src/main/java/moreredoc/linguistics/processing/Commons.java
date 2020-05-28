@@ -12,6 +12,7 @@ public class Commons {
     }
 
     public static final String GENITIVE_INDICATOR = "'";
+    public static final String COMPOUND_SEPARATOR = "_";
 
     // relevant POS Tags
     public static final String POS_NOUN_SINGULAR_OR_MASS = "NN";
