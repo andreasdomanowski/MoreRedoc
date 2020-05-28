@@ -19,8 +19,10 @@ public final class SoftRedocDataHandler implements InputDataHandler {
     private static final String EXPRESSION_DATA = "DATA";
     private static final String EXPRESSION_NEW_REQU = "REQU";
     private static final String EXPRESSION_NONFUNCT_REQU = "Non-Functional  requirements";
-    private static final String EXPRESSION_BUSINESS_OBJECTS = "Business-Objects";
+    private static final String EXPRESSION_SECT = "SECT";
+    private static final String EXPRESSION_CASE = "CASE";
 
+    private static final int INDEX_TYPE_I = 0;
     private static final int INDEX_TYPE = 3;
     private static final int INDEX_TARGET_ENTITY = 4;
 
@@ -30,7 +32,7 @@ public final class SoftRedocDataHandler implements InputDataHandler {
     private static final String LINE_NUMBER_METADATA_1 = "1";
     private static final String LINE_NUMBER_METADATA_2 = "2";
 
-    public static final String CSV_DELIMITER = ";";
+    private static final String CSV_DELIMITER = ";";
 
     @Override
     public List<Requirement> getRequirementsFromCsvInputs(List<List<String>> keywordInput,
@@ -40,6 +42,20 @@ public final class SoftRedocDataHandler implements InputDataHandler {
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new InvalidRequirementInputException();
         }
+    }
+
+    @Override
+    public Set<String> getAdditionalDomainConcepts(List<List<String>> csvInput) {
+        Set<String> result = new HashSet<>();
+
+        for (int i = 0; i < csvInput.size(); i++) {
+            List<String> currentCsvLine = csvInput.get(i);
+            if ((currentCsvLine.get(INDEX_TYPE_I).equals(EXPRESSION_SECT) || currentCsvLine.get(INDEX_TYPE_I).equals(EXPRESSION_CASE)) && currentCsvLine.get(INDEX_TYPE).equals(EXPRESSION_DATA)) {
+                result.add(currentCsvLine.get(INDEX_TARGET_ENTITY));
+            }
+        }
+
+        return result;
     }
 
     @Override
@@ -113,24 +129,4 @@ public final class SoftRedocDataHandler implements InputDataHandler {
         return result;
     }
 
-    public Set<String> getBusinessObjectsFromCsvInput(List<List<String>> csvInput) {
-        Set<String> result = new HashSet<>();
-        boolean inBusinessObjects = false;
-
-        for (int i = 0; i < csvInput.size(); i++) {
-            List<String> currentCsvLine = csvInput.get(i);
-            if (!inBusinessObjects && currentCsvLine.get(INDEX_TARGET_ENTITY).equals(EXPRESSION_BUSINESS_OBJECTS)) {
-                inBusinessObjects = true;
-            } else {
-                if (!currentCsvLine.get(INDEX_TYPE).equals(EXPRESSION_DATA)) {
-                    inBusinessObjects = false;
-                }
-            }
-
-            if (inBusinessObjects && currentCsvLine.get(INDEX_TYPE).equals(EXPRESSION_DATA)) {
-                result.add(currentCsvLine.get(INDEX_TARGET_ENTITY));
-            }
-        }
-        return result;
-    }
 }

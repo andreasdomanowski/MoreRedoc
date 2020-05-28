@@ -1,21 +1,18 @@
 package moreredoc.project.data;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import moreredoc.application.exceptions.InvalidRequirementInputException;
-import org.apache.commons.lang3.StringUtils;
-
 import moreredoc.datainput.InputDataHandler;
 import moreredoc.linguistics.processing.WordRegularizerService;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
+
+import java.util.*;
 
 public class MoreRedocProject {
 	private static Logger logger = Logger.getLogger(MoreRedocProject.class);
+
+	private InputDataHandler inputDataHandler;
+	private List<List<String>> keywordsRaw;
 
 	// Set of all concepts
 	private Set<String> projectDomainConcepts = new HashSet<>();
@@ -33,13 +30,19 @@ public class MoreRedocProject {
 	 */
 	@SuppressWarnings("unused")
 	private MoreRedocProject() {
-
+		throw new UnsupportedOperationException();
 	}
 
 	public MoreRedocProject(List<List<String>> keywordsRaw, List<List<String>> sentencesRaw,
-			InputDataHandler softRedocDataHandler) throws InvalidRequirementInputException {
+			InputDataHandler dataHandler) throws InvalidRequirementInputException {
+		Objects.requireNonNull(keywordsRaw);
+		Objects.requireNonNull(sentencesRaw);
+		Objects.requireNonNull(dataHandler);
+
+		this.keywordsRaw = keywordsRaw;
+		this.inputDataHandler = dataHandler;
 		
-		this.projectRequirements = softRedocDataHandler.getRequirementsFromCsvInputs(keywordsRaw, sentencesRaw);
+		this.projectRequirements = dataHandler.getRequirementsFromCsvInputs(keywordsRaw, sentencesRaw);
 
 		// process requirements via the ProcessedRequirement constructor
 		for (Requirement r : projectRequirements) {
@@ -54,7 +57,6 @@ public class MoreRedocProject {
 
 		// calculate occurences of keywords
 		initializeDomainConcepts();
-
 	}
 
 	/**
@@ -94,6 +96,12 @@ public class MoreRedocProject {
 	}
 
 	private void initializeDomainConcepts() {
+		// add additional concepts
+		this.projectDomainConcepts.addAll(inputDataHandler.getAdditionalDomainConcepts(keywordsRaw));
+		for(String concept : projectDomainConcepts){
+			conceptCount.put(concept, 1);
+		}
+
 		StringBuilder wholeProcessedTextBuilder = new StringBuilder();
 
 		for (ProcessedRequirement r : processedProjectRequirements) {
@@ -104,17 +112,17 @@ public class MoreRedocProject {
 				String regularizedConcept = WordRegularizerService.regularize(s);
 				projectDomainConcepts.add(regularizedConcept);
 
-				int occurences;
+				int occurrences;
 
 				// count occurences
 				// initialize value for count
 				if (conceptCount.get(regularizedConcept) == null) {
-					occurences = 1;
+					occurrences = 1;
 				} else {
-					occurences = conceptCount.get(regularizedConcept) + 1;
+					occurrences = conceptCount.get(regularizedConcept) + 1;
 				}
 
-				conceptCount.put(regularizedConcept, occurences);
+				conceptCount.put(regularizedConcept, occurrences);
 			}
 
 		}
