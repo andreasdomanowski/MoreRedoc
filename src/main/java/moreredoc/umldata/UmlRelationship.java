@@ -11,7 +11,7 @@ public class UmlRelationship {
 
 	private static final String RELATIONSHIP_SIGN_ASSOCIATION = " -- ";
 	private static final String RELATIONSHIP_SIGN_DIRECTED_ASSOCIATION = " --> ";
-	private static final String RELATIONSHIP_SIGN_AGGREGATION = " *-- "; // from aggregates to
+	private static final String RELATIONSHIP_SIGN_AGGREGATION = " o-- "; // from aggregates to
 	private static final String RELATIONSHIP_SIGN_DEPENDENCY = " ..|> ";
 	
 	public String toPlantUmlRelationshipString() {
