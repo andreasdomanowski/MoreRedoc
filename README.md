@@ -13,32 +13,36 @@ In general, this tool takes two files as inputs:
 
 SoftRedoc provides these two inputs. [Other tools or approaches](#support-for-other-tools) can easily be added, too. 
 
-This software was developed for my minor thesis (*Towards an Automatic Generation of UML Models from Redocumented Textual Requirements*, supervision: Dr. Birgit Demuth, Professur für Softwartechnologie, TU Dresden). It  includes a detailed explanation of the approach and literature review of other approaches. When it's done, it will be available on GitHub, too.
+This tool was developed for my minor thesis (*Towards an Automatic Generation of UML Models from Redocumented Textual Requirements*, supervision: Dr. Birgit Demuth, Professur für Softwartechnologie, TU Dresden). It  includes a detailed explanation of the approach and literature review of other approaches and will be available on GitHub, too.
 
-# Prerequisites
+## Prerequisites
 - JDK 1.8
 - Maven 3
 - at least 8 GiB of RAM
-    - VM Option *-Xmx8G*
+    - use JVM option `-Xmx8G`
+    
+MoreRedoc was developed and tested on Windows 10 & AdoptOpenJDK 1.8.0_252.
 
-# Build and run
-## Via maven
+## Build and run
+### With Maven
 1. Download or clone this repo
 2. Build the project via
 `mvn clean compile assembly:single`
 3. Run the compiled jar with 
 `java -jar -Xmx8G {name of the generated jar}.jar`
 4. Select the respective CSVs and modeling options
-5. Generate the model. Output can be found in the specified folder.
+5. Generate the model. Output can be found in the specified folder
 
-## Via IDE
+### With your IDE
 For Integrating it in your IDE, just import the maven project.
 * `moreredoc.application.MoreRedocGuiStarter` starts the GUI
 * `moreredoc.application.MoreRedocStarter` provides an API for the modeling
 
-# License
+## License
 - GPLv3, see [LICENSE](LICENSE)
 
-# Support for other tools
+## Support for other tools
+Including another (re)documentation tools can easily be achieved.
 - Implement a `moreredoc.datainput.InputDataHandler`for your tool
 - Add the tool with a reference to your *InputDataHandler* to the enum of supported tools in `moreredoc.datainput.tools.SupportedRedocumentationTools`
+- compound concepts in the input files (e.g. *customer number*) have to be separated by an underscore (*customer_number*)
