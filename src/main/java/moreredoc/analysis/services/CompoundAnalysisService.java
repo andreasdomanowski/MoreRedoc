@@ -148,7 +148,7 @@ public class CompoundAnalysisService {
         }
 
         splitPositions.forEach(pos -> {
-            String prefix = reconstructedNormalizedConcept.substring(0, pos-1);
+            String prefix = reconstructedNormalizedConcept.substring(0, pos);
             String suffix = reconstructedNormalizedConcept.substring(pos+1);
             result.add(new CombinationTuple(prefix, suffix));
         });
