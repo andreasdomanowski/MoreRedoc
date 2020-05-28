@@ -85,12 +85,12 @@ public class VerbAnalyzerService {
 
         tags.forEach(x -> {
             if (!x.tag().equals(Commons.POS_MODAL))
-                b.append(" " + x.word());
+                b.append(" ").append(x.word());
         });
 
         String result = b.toString().trim();
 
-        if (Commons.VERBS_TO_NOT_MODEL.contains(result)) {
+        if (Commons.VERBS_TO_NOT_MODEL_WHEN_ALONE.contains(result)) {
             return "";
         }
         return result;

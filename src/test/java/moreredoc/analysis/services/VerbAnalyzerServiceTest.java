@@ -14,7 +14,7 @@ public class VerbAnalyzerServiceTest {
 
         assertEquals(expected,result);
 
-        String singleForbiddenWord = Commons.VERBS_TO_NOT_MODEL.get(0);
+        String singleForbiddenWord = Commons.VERBS_TO_NOT_MODEL_WHEN_ALONE.get(0);
         String expected2 = "";
         String result2 = VerbAnalyzerService.cropAuxiliaryAndNotModeledWords(singleForbiddenWord);
 

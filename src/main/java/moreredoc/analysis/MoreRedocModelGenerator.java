@@ -6,6 +6,7 @@ import moreredoc.analysis.data.VerbCandidate;
 import moreredoc.analysis.services.AttributiveRelationshipService;
 import moreredoc.analysis.services.CompoundAnalysisService;
 import moreredoc.analysis.services.VerbAnalyzerService;
+import moreredoc.linguistics.processing.Commons;
 import moreredoc.project.data.MoreRedocProject;
 import moreredoc.project.data.ProcessedRequirement;
 import moreredoc.project.data.RelationTripleWrapper;
@@ -181,14 +182,12 @@ public class MoreRedocModelGenerator {
 
         List<VerbCandidate> verbList = new ArrayList<>();
 
-        for (ProcessedRequirement r : project.getProcessedProjectRequirements()) {
-            verbList.addAll(
-                    VerbAnalyzerService.analyzeIETriples(r.getRelationTriples(), project.getProjectDomainConcepts()));
-        }
+        project.getProcessedProjectRequirements().forEach(r -> verbList.addAll(
+                VerbAnalyzerService.analyzeIETriples(r.getRelationTriples(), project.getProjectDomainConcepts())));
 
         for (VerbCandidate c : verbList) {
             String currentFrom = c.getFrom();
-            if (this.classMapping.containsKey(currentFrom)) {
+            if (this.classMapping.containsKey(currentFrom) && !Commons.VERBS_TO_NOT_MODEL_WHEN_ALONE.contains(c.getVerb())) {
                 UmlClass currentFromClass = this.classMapping.get(currentFrom);
 
                 StringBuilder methodStringBuilder = new StringBuilder(c.getVerb());
