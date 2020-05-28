@@ -21,5 +21,5 @@ public class Commons {
     public static final String POS_MODAL = "MD";
 
     // List of verbs which should not be modelled when being the only verbs
-    public static final List<String> VERBS_TO_NOT_MODEL_WHEN_ALONE = Collections.unmodifiableList(Arrays.asList("should", "be", "is", "are"));
+    public static final List<String> VERBS_TO_NOT_MODEL_WHEN_ALONE = Collections.unmodifiableList(Arrays.asList("will", "would", "may", "might", "shall", "can", "must", "should", "could", "be", "is", "are", "have", "has"));
 }
