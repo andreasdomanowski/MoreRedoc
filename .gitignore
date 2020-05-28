@@ -1,8 +1,11 @@
-# Created by https://www.gitignore.io/api/java,maven,eclipse
-# Edit at https://www.gitignore.io/?templates=java,maven,eclipse
-
-### MoreR
+### Images generated from MoreRedoc
 generatedModels/
+*.xmi
+*.png
+*.svg
+
+# Created by https://www.gitignore.io/api/java,maven,eclipse,jetbrains
+# Edit at https://www.gitignore.io/?templates=java,maven,eclipse,jetbrains
 
 ### Eclipse ###
 .metadata
@@ -98,35 +101,9 @@ local.properties
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
-### Maven ###
-target/
-pom.xml.tag
-pom.xml.releaseBackup
-pom.xml.versionsBackup
-pom.xml.next
-release.properties
-dependency-reduced-pom.xml
-buildNumber.properties
-.mvn/timing.properties
-.mvn/wrapper/maven-wrapper.jar
-
-### Images generated from MoreRe
-*.png
-*.svg
-
-### Models generated from MoreRe
-*.xmi
-
-
-# End of https://www.gitignore.io/api/java,maven,eclipse
-
-# Created by https://www.gitignore.io/api/jetbrains
-# Edit at https://www.gitignore.io/?templates=jetbrains
-
 ### JetBrains ###
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and WebStorm
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
-.idea/
 
 # User-specific stuff
 .idea/**/workspace.xml
@@ -212,4 +189,17 @@ fabric.properties
 .idea/**/markdown-navigator.xml
 .idea/**/markdown-navigator/
 
-# End of https://www.gitignore.io/api/jetbrains
+### Maven ###
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+.flattened-pom.xml
+
+# End of https://www.gitignore.io/api/java,maven,eclipse,jetbrains
