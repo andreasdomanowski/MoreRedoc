@@ -21,8 +21,13 @@ public final class SoftRedocDataHandler implements InputDataHandler {
     private static final String EXPRESSION_NONFUNCT_REQU = "Non-Functional  requirements";
     private static final String EXPRESSION_SECT = "SECT";
     private static final String EXPRESSION_CASE = "CASE";
+    private static final String EXPRESSION_BUSINESS_OBJECTS = "Business-Objects";
+    private static final String EXPRESSION_BUSINESS_RULES = "Business-Rules";
+    private static final String EXPRESSION_SYSTEM_ACTORS = "System-Actors";
+    private static final String EXPRESSION_SYSTEM_USE_CASES = "system  Use Cases";
 
     private static final int INDEX_TYPE_I = 0;
+    private static final int INDEX_BASE_ENTITY = 1;
     private static final int INDEX_TYPE = 3;
     private static final int INDEX_TARGET_ENTITY = 4;
 
@@ -50,7 +55,18 @@ public final class SoftRedocDataHandler implements InputDataHandler {
 
         for (int i = 0; i < csvInput.size(); i++) {
             List<String> currentCsvLine = csvInput.get(i);
-            if ((currentCsvLine.get(INDEX_TYPE_I).equals(EXPRESSION_SECT) || currentCsvLine.get(INDEX_TYPE_I).equals(EXPRESSION_CASE)) && currentCsvLine.get(INDEX_TYPE).equals(EXPRESSION_DATA)) {
+            String typeI = currentCsvLine.get(INDEX_TYPE_I).trim();
+            String baseEntity = currentCsvLine.get(INDEX_BASE_ENTITY).trim();
+
+            // add DATA from SECT, where base entity is either business object, business rule, system use case or system actor
+            if ((typeI.equals(EXPRESSION_SECT))
+                    && currentCsvLine.get(INDEX_TYPE).equals(EXPRESSION_DATA)
+                    && (baseEntity.equals(EXPRESSION_BUSINESS_OBJECTS) || baseEntity.equals(EXPRESSION_BUSINESS_RULES) || baseEntity.equals(EXPRESSION_SYSTEM_USE_CASES) || baseEntity.equals(EXPRESSION_SYSTEM_ACTORS))) {
+                result.add(currentCsvLine.get(INDEX_TARGET_ENTITY));
+            }
+
+            // add DATA from CASES
+            if ((typeI.equals(EXPRESSION_CASE) && currentCsvLine.get(INDEX_TYPE).equals(EXPRESSION_DATA))){
                 result.add(currentCsvLine.get(INDEX_TARGET_ENTITY));
             }
         }
