@@ -29,7 +29,7 @@ public class UmlModel {
 		this.relationships = relationships;
 	}
 
-	public List<UmlClass> getAllClasses() {
+	public List<UmlClass> getAllClassesImmutable() {
 		return new ArrayList<>(classes.values());
 	}
 
@@ -38,11 +38,15 @@ public class UmlModel {
 	}
 
 	public List<UmlRelationship> getRelationships() {
-		return relationships;
+		return this.relationships;
 	}
 
 	public void setRelationships(List<UmlRelationship> relationships) {
 		this.relationships = relationships;
+	}
+
+	public Map<String, UmlClass> getNameToClassMapping(){
+		return this.classes;
 	}
 	
 	

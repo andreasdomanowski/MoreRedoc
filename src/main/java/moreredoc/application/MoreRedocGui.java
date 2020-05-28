@@ -40,6 +40,7 @@ public class MoreRedocGui extends JFrame {
 
     private final JCheckBox cbVerbsMethods;
     private final JCheckBox cbVerbsRelationships;
+    private final JCheckBox cbCropEmptyClasses;
     private final JCheckBox cbRawXmi;
     private final JCheckBox cbArgoUml;
     private final JCheckBox cbStarUml;
@@ -55,13 +56,18 @@ public class MoreRedocGui extends JFrame {
     private final JButton buttonChooseOutputFolder;
 
     private static final String TEXT_CHOOSE_BUTTON = "Select";
+
     private static final String ERROR_MESSAGE_INVALID_INPUT = "An error occurred while the input files were parsed. Please make sure that both requirement inputs are valid.";
     private static final String ERROR_HEADER_INVALID_INPUT = "Error parsing input files";
+
+    public static final String ERROR_MESSAGE_UNSPECIFIED = "Error.";
+    public static final String ERROR_HEADER_UNSPECIFIED = "An error occured, see logging.";
+
 
     public MoreRedocGui() {
         super(APPLICATION_TITLE);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setSize(700, 400);
+        setSize(700, 425);
 
         JPanel mainPanel = new JPanel();
 
@@ -235,6 +241,17 @@ public class MoreRedocGui extends JFrame {
         mainPanel.add(cbVerbsRelationships, gbcCbVerbsRelationships);
 
         currentRow++;
+        cbCropEmptyClasses = new JCheckBox("Crop classes with no attributes, methods and relationships");
+        cbCropEmptyClasses.setSelected(true);
+        cbCropEmptyClasses.setHorizontalTextPosition(SwingConstants.LEFT);
+        GridBagConstraints gbcCbCropEmptyClasses = new GridBagConstraints();
+        gbcCbCropEmptyClasses.anchor = GridBagConstraints.EAST;
+        gbcCbCropEmptyClasses.insets = defaultInsets;
+        gbcCbCropEmptyClasses.gridx = 1;
+        gbcCbCropEmptyClasses.gridy = currentRow;
+        mainPanel.add(cbCropEmptyClasses, gbcCbCropEmptyClasses);
+
+        currentRow++;
         JLabel labelOutput = new JLabel("Output:");
         GridBagConstraints gbcLabelOutput = new GridBagConstraints();
         gbcLabelOutput.anchor = GridBagConstraints.WEST;
@@ -295,7 +312,7 @@ public class MoreRedocGui extends JFrame {
         currentRow++;
         buttonGenerateModels = new JButton("Run");
         buttonGenerateModels.setVerticalAlignment(SwingConstants.BOTTOM);
-        buttonGenerateModels.addActionListener(e -> runGenerateModel(cbVerbsMethods.isSelected(), cbVerbsRelationships.isSelected(), cbRawXmi.isSelected(), cbArgoUml.isSelected(), cbStarUml.isSelected(), cbPng.isSelected(), cbSvg.isSelected()));
+        buttonGenerateModels.addActionListener(e -> runGenerateModel());
         GridBagConstraints gbcButtonGenerateModels = new GridBagConstraints();
         gbcButtonGenerateModels.insets = new Insets(0, 0, 5, 0);
         gbcButtonGenerateModels.gridx = 2;
@@ -320,7 +337,7 @@ public class MoreRedocGui extends JFrame {
         }
     }
 
-    private void runGenerateModel(boolean verbsMethods, boolean verbsRelationships, boolean outputRawXmi, boolean outputArgoXmi, boolean outputStarUml, boolean outputPng, boolean outputSvg) {
+    private void runGenerateModel() {
         Component parentComponentForDialog = this;
 
         SwingWorker<Void, Void> backgroundWorker = new SwingWorker<Void, Void>() {
@@ -329,8 +346,8 @@ public class MoreRedocGui extends JFrame {
                 logger.info("Start model generation");
                 setUiActive(false);
 
-                MoreRedocAnalysisConfiguration analysisConfiguration = new MoreRedocAnalysisConfiguration(verbsMethods, verbsRelationships);
-                MoreRedocOutputConfiguration outputConfiguration = new MoreRedocOutputConfiguration(textfieldOutputFolder.getText(), outputRawXmi, outputArgoXmi, outputStarUml, outputPng, outputSvg);
+                MoreRedocAnalysisConfiguration analysisConfiguration = new MoreRedocAnalysisConfiguration(cbVerbsMethods.isSelected(), cbVerbsRelationships.isSelected(), cbCropEmptyClasses.isSelected());
+                MoreRedocOutputConfiguration outputConfiguration = new MoreRedocOutputConfiguration(textfieldOutputFolder.getText(), cbRawXmi.isSelected(), cbArgoUml.isSelected(), cbStarUml.isSelected(), cbPng.isSelected(), cbSvg.isSelected());
 
                 SupportedRedocumentationTools tool = comboBoxToolSelection.getItemAt(comboBoxToolSelection.getSelectedIndex());
                 Objects.requireNonNull(tool);
@@ -361,6 +378,7 @@ public class MoreRedocGui extends JFrame {
                         JOptionPane.showMessageDialog(parentComponentForDialog, ERROR_MESSAGE_INVALID_INPUT, ERROR_HEADER_INVALID_INPUT, JOptionPane.ERROR_MESSAGE);
                     } else {
                         logger.error(e);
+                        JOptionPane.showMessageDialog(parentComponentForDialog, ERROR_HEADER_UNSPECIFIED, ERROR_MESSAGE_UNSPECIFIED, JOptionPane.ERROR_MESSAGE);
                     }
                 } catch (InterruptedException e) {
                     logger.error(e);
@@ -379,8 +397,11 @@ public class MoreRedocGui extends JFrame {
     private void setUiActive(boolean activeState) {
         this.setCursor(activeState ? Cursor.getDefaultCursor() : Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 
+        this.comboBoxToolSelection.setEnabled(activeState);
+
         this.cbVerbsMethods.setEnabled(activeState);
         this.cbVerbsRelationships.setEnabled(activeState);
+        this.cbCropEmptyClasses.setEnabled(activeState);
         this.cbArgoUml.setEnabled(activeState);
         this.cbRawXmi.setEnabled(activeState);
         this.cbStarUml.setEnabled(activeState);

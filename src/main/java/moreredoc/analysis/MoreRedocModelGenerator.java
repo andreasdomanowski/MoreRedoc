@@ -27,8 +27,8 @@ public class MoreRedocModelGenerator {
 
     // model parts
     private UmlModel model;
-    private Map<String, UmlClass> classMapping = new HashMap<>();
-    private List<UmlRelationship> relationships = new ArrayList<>();
+    private final Map<String, UmlClass> classMapping = new HashMap<>();
+    private final List<UmlRelationship> relationships = new ArrayList<>();
 
     /**
      * Hide constructor with no arguments.
@@ -43,6 +43,32 @@ public class MoreRedocModelGenerator {
         this.setConfiguration(configuration);
     }
 
+    public UmlModel generateModel() {
+        logger.info("Analysis started");
+
+        initializePossessionTuples();
+        logger.info("\tPossession tuples initialized");
+
+        initializeClasses();
+        logger.info("\tClasses initialized");
+
+        initializeModel();
+        logger.info("\tUML Model initialized");
+
+        analyzeVerbs();
+        logger.info("\tAnalysis of verbs initialized");
+
+        initializeMultiplicities();
+        logger.info("\tMultiplicities initialized");
+
+        if (configuration.getCropEmptyClasses()) {
+            cropEmptyClasses();
+        }
+
+        logger.info("Analysis done");
+
+        return model;
+    }
 
     private void initializePossessionTuples() {
         possessionTuples = new ArrayList<>();
@@ -145,6 +171,10 @@ public class MoreRedocModelGenerator {
         }
     }
 
+    private void initializeModel() {
+        this.model = new UmlModel(classMapping, relationships);
+    }
+
     private void analyzeVerbs() {
         Objects.requireNonNull(model);
         Objects.requireNonNull(configuration);
@@ -178,7 +208,7 @@ public class MoreRedocModelGenerator {
 
                 }
 
-                if(configuration.getModelVerbsAsMethods()){
+                if (configuration.getModelVerbsAsMethods()) {
                     currentFromClass.addMethod(methodStringBuilder.toString());
                 }
             }
@@ -186,44 +216,41 @@ public class MoreRedocModelGenerator {
     }
 
     private void initializeMultiplicities() {
-        for(PossessionTuple tuple : possessionTuples){
-            for(UmlRelationship relationship : relationships){
-                if(tuple.getOwner().equals(relationship.getFrom().getName()) && tuple.getOwned().equals(relationship.getTo().getName())){
+        for (PossessionTuple tuple : possessionTuples) {
+            for (UmlRelationship relationship : relationships) {
+                if (tuple.getOwner().equals(relationship.getFrom().getName()) && tuple.getOwned().equals(relationship.getTo().getName())) {
                     relationship.setMultiplicity(tuple.getMultiplicity());
                 }
             }
         }
     }
 
-    private void initializeModel() {
-        this.model = new UmlModel(classMapping, relationships);
+    private void cropEmptyClasses() {
+        List<UmlClass> attributeAndMethodlessClasses = new ArrayList<>();
+        List<UmlClass> classesToRemove = new ArrayList<>();
+
+        // put all classes without attribute or methods in respective container
+        model.getAllClassesImmutable().stream().filter(c -> c.getAttributes().isEmpty() && c.getMethods().isEmpty()).forEach(attributeAndMethodlessClasses::add);
+
+        // check every candidate for being in a relationship with another class
+        // if there is no relationship, the class is to be removed
+        attributeAndMethodlessClasses.stream().filter(c -> {
+            // iterate over relationships
+            // if no relationship contains c, return true, else return false
+            for (UmlRelationship r : model.getRelationships()) {
+                if (r.getTo().equals(c) || r.getFrom().equals(c)) {
+                    return false;
+                }
+            }
+            return true;
+        }).forEach(classesToRemove::add);
+
+        // remove classes from mapping in model
+        classesToRemove.forEach(classToRemove -> this.model.getNameToClassMapping().entrySet().removeIf(x -> x.getValue().equals(classToRemove)));
     }
 
     public List<PossessionTuple> getPossessionTuples() {
         return this.possessionTuples;
-    }
-
-    public UmlModel generateModel() {
-        logger.info("Analysis started");
-
-        initializePossessionTuples();
-        logger.info("\tPossession tuples initialized");
-
-        initializeClasses();
-        logger.info("\tClasses initialized");
-
-        initializeModel();
-        logger.info("\tUML Model initialized");
-
-        analyzeVerbs();
-        logger.info("\tAnalysis of verbs initialized");
-
-        initializeMultiplicities();
-        logger.info("\tMultiplicities initialized");
-
-        logger.info("Analysis done");
-
-        return model;
     }
 
     public MoreRedocAnalysisConfiguration getConfiguration() {
