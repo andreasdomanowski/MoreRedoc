@@ -20,7 +20,7 @@ public class CompoundAnalysisService {
     private CompoundAnalysisService() {
     }
 
-    public static Set<PossessionTuple> computePossessionTuples(String in, String domainConceptToTest,
+    public static Set<PossessionTuple> computeCompoundConceptsFromText(String in, String domainConceptToTest,
             Set<String> domainConcepts) {
         Set<PossessionTuple> toReturn = new HashSet<>();
         // domain concept can be attribute or/AND class type, initialize flags for this

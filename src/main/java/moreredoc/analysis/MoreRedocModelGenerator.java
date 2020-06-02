@@ -90,10 +90,10 @@ public class MoreRedocModelGenerator {
                 String object = triple.objectGloss();
 
                 for (String s : project.getProjectDomainConcepts()) {
-                    possessionTuples.addAll(CompoundAnalysisService.computePossessionTuples(subject, s,
+                    possessionTuples.addAll(CompoundAnalysisService.computeCompoundConceptsFromText(subject, s,
                             project.getProjectDomainConcepts()));
 
-                    possessionTuples.addAll(CompoundAnalysisService.computePossessionTuples(object, s,
+                    possessionTuples.addAll(CompoundAnalysisService.computeCompoundConceptsFromText(object, s,
                             project.getProjectDomainConcepts()));
                 }
             }

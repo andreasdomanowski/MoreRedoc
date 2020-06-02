@@ -20,7 +20,7 @@ public class TextAnalysisServiceTest {
     @Test
     public void testCompoundTypeClass() {
         String classSentence = "customer enters his customer number";
-        Set<PossessionTuple> result = CompoundAnalysisService.computePossessionTuples(classSentence, domainClass, domainConcepts);
+        Set<PossessionTuple> result = CompoundAnalysisService.computeCompoundConceptsFromText(classSentence, domainClass, domainConcepts);
         assertEquals(1, result.size());
 
         assertEquals(result.stream().findFirst().get().getOwner(), domainClass);
@@ -31,7 +31,7 @@ public class TextAnalysisServiceTest {
     @Test
     public void testCompoundTypeNone() {
         String classSentence = "there is no customer who can enter a valid number";
-        assertEquals(0, CompoundAnalysisService.computePossessionTuples(classSentence, domainAttribute, domainConcepts).size());
+        assertEquals(0, CompoundAnalysisService.computeCompoundConceptsFromText(classSentence, domainAttribute, domainConcepts).size());
     }
 
 }
