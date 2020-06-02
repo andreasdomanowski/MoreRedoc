@@ -11,6 +11,8 @@ public class Commons {
     private Commons(){
     }
 
+    public static final String JVM_PROPERTY_USE_PROJECT_PIPELINE_FOR_POS_TAGGING = "useProjectPipelineForPosTagging";
+
     public static final String GENITIVE_INDICATOR = "'";
     public static final String COMPOUND_SEPARATOR = "_";
 

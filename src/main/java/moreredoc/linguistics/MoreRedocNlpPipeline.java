@@ -1,8 +1,8 @@
 package moreredoc.linguistics;
 
-import java.util.Properties;
-
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
+
+import java.util.Properties;
 
 public class MoreRedocNlpPipeline {
 	private MoreRedocNlpPipeline(){
@@ -11,7 +11,7 @@ public class MoreRedocNlpPipeline {
 
 	private static StanfordCoreNLP pipeline = null;
 
-	public static StanfordCoreNLP getCoreNlpPipeline() {
+	public static synchronized StanfordCoreNLP getCoreNlpPipeline() {
 		if (pipeline != null)
 			return pipeline;
 		else {
