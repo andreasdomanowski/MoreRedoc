@@ -5,7 +5,7 @@
 **Mo**deling of **Re**documented **Re**quirement **Doc**uments
 
 MoreRedoc takes redocumented requirements and tries to generate UML class diagrams according to these requirements.
-For now, SoftRedoc (written by Harry Sneed) is supported. 
+For now, redocumentation generated with SoftRedoc (written by Harry Sneed) is supported. 
 
 In general, this tool takes two files as inputs:
 * one containing the full text for each requirement, separated for each requirement
@@ -26,7 +26,7 @@ MoreRedoc was developed and tested on Windows 10 & AdoptOpenJDK 1.8.0_252.
 ## Build and run
 ### With Maven
 1. Download or clone this repo
-2. Build the project via
+2. Build a fat jar via 
 `mvn clean compile assembly:single`
 3. Run the compiled jar with 
 `java -jar -Xmx8G {name of the generated jar}.jar`
@@ -34,7 +34,7 @@ MoreRedoc was developed and tested on Windows 10 & AdoptOpenJDK 1.8.0_252.
 5. Generate the model. Output can be found in the specified folder
 
 ### With your IDE
-For Integrating it in your IDE, just import the maven project.
+For Integrating it in your IDE, just import the maven project. Increase the JVM's heap space in your run configuration.
 * `moreredoc.application.MoreRedocGuiStarter` starts the GUI
 * `moreredoc.application.MoreRedocStarter` provides an API for the modeling
 

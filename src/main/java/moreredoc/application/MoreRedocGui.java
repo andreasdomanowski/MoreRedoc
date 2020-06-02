@@ -67,7 +67,6 @@ public class MoreRedocGui extends JFrame {
     public MoreRedocGui() {
         super(APPLICATION_TITLE);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setSize(700, 425);
 
         JPanel mainPanel = new JPanel();
 
@@ -318,6 +317,8 @@ public class MoreRedocGui extends JFrame {
         gbcButtonGenerateModels.gridx = 2;
         gbcButtonGenerateModels.gridy = currentRow;
         mainPanel.add(buttonGenerateModels, gbcButtonGenerateModels);
+
+        pack();
     }
 
     private void chooseFileAndUpdateTextfield(JTextField textfield, Component parent, int selectionMode)
