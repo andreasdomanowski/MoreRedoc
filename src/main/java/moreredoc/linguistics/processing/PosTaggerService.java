@@ -1,27 +1,34 @@
 package moreredoc.linguistics.processing;
 
-import edu.stanford.nlp.ling.HasWord;
+import edu.stanford.nlp.ling.CoreAnnotations;
+import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.ling.TaggedWord;
-import edu.stanford.nlp.ling.Word;
-import edu.stanford.nlp.tagger.maxent.MaxentTagger;
-import org.apache.commons.lang3.StringUtils;
+import edu.stanford.nlp.pipeline.Annotation;
+import edu.stanford.nlp.util.CoreMap;
+import moreredoc.linguistics.MoreRedocNlpPipeline;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-public class PosTaggerService{
-    private PosTaggerService(){
+public class PosTaggerService {
+
+    private PosTaggerService() {
     }
 
     public static List<TaggedWord> tag(String text) {
-        String[] splitted = StringUtils.split(text);
+        List<TaggedWord> result = new ArrayList<>();
 
-        List<HasWord> wordList = new ArrayList<>();
+        Annotation annotation = new Annotation(text);
+        MoreRedocNlpPipeline.getCoreNlpPipeline().annotate(annotation);
 
-        Arrays.stream(splitted).forEach( s -> wordList.add(new Word(s)));
-
-        MaxentTagger maxentTagger = new MaxentTagger("edu/stanford/nlp/models/pos-tagger/english-left3words/english-left3words-distsim.tagger");
-        return maxentTagger.tagSentence(wordList);
+        List<CoreMap> sentences = annotation.get(CoreAnnotations.SentencesAnnotation.class);
+        for (CoreMap sentence : sentences) {
+            for (CoreLabel token : sentence.get(CoreAnnotations.TokensAnnotation.class)) {
+                String word = token.get(CoreAnnotations.TextAnnotation.class);
+                String posTag = token.get(CoreAnnotations.PartOfSpeechAnnotation.class);
+                result.add(new TaggedWord(word, posTag));
+            }
+        }
+        return result;
     }
 }
