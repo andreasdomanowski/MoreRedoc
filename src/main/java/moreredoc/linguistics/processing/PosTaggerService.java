@@ -1,27 +1,59 @@
 package moreredoc.linguistics.processing;
 
-import edu.stanford.nlp.ling.HasWord;
+import edu.stanford.nlp.ling.CoreAnnotations;
+import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.ling.TaggedWord;
-import edu.stanford.nlp.ling.Word;
-import edu.stanford.nlp.tagger.maxent.MaxentTagger;
-import org.apache.commons.lang3.StringUtils;
+import edu.stanford.nlp.pipeline.Annotation;
+import edu.stanford.nlp.pipeline.StanfordCoreNLP;
+import edu.stanford.nlp.util.CoreMap;
+import moreredoc.linguistics.MoreRedocNlpPipeline;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
 
-public class PosTaggerService{
-    private PosTaggerService(){
+public class PosTaggerService {
+    //lightweight pipeline with just the needed annotations for pos tagging. Needed for CI environment
+    private static StanfordCoreNLP posPipeline = null;
+
+    private PosTaggerService() {
     }
 
-    public static List<TaggedWord> tag(String text) {
-        String[] splitted = StringUtils.split(text);
+    private static synchronized StanfordCoreNLP getPosPipeline() {
+        // if property not defined, use default pipeline
+        String line = System.getProperty(Commons.JVM_PROPERTY_USE_PROJECT_PIPELINE_FOR_POS_TAGGING);
+        if(line == null){
+            return MoreRedocNlpPipeline.getCoreNlpPipeline();
+        }
 
-        List<HasWord> wordList = new ArrayList<>();
+        Boolean useProjectPipelineForPosTagging = Boolean.parseBoolean(line);
+        if(Boolean.TRUE.equals(useProjectPipelineForPosTagging)){
+            return MoreRedocNlpPipeline.getCoreNlpPipeline();
+        }
 
-        Arrays.stream(splitted).forEach( s -> wordList.add(new Word(s)));
+        if (posPipeline == null) {
+            Properties props = new Properties();
+            props.setProperty("annotators", "tokenize, ssplit, pos");
+            posPipeline = new StanfordCoreNLP(props);
+        }
 
-        MaxentTagger maxentTagger = new MaxentTagger("edu/stanford/nlp/models/pos-tagger/english-left3words/english-left3words-distsim.tagger");
-        return maxentTagger.tagSentence(wordList);
+        return posPipeline;
+    }
+
+    public static List<TaggedWord> tag(String text)  {
+        List<TaggedWord> result = new ArrayList<>();
+
+        Annotation annotation = new Annotation(text);
+        getPosPipeline().annotate(annotation);
+
+        List<CoreMap> sentences = annotation.get(CoreAnnotations.SentencesAnnotation.class);
+        for (CoreMap sentence : sentences) {
+            for (CoreLabel token : sentence.get(CoreAnnotations.TokensAnnotation.class)) {
+                String word = token.get(CoreAnnotations.TextAnnotation.class);
+                String posTag = token.get(CoreAnnotations.PartOfSpeechAnnotation.class);
+                result.add(new TaggedWord(word, posTag));
+            }
+        }
+        return result;
     }
 }
