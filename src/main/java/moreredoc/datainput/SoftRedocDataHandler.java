@@ -6,6 +6,8 @@ import org.apache.log4j.Logger;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.*;
 
@@ -39,6 +41,22 @@ public final class SoftRedocDataHandler implements InputDataHandler {
 
     private String csvDelimiter = ";";
 
+    public SoftRedocDataHandler() {
+        // try to load initial config from properties file
+        Properties prop = new Properties();
+        InputStream stream = Thread.currentThread().getContextClassLoader().getResourceAsStream("tools/softredoc_config.properties");
+        try {
+            prop.load(stream);
+            this.prefixFunctionalRequirement = prop.getProperty("prefixFunctionalRequirement");
+            this.expressionBusinessObjects = prop.getProperty("expressionBusinessObjects");
+            this.expressionBusinessRules = prop.getProperty("expressionBusinessRules");
+            this.expressionSystemActors = prop.getProperty("expressionSystemActors");
+            this.expressionSystemUseCases = prop.getProperty("expressionSystemUseCases");
+        } catch (IOException | NullPointerException e) {
+            // do nothing
+        }
+    }
+
     @Override
     public void configure() {
         JTextField fieldPrefix = new JTextField(prefixFunctionalRequirement);
@@ -71,7 +89,7 @@ public final class SoftRedocDataHandler implements InputDataHandler {
         int result = JOptionPane.showConfirmDialog(null, panel, "SoftRedoc configuration",
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
-        if(result == JOptionPane.YES_OPTION){
+        if (result == JOptionPane.YES_OPTION) {
             this.prefixFunctionalRequirement = fieldPrefix.getText();
             this.csvDelimiter = fieldCsvDelimiter.getText();
             this.expressionBusinessObjects = fieldBusinessObjects.getText();
