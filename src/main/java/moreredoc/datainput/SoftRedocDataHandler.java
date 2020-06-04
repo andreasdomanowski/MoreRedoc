@@ -68,7 +68,7 @@ public final class SoftRedocDataHandler implements InputDataHandler {
         panel.add(new JLabel("Expression for system use cases:"));
         panel.add(fieldSystemUseCases);
 
-        int result = JOptionPane.showConfirmDialog(null, panel, "Test",
+        int result = JOptionPane.showConfirmDialog(null, panel, "SoftRedoc configuration",
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
         if(result == JOptionPane.YES_OPTION){
