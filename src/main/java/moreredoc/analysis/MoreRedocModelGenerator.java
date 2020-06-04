@@ -14,13 +14,9 @@ import moreredoc.umldata.UmlClass;
 import moreredoc.umldata.UmlModel;
 import moreredoc.umldata.UmlRelationship;
 import moreredoc.umldata.UmlRelationshipType;
-import moreredoc.utils.fileutils.DebugTools;
 import org.apache.log4j.Logger;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class MoreRedocModelGenerator {
     private static final Logger logger = Logger.getLogger(MoreRedocModelGenerator.class);
@@ -28,7 +24,7 @@ public class MoreRedocModelGenerator {
     private MoreRedocProject project;
     private MoreRedocAnalysisConfiguration configuration;
 
-    private List<PossessionTuple> possessionTuples;
+    private Set<PossessionTuple> possessionTuples;
 
     // model parts
     private UmlModel model;
@@ -76,7 +72,7 @@ public class MoreRedocModelGenerator {
     }
 
     private void aggregatePossessionTuples() {
-        possessionTuples = new ArrayList<>();
+        possessionTuples = new HashSet<>();
         // add compound concepts from domain concept set
         possessionTuples
                 .addAll(CompoundAnalysisService.computeCompoundConceptsFromAllConcepts(project.getProjectDomainConcepts()));
@@ -108,7 +104,7 @@ public class MoreRedocModelGenerator {
         Set<String> classCandidates = new HashSet<>();
         // maps from attribute to respective class
         // e.g. customer_number -> customer
-        Map<String, String> attributeCandidates = new HashMap<>();
+        Map<String, List<String>> attributeCandidates = new HashMap<>();
 
         // iterate over all domain concepts, check whether it is class or attribute
         for (String domainConcept : project.getProjectDomainConcepts()) {
@@ -116,7 +112,7 @@ public class MoreRedocModelGenerator {
             boolean isAttributeCandidate = false;
 
             // possible owner class for an attribute
-            String ownerClassName = null;
+            List<String> ownerClassNames = new ArrayList<>();
 
             // iterate over all possession tuples, check for occurrences indicating either
             // class or attribute type
@@ -127,7 +123,7 @@ public class MoreRedocModelGenerator {
                     isClassCandidate = true;
                 if (tuple.getOwned().equals(domainConcept)) {
                     isAttributeCandidate = true;
-                    ownerClassName = tuple.getOwner();
+                    ownerClassNames.add(tuple.getOwner());
                 }
             }
 
@@ -135,47 +131,36 @@ public class MoreRedocModelGenerator {
                 classCandidates.add(domainConcept);
             }
             if (isAttributeCandidate) {
-                attributeCandidates.put(domainConcept, ownerClassName);
+                attributeCandidates.put(domainConcept, ownerClassNames);
             }
         }
 
+        // generate classes for each class candidate
         classCandidates.forEach(classCandidate -> this.classMapping.put(classCandidate, new UmlClass(classCandidate)));
-        attributeCandidates.forEach((attributeCandidate, clazz) -> {
-            UmlClass existingClass = this.classMapping.get(clazz);
-            if (existingClass != null) {
-                existingClass.addAttribute(attributeCandidate);
-            } else {
-                UmlClass newClass = new UmlClass(clazz);
-                newClass.addAttribute(attributeCandidate);
-                this.classMapping.put(clazz, newClass);
-            }
 
+        attributeCandidates.forEach((attributeCandidate, clazz) -> {
+            // if attribute candidate is a class candidate too, generate aggregation from its owner to the candidate
             if (classCandidates.contains(attributeCandidate)) {
-                UmlRelationship newRelationship = new UmlRelationship(this.classMapping.get(clazz), this.classMapping.get(attributeCandidate),
-                        UmlRelationshipType.AGGREGATION, null, null);
-                this.relationships.add(newRelationship);
+                for(String owner : clazz){
+                    UmlRelationship newRelationship = new UmlRelationship(this.classMapping.get(owner), this.classMapping.get(attributeCandidate),
+                            UmlRelationshipType.AGGREGATION, null, null);
+                    this.relationships.add(newRelationship);
+                }
+                // if attribute is no class candidate, put it in the respective class as an attribute
+            }else{
+                for(String owner : clazz){
+                    UmlClass ownerClass = this.classMapping.get(owner);
+                    ownerClass.addAttribute(attributeCandidate);
+                }
             }
         });
 
+        // if a concept is not flagged as class candidate or attribute candidate, model it as class to make it cropable by tool/user
         this.project.getProjectDomainConcepts().forEach(concept -> {
-            if (!classCandidates.contains(concept) && !attributeCandidates.keySet().contains(concept)) {
+            if (!classCandidates.contains(concept) && !attributeCandidates.containsKey(concept)) {
                 this.classMapping.put(concept, new UmlClass(concept));
             }
         });
-
-        String rndFolder = DebugTools.generateRandomString(10);
-        String debugFolder = "D:\\Cloud\\Dropbox\\Informatik\\Beleg\\_Inkonsistenz_Bug\\" + rndFolder;
-        try {
-            DebugTools.sortCopyAndWriteItToFile(project.getProjectDomainConcepts().stream().collect(Collectors.toList()), debugFolder + File.separator + "concepts.txt");
-            DebugTools.sortCopyAndWriteItToFile(classCandidates.stream().collect(Collectors.toList()), debugFolder + File.separator + "class.txt");
-            DebugTools.sortCopyAndWriteItToFile(possessionTuples.stream().map(x -> x.toString()).collect(Collectors.toList()), debugFolder + File.separator + "tuples.txt");
-            List<String> attr = new ArrayList<>();
-            attributeCandidates.forEach((x, y) -> attr.add(y + "->" + x));
-            DebugTools.sortCopyAndWriteItToFile(attr, debugFolder + File.separator + "attr.txt");
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     private void initializeModel() {
@@ -253,7 +238,7 @@ public class MoreRedocModelGenerator {
         classesToRemove.forEach(classToRemove -> this.model.getNameToClassMapping().entrySet().removeIf(x -> x.getValue().equals(classToRemove)));
     }
 
-    public List<PossessionTuple> getPossessionTuples() {
+    public Set<PossessionTuple> getPossessionTuples() {
         return this.possessionTuples;
     }
 
