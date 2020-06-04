@@ -6,7 +6,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
@@ -21,14 +20,14 @@ public class AttributiveRelationshipServiceTest {
 	private PossessionTuple possession = new PossessionTuple("customer", "id", Multiplicity.NO_INFO);
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		domainConcepts.add("customer");
 		domainConcepts.add("id");
 	}
 
 	@Test
 	public void testGenitiveOwnershipSingular() {
-		List<PossessionTuple> calculated = AttributiveRelationshipService
+		Set<PossessionTuple> calculated = AttributiveRelationshipService
 				.computeRelationshipTuples(genitiveOwnershipSentenceSingular, domainConcepts);
 		
 		

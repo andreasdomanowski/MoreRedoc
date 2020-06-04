@@ -10,10 +10,14 @@ import moreredoc.umldata.Multiplicity;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 public class AttributiveRelationshipService {
+
+    private static final String GENITIVE_OF = "of";
+
     /**
      * Service class, hide constructor
      */
@@ -21,10 +25,10 @@ public class AttributiveRelationshipService {
 
     }
 
-    public static List<PossessionTuple> computeRelationshipTuples(String inputText, Set<String> domainConcepts) {
+    public static Set<PossessionTuple> computeRelationshipTuples(String inputText, Set<String> domainConcepts) {
         String[] regularizedInputSplittedByWhitespace = StringUtils.split(inputText.trim());
 
-        List<PossessionTuple> result = new ArrayList<>();
+        Set<PossessionTuple> result = new HashSet<>();
 
         result.addAll(addPossessivesWithOf(regularizedInputSplittedByWhitespace, domainConcepts));
 		result.addAll(addPossessivesWithGenitive(regularizedInputSplittedByWhitespace, domainConcepts));
@@ -38,7 +42,7 @@ public class AttributiveRelationshipService {
         List<PossessionTuple> result = new ArrayList<>();
 
         // find matches with "of" indicating a possessive case, compute their indices
-        List<Integer> ofMatches = MoreRedocStringUtils.getIndicesForMatches(splittedInput, "of");
+        List<Integer> ofMatches = MoreRedocStringUtils.getIndicesForMatches(splittedInput, GENITIVE_OF);
 
         for (int i : ofMatches) {
             int preOccurrence = i - 1;

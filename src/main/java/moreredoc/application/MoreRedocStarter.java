@@ -5,7 +5,7 @@ import moreredoc.analysis.MoreRedocModelGenerator;
 import moreredoc.application.exceptions.InvalidRequirementInputException;
 import moreredoc.datainput.InputDataHandler;
 import moreredoc.project.data.MoreRedocProject;
-import moreredoc.umlgenerator.ModelGenerator;
+import moreredoc.umlgenerator.PlantModelGenerator;
 import moreredoc.utils.fileutils.CsvReader;
 import org.apache.log4j.Logger;
 
@@ -33,7 +33,7 @@ public class MoreRedocStarter {
         logger.debug("PlantUML dsl string: " + dslString);
 
         logger.info("Start output file generation");
-		ModelGenerator modGen = new ModelGenerator(dslString, outputConfiguration);
+		PlantModelGenerator modGen = new PlantModelGenerator(dslString, outputConfiguration);
 		modGen.generateModels(outputConfiguration.getOutputFolder());
 		logger.info("Output files generated");
 	}

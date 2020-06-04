@@ -5,7 +5,6 @@ import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
@@ -21,17 +20,18 @@ public class TextAnalysisServiceTest {
     @Test
     public void testCompoundTypeClass() {
         String classSentence = "customer enters his customer number";
-        List<PossessionTuple> result = CompoundAnalysisService.computePossessionTuples(classSentence, domainClass, domainConcepts);
+        Set<PossessionTuple> result = CompoundAnalysisService.computeCompoundConceptsFromText(classSentence, domainClass, domainConcepts);
         assertEquals(1, result.size());
-        assertEquals(result.get(0).getOwner(), domainClass);
-        assertEquals(result.get(0).getOwned(), domainAttribute);
+
+        assertEquals(result.stream().findFirst().get().getOwner(), domainClass);
+        assertEquals(result.stream().findFirst().get().getOwned(), domainAttribute);
 
     }
 
     @Test
     public void testCompoundTypeNone() {
         String classSentence = "there is no customer who can enter a valid number";
-        assertEquals(0, CompoundAnalysisService.computePossessionTuples(classSentence, domainAttribute, domainConcepts).size());
+        assertEquals(0, CompoundAnalysisService.computeCompoundConceptsFromText(classSentence, domainAttribute, domainConcepts).size());
     }
 
 }
