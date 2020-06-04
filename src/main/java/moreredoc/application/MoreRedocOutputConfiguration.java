@@ -16,7 +16,9 @@ public class MoreRedocOutputConfiguration {
     private boolean outputPng;
     private boolean outputSvg;
 
-    public MoreRedocOutputConfiguration(String outputFolder, boolean xmiRaw, boolean xmiArgo, boolean xmiStar, boolean outputPng, boolean outputSvg) {
+    private boolean plantText;
+
+    public MoreRedocOutputConfiguration(String outputFolder, boolean xmiRaw, boolean xmiArgo, boolean xmiStar, boolean outputPng, boolean outputSvg, boolean plantText) {
         Objects.requireNonNull(outputFolder);
         this.outputFolder = outputFolder;
         this.xmiRaw = xmiRaw;
@@ -24,6 +26,7 @@ public class MoreRedocOutputConfiguration {
         this.xmiStar = xmiStar;
         this.outputPng = outputPng;
         this.outputSvg = outputSvg;
+        this.plantText = plantText;
     }
 
     public boolean isXmiRaw() {
@@ -72,5 +75,13 @@ public class MoreRedocOutputConfiguration {
 
     public void setOutputFolder(String outputFolder) {
         this.outputFolder = outputFolder;
+    }
+
+    public boolean isPlantText() {
+        return plantText;
+    }
+
+    public void setPlantText(boolean plantText) {
+        this.plantText = plantText;
     }
 }

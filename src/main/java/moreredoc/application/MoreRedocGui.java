@@ -46,6 +46,7 @@ public class MoreRedocGui extends JFrame {
     private final JCheckBox cbStarUml;
     private final JCheckBox cbPng;
     private final JCheckBox cbSvg;
+    private final JCheckBox cbPlantText;
 
     private final JButton buttonGenerateModels;
 
@@ -308,6 +309,16 @@ public class MoreRedocGui extends JFrame {
         mainPanel.add(cbSvg, gbcCbSvg);
 
         currentRow++;
+        cbPlantText = new JCheckBox("Plant UML");
+        cbPlantText.setSelected(true);
+        GridBagConstraints gbcPlantText = new GridBagConstraints();
+        gbcPlantText.anchor = GridBagConstraints.WEST;
+        gbcPlantText.insets = defaultInsets;
+        gbcPlantText.gridx = 1;
+        gbcPlantText.gridy = currentRow;
+        mainPanel.add(cbPlantText, gbcPlantText);
+
+        currentRow++;
         buttonGenerateModels = new JButton("Run");
         buttonGenerateModels.setVerticalAlignment(SwingConstants.BOTTOM);
         buttonGenerateModels.addActionListener(e -> runGenerateModel());
@@ -347,7 +358,7 @@ public class MoreRedocGui extends JFrame {
                 setUiActive(false);
 
                 MoreRedocAnalysisConfiguration analysisConfiguration = new MoreRedocAnalysisConfiguration(cbVerbsMethods.isSelected(), cbVerbsRelationships.isSelected(), cbCropEmptyClasses.isSelected());
-                MoreRedocOutputConfiguration outputConfiguration = new MoreRedocOutputConfiguration(textfieldOutputFolder.getText(), cbRawXmi.isSelected(), cbArgoUml.isSelected(), cbStarUml.isSelected(), cbPng.isSelected(), cbSvg.isSelected());
+                MoreRedocOutputConfiguration outputConfiguration = new MoreRedocOutputConfiguration(textfieldOutputFolder.getText(), cbRawXmi.isSelected(), cbArgoUml.isSelected(), cbStarUml.isSelected(), cbPng.isSelected(), cbSvg.isSelected(), cbPlantText.isSelected());
 
                 SupportedRedocumentationTools tool = comboBoxToolSelection.getItemAt(comboBoxToolSelection.getSelectedIndex());
                 Objects.requireNonNull(tool);
@@ -412,6 +423,7 @@ public class MoreRedocGui extends JFrame {
         this.cbStarUml.setEnabled(activeState);
         this.cbPng.setEnabled(activeState);
         this.cbSvg.setEnabled(activeState);
+        this.cbPlantText.setEnabled(activeState);
 
         this.buttonChooseKeywordsCsv.setEnabled(activeState);
         this.buttonChooseOutputFolder.setEnabled(activeState);

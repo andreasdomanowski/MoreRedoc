@@ -7,11 +7,11 @@
 MoreRedoc takes redocumented requirements and tries to generate UML class diagrams according to these requirements.
 For now, redocumentation generated with SoftRedoc (written by Harry Sneed) is supported. 
 
-In general, this tool takes two files as inputs:
+In general, this tool takes two csv files as inputs:
 * one containing the full text for each requirement, separated for each requirement
 * one with keywords from the requirements, which are candidates for being domain concepts
 
-SoftRedoc provides these two inputs. [Other tools or approaches](#support-for-other-tools) can easily be added, too. 
+SoftRedoc provides these two inputs after redocumenting requirement documents. [Other tools or approaches](#support-for-other-tools) can easily be added, too. 
 
 This tool was developed for my minor thesis (*Towards an Automatic Generation of UML Models from Redocumented Textual Requirements*, supervision: Dr. Birgit Demuth, Professur für Softwartechnologie, TU Dresden). It  includes a detailed explanation of the approach and literature review of other approaches and will be available on GitHub, too.
 
@@ -36,13 +36,13 @@ MoreRedoc was developed and tested on Windows 10 & AdoptOpenJDK 1.8.0_252.
 ### With your IDE
 For Integrating it in your IDE, just import the maven project. Increase the JVM's heap space in your run configuration.
 * `moreredoc.application.MoreRedocGuiStarter` starts the GUI
-* `moreredoc.application.MoreRedocStarter` provides an API for the modeling
+* `moreredoc.application.MoreRedocStarter` provides an API
 
 ## License
 - GPLv3, see [LICENSE](LICENSE)
 
 ## Support for other tools
-Including another (re)documentation tools can easily be achieved.
+Including nother (re)documentation tools can easily be achieved.
 - Implement a `moreredoc.datainput.InputDataHandler`for your tool
 - Add the tool with a reference to your *InputDataHandler* to the enum of supported tools in `moreredoc.datainput.tools.SupportedRedocumentationTools`
 - compound concepts in the input files (e.g. *customer number*) have to be separated by an underscore (*customer_number*)
