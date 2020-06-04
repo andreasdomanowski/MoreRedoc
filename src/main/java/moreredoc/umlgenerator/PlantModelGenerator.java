@@ -11,10 +11,13 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class PlantModelGenerator {
 	private final String plantUmlModel;
 	private final MoreRedocOutputConfiguration outputConfiguration;
+	private final String filename = "model-" +  DateTimeFormatter.ofPattern("yyyy-MM-dd_'at'_HH_mm_ss").format(LocalDateTime.now());
 
 	public PlantModelGenerator(String plantUmlModel, MoreRedocOutputConfiguration outputConfiguration) {
 		this.plantUmlModel = plantUmlModel;
@@ -23,27 +26,27 @@ public class PlantModelGenerator {
 
 	public void generateModels(String pathOutputFolder) throws IOException {
 		if (outputConfiguration.isOutputPng()) {
-			drawPng(new File(pathOutputFolder + File.separator + "/model.png"), plantUmlModel);
+			drawPng(new File(pathOutputFolder + File.separator + filename + ".png"), plantUmlModel);
 		}
 
 		if (outputConfiguration.isOutputSvg()) {
-			drawSvg(new File(pathOutputFolder + File.separator + "model.svg"), plantUmlModel);
+			drawSvg(new File(pathOutputFolder + File.separator + filename + ".svg"), plantUmlModel);
 		}
 
 		if (outputConfiguration.isXmiRaw()) {
-			generateRawXMI(new File(pathOutputFolder + File.separator + "xmiRaw.xmi"), plantUmlModel);
+			generateRawXMI(new File(pathOutputFolder + File.separator + filename +  "_.xmi"), plantUmlModel);
 		}
 
 		if (outputConfiguration.isXmiArgo()) {
-			generateArgoXMI(new File(pathOutputFolder + File.separator + "xmiArgo.xmi"), plantUmlModel);
+			generateArgoXMI(new File(pathOutputFolder + File.separator + filename +"_ArgoUml.xmi"), plantUmlModel);
 		}
 
 		if (outputConfiguration.isXmiStar()) {
-			generateStarXMI(new File(pathOutputFolder + File.separator + "xmiStar.xmi"), plantUmlModel);
+			generateStarXMI(new File(pathOutputFolder + File.separator + filename + "_StarUml.xmi"), plantUmlModel);
 		}
 
 		if (outputConfiguration.isPlantText()) {
-			FileUtils.writeStringToFile(new File(pathOutputFolder + File.separator + "model.plantuml"), plantUmlModel, StandardCharsets.UTF_8);
+			FileUtils.writeStringToFile(new File(pathOutputFolder + File.separator + filename + ".plantuml"), plantUmlModel, StandardCharsets.UTF_8);
 		}
 	}
 
