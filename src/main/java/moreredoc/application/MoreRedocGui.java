@@ -63,7 +63,6 @@ public class MoreRedocGui extends JFrame {
     public static final String ERROR_MESSAGE_UNSPECIFIED = "Error.";
     public static final String ERROR_HEADER_UNSPECIFIED = "An error occured, see logging.";
 
-
     public MoreRedocGui() {
         super(APPLICATION_TITLE);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -378,11 +377,12 @@ public class MoreRedocGui extends JFrame {
                         logger.error("InvalidRequirementInput");
                         JOptionPane.showMessageDialog(parentComponentForDialog, ERROR_MESSAGE_INVALID_INPUT, ERROR_HEADER_INVALID_INPUT, JOptionPane.ERROR_MESSAGE);
                     } else {
-                        logger.error(e);
-                        JOptionPane.showMessageDialog(parentComponentForDialog, ERROR_HEADER_UNSPECIFIED, ERROR_MESSAGE_UNSPECIFIED, JOptionPane.ERROR_MESSAGE);
+                        displayGenericErrorDialog(parentComponentForDialog);
                     }
+                    logger.error("Exception in runGenerateModels", e);
                 } catch (InterruptedException e) {
-                    logger.error(e);
+                    logger.error("InterruptedException in runGenerateModels", e);
+                    displayGenericErrorDialog(parentComponentForDialog);
                     Thread.currentThread().interrupt();
                 } finally {
                     setUiActive(true);
@@ -393,6 +393,10 @@ public class MoreRedocGui extends JFrame {
         if (necessaryFieldsHaveLegalArguments()) {
             backgroundWorker.execute();
         }
+    }
+
+    private void displayGenericErrorDialog(Component parentComponentForDialog) {
+        JOptionPane.showMessageDialog(parentComponentForDialog, ERROR_MESSAGE_INVALID_INPUT, ERROR_HEADER_INVALID_INPUT, JOptionPane.ERROR_MESSAGE);
     }
 
     private void setUiActive(boolean activeState) {

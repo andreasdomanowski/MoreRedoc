@@ -1,9 +1,5 @@
 package moreredoc.linguistics.processing;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import edu.stanford.nlp.coref.CorefCoreAnnotations;
 import edu.stanford.nlp.coref.CorefCoreAnnotations.CorefChainAnnotation;
 import edu.stanford.nlp.coref.data.CorefChain;
@@ -15,6 +11,10 @@ import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.util.CoreMap;
 import moreredoc.linguistics.MoreRedocNlpPipeline;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class CorefReplacementService {
 	
@@ -45,10 +45,9 @@ public class CorefReplacementService {
 
 				CorefChain chain = corefs.get(corefClustId);
 
-				if (chain == null) {
+				if (chain == null || chain.getMentionsInTextualOrder().size() == 1) {
 					resolved.add(token.word());
 				} else {
-
 					int sentINdx = chain.getRepresentativeMention().sentNum - 1;
 					CoreMap corefSentence = sentences.get(sentINdx);
 					List<CoreLabel> corefSentenceTokens = corefSentence.get(TokensAnnotation.class);

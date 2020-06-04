@@ -14,9 +14,13 @@ import moreredoc.umldata.UmlClass;
 import moreredoc.umldata.UmlModel;
 import moreredoc.umldata.UmlRelationship;
 import moreredoc.umldata.UmlRelationshipType;
+import moreredoc.utils.fileutils.DebugTools;
 import org.apache.log4j.Logger;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class MoreRedocModelGenerator {
     private static final Logger logger = Logger.getLogger(MoreRedocModelGenerator.class);
@@ -47,7 +51,7 @@ public class MoreRedocModelGenerator {
     public UmlModel generateModel() {
         logger.info("Analysis started");
 
-        initializePossessionTuples();
+        aggregatePossessionTuples();
         logger.info("\tPossession tuples initialized");
 
         initializeClasses();
@@ -71,7 +75,7 @@ public class MoreRedocModelGenerator {
         return model;
     }
 
-    private void initializePossessionTuples() {
+    private void aggregatePossessionTuples() {
         possessionTuples = new ArrayList<>();
         // add compound concepts from domain concept set
         possessionTuples
@@ -101,6 +105,11 @@ public class MoreRedocModelGenerator {
     }
 
     private void initializeClasses() {
+        Set<String> classCandidates = new HashSet<>();
+        // maps from attribute to respective class
+        // e.g. customer_number -> customer
+        Map<String, String> attributeCandidates = new HashMap<>();
+
         // iterate over all domain concepts, check whether it is class or attribute
         for (String domainConcept : project.getProjectDomainConcepts()) {
             boolean isClassCandidate = false;
@@ -122,53 +131,50 @@ public class MoreRedocModelGenerator {
                 }
             }
 
-            // if its just class candidate -> class
-            if (isClassCandidate && !isAttributeCandidate && !this.classMapping.containsKey(domainConcept)) {
-                UmlClass newClass = new UmlClass(domainConcept);
-                this.classMapping.put(domainConcept, newClass);
+            if (isClassCandidate) {
+                classCandidates.add(domainConcept);
             }
-            // if its just attribute candidate -> attribute to respective class
-            if (!isClassCandidate && isAttributeCandidate) {
-                UmlClass classForAttribute;
-                if (this.classMapping.containsKey(ownerClassName)) {
-                    classForAttribute = this.classMapping.get(ownerClassName);
-                    classForAttribute.addAttribute(domainConcept);
-                } else {
-                    classForAttribute = new UmlClass(ownerClassName);
-                    classForAttribute.addAttribute(domainConcept);
-                    this.classMapping.put(ownerClassName, classForAttribute);
-                }
+            if (isAttributeCandidate) {
+                attributeCandidates.put(domainConcept, ownerClassName);
             }
-            // if its class AND attribute candidate, it will be a class, but there's an
-            // aggregation between these two classes
-            if (isClassCandidate && isAttributeCandidate) {
-                // class representing the attribute
-                UmlClass attributeClass;
-                if (this.classMapping.containsKey(domainConcept)) {
-                    attributeClass = this.classMapping.get(domainConcept);
-                } else {
-                    attributeClass = new UmlClass(domainConcept);
-                    this.classMapping.put(domainConcept, attributeClass);
-                }
-                // class representing the parent class of the attribute
-                UmlClass ownerClass;
-                if (this.classMapping.containsKey(ownerClassName)) {
-                    ownerClass = this.classMapping.get(ownerClassName);
-                } else {
-                    ownerClass = new UmlClass(ownerClassName);
-                    this.classMapping.put(ownerClassName, ownerClass);
-                }
-                UmlRelationship newRelationship = new UmlRelationship(ownerClass, attributeClass,
+        }
+
+        classCandidates.forEach(classCandidate -> this.classMapping.put(classCandidate, new UmlClass(classCandidate)));
+        attributeCandidates.forEach((attributeCandidate, clazz) -> {
+            UmlClass existingClass = this.classMapping.get(clazz);
+            if (existingClass != null) {
+                existingClass.addAttribute(attributeCandidate);
+            } else {
+                UmlClass newClass = new UmlClass(clazz);
+                newClass.addAttribute(attributeCandidate);
+                this.classMapping.put(clazz, newClass);
+            }
+
+            if (classCandidates.contains(attributeCandidate)) {
+                UmlRelationship newRelationship = new UmlRelationship(this.classMapping.get(clazz), this.classMapping.get(attributeCandidate),
                         UmlRelationshipType.AGGREGATION, null, null);
                 this.relationships.add(newRelationship);
             }
+        });
 
-            if (!isClassCandidate && !isAttributeCandidate && !this.classMapping.containsKey(domainConcept)) {
-                UmlClass newClass;
-                newClass = new UmlClass(domainConcept);
-                this.classMapping.put(domainConcept, newClass);
+        this.project.getProjectDomainConcepts().forEach(concept -> {
+            if (!classCandidates.contains(concept) && !attributeCandidates.keySet().contains(concept)) {
+                this.classMapping.put(concept, new UmlClass(concept));
             }
+        });
 
+        String rndFolder = DebugTools.generateRandomString(10);
+        String debugFolder = "D:\\Cloud\\Dropbox\\Informatik\\Beleg\\_Inkonsistenz_Bug\\" + rndFolder;
+        try {
+            DebugTools.sortCopyAndWriteItToFile(project.getProjectDomainConcepts().stream().collect(Collectors.toList()), debugFolder + File.separator + "concepts.txt");
+            DebugTools.sortCopyAndWriteItToFile(classCandidates.stream().collect(Collectors.toList()), debugFolder + File.separator + "class.txt");
+            DebugTools.sortCopyAndWriteItToFile(possessionTuples.stream().map(x -> x.toString()).collect(Collectors.toList()), debugFolder + File.separator + "tuples.txt");
+            List<String> attr = new ArrayList<>();
+            attributeCandidates.forEach((x, y) -> attr.add(y + "->" + x));
+            DebugTools.sortCopyAndWriteItToFile(attr, debugFolder + File.separator + "attr.txt");
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -204,7 +210,6 @@ public class MoreRedocModelGenerator {
 
                     }
                     methodStringBuilder.append("(").append(c.getTo()).append(")");
-
                 }
 
                 if (configuration.getModelVerbsAsMethods()) {

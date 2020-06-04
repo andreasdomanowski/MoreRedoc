@@ -99,11 +99,8 @@ public class CompoundAnalysisService {
             String[] splittedConcept = StringUtils.split(concept, Commons.COMPOUND_SEPARATOR);
             String[] splittedAndRegularized = SentenceRegularizerService.normalizeStringArray(splittedConcept);
 
-            // TODO back_order_pool back_order
-
             // check every word's successor, if both are domain concepts,
-            // there's a possession relationship
-
+            // there's a possession relationship between the word and it's successor
 			Set<CombinationTuple> possibleCombinations = getAllCombinationsForCompoundConcept(splittedAndRegularized);
 			possibleCombinations.forEach(c -> {
 				if(allConcepts.contains(c.first) && allConcepts.contains(c.second)){
