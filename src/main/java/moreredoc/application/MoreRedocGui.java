@@ -57,6 +57,7 @@ public class MoreRedocGui extends JFrame {
     private final JButton buttonChooseOutputFolder;
 
     private static final String TEXT_CHOOSE_BUTTON = "Select";
+    private static final String TEXT_CONFIGURE = "Configure";
 
     private static final String ERROR_MESSAGE_INVALID_INPUT = "An error occurred while the input files were parsed. Please make sure that both requirement inputs are valid.";
     private static final String ERROR_HEADER_INVALID_INPUT = "Error parsing input files";
@@ -389,8 +390,8 @@ public class MoreRedocGui extends JFrame {
                         JOptionPane.showMessageDialog(parentComponentForDialog, ERROR_MESSAGE_INVALID_INPUT, ERROR_HEADER_INVALID_INPUT, JOptionPane.ERROR_MESSAGE);
                     } else {
                         displayGenericErrorDialog(parentComponentForDialog);
+                        logger.error("Exception in runGenerateModels", e);
                     }
-                    logger.error("Exception in runGenerateModels", e);
                 } catch (InterruptedException e) {
                     logger.error("InterruptedException in runGenerateModels", e);
                     displayGenericErrorDialog(parentComponentForDialog);
@@ -407,7 +408,7 @@ public class MoreRedocGui extends JFrame {
     }
 
     private void displayGenericErrorDialog(Component parentComponentForDialog) {
-        JOptionPane.showMessageDialog(parentComponentForDialog, ERROR_MESSAGE_INVALID_INPUT, ERROR_HEADER_INVALID_INPUT, JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(parentComponentForDialog, ERROR_MESSAGE_UNSPECIFIED, ERROR_HEADER_UNSPECIFIED, JOptionPane.ERROR_MESSAGE);
     }
 
     private void setUiActive(boolean activeState) {
