@@ -11,11 +11,11 @@ public class MoreRedocAnalysisConfiguration {
 		this.cropEmptyClasses = cropEmptyClasses;
 	}
 
-	public boolean getModelVerbsAsMethods() {
+	public boolean getModelConnectingVerbsAsMethods() {
 		return modelVerbsAsMethods;
 	}
 
-	public boolean getModelVerbsAsRelationships() {
+	public boolean getModelConnectingVerbsAsRelationships() {
 		return modelVerbsAsRelationships;
 	}
 

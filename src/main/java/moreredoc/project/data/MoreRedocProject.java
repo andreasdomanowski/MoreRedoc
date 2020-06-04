@@ -187,8 +187,8 @@ public class MoreRedocProject {
 
 	public double getRelativeFrequencyOfKeyword(String keyword) {
 		int totalCount = conceptCount.keySet().size();
-		int occurences = conceptCount.get(keyword);
+		int occurrences = conceptCount.get(keyword);
 
-		return (double) occurences / totalCount;
+		return (double) occurrences / totalCount;
 	}
 }
