@@ -44,7 +44,7 @@ public class ModelGeneratorExample {
 		UmlModel exampleModel = new UmlModel(classMapping, relationships);
 		
 		String dslString = exampleModel.toPlantUmlDslString();
-		MoreRedocOutputConfiguration outputConfiguration = new MoreRedocOutputConfiguration(new File("generatedModels").getAbsolutePath(), true, true, true, true, true);
+		MoreRedocOutputConfiguration outputConfiguration = new MoreRedocOutputConfiguration(new File("generatedModels").getAbsolutePath(), true, true, true, true, true, true);
 		PlantModelGenerator modGen = new PlantModelGenerator(dslString, outputConfiguration);
 		modGen.generateModels(outputConfiguration.getOutputFolder());
 	}

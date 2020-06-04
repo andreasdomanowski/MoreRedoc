@@ -41,6 +41,10 @@ public class PlantModelGenerator {
 		if (outputConfiguration.isXmiStar()) {
 			generateStarXMI(new File(pathOutputFolder + File.separator + "xmiStar.xmi"), plantUmlModel);
 		}
+
+		if (outputConfiguration.isPlantText()) {
+			FileUtils.writeStringToFile(new File(pathOutputFolder + File.separator + "model.plantuml"), plantUmlModel, StandardCharsets.UTF_8);
+		}
 	}
 
 	private void drawPng(File file, String umlInput) throws IOException {

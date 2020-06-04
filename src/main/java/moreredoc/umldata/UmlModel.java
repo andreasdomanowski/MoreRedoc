@@ -5,18 +5,20 @@ import java.util.List;
 import java.util.Map;
 
 public class UmlModel {
+	private static final String LINE_SEPARATOR = System.lineSeparator();
+
 	private Map<String, UmlClass> classes;
 	private List<UmlRelationship> relationships;
 	
 	public String toPlantUmlDslString() {
-		StringBuilder plantTextBuilder = new StringBuilder("@startuml\n");
+		StringBuilder plantTextBuilder = new StringBuilder("@startuml" + LINE_SEPARATOR);
 		
 		for(UmlClass c : classes.values()) {
-			plantTextBuilder.append(c.toPlantUmlClassString() + "\n");
+			plantTextBuilder.append(c.toPlantUmlClassString() + LINE_SEPARATOR);
 		}
 		
 		for(UmlRelationship r : relationships) {
-			plantTextBuilder.append(r.toPlantUmlRelationshipString() + "\n");
+			plantTextBuilder.append(r.toPlantUmlRelationshipString() + LINE_SEPARATOR);
 		}
 		plantTextBuilder.append("@enduml");
 		
