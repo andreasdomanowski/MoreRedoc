@@ -9,7 +9,10 @@ public class Requirement {
 
 	private Set<String> keywords = new HashSet<>();
 	private String unprocessedText = "";
-	
+
+	public Requirement(String id) {
+		this.id = id;
+	}
 
 	public String getId() {
 		return id;

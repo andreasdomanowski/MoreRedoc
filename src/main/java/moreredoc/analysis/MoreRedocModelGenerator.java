@@ -10,10 +10,7 @@ import moreredoc.linguistics.processing.Commons;
 import moreredoc.project.data.MoreRedocProject;
 import moreredoc.project.data.ProcessedRequirement;
 import moreredoc.project.data.RelationTripleWrapper;
-import moreredoc.umldata.UmlClass;
-import moreredoc.umldata.UmlModel;
-import moreredoc.umldata.UmlRelationship;
-import moreredoc.umldata.UmlRelationshipType;
+import moreredoc.umldata.*;
 import org.apache.log4j.Logger;
 
 import java.util.*;
@@ -176,28 +173,32 @@ public class MoreRedocModelGenerator {
         project.getProcessedProjectRequirements().forEach(r -> verbList.addAll(
                 VerbAnalyzerService.analyzeIETriples(r.getRelationTriples(), project.getProjectDomainConcepts())));
 
-        for (VerbCandidate c : verbList) {
-            String currentFrom = c.getFrom();
-            if (this.classMapping.containsKey(currentFrom) && !Commons.VERBS_TO_NOT_MODEL_WHEN_ALONE.contains(c.getVerb())) {
+        for (VerbCandidate candidate : verbList) {
+            String currentFrom = candidate.getFrom();
+            if (this.classMapping.containsKey(currentFrom) && !Commons.VERBS_TO_NOT_MODEL_WHEN_ALONE.contains(candidate.getVerb())) {
                 UmlClass currentFromClass = this.classMapping.get(currentFrom);
-
-                StringBuilder methodStringBuilder = new StringBuilder(c.getVerb());
+                StringBuilder methodStringBuilder = new StringBuilder(candidate.getVerb());
 
                 // if getTo != null, check if it is modelled as class
-                // if so, add relationship
-                // if not, just add it as method argument
-                if (c.getTo() != null) {
-                    if (configuration.getModelVerbsAsRelationships() && this.classMapping.containsKey(c.getTo())) {
-                        UmlClass currentToClass = this.classMapping.get(c.getTo());
+                // if so, add association
+                // if not, add it as a method argument, create this class and introduce an association
+                if (candidate.getTo() != null) {
+                    if (configuration.getModelConnectingVerbsAsRelationships() && !currentFromClass.getAttributes().contains(candidate.getTo())) {
+                        UmlClass currentToClass = this.classMapping.get(candidate.getTo());
+                        if(currentToClass == null){
+                            currentToClass = new UmlClass(candidate.getTo());
+                            classMapping.put(candidate.getTo(), currentToClass);
+                        }
                         UmlRelationship newRelationship = new UmlRelationship(currentFromClass, currentToClass,
-                                UmlRelationshipType.ASSOCIATION, c.getVerb(), null);
+                                UmlRelationshipType.ASSOCIATION, candidate.getVerb(), Multiplicity.NO_INFO);
                         model.getRelationships().add(newRelationship);
-
                     }
-                    methodStringBuilder.append("(").append(c.getTo()).append(")");
+                    if (configuration.getModelConnectingVerbsAsMethods()) {
+                        methodStringBuilder.append("(").append(candidate.getTo()).append(")");
+                    }
                 }
 
-                if (configuration.getModelVerbsAsMethods()) {
+                if (configuration.getModelConnectingVerbsAsMethods()) {
                     currentFromClass.addMethod(methodStringBuilder.toString());
                 }
             }

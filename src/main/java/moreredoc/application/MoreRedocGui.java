@@ -55,15 +55,13 @@ public class MoreRedocGui extends JFrame {
     private final JButton buttonChooseKeywordsCsv;
     private final JButton buttonChooseTextCsv;
     private final JButton buttonChooseOutputFolder;
-
-    private static final String TEXT_CHOOSE_BUTTON = "Select";
-    private static final String TEXT_CONFIGURE = "Configure";
+    private final JButton buttonConfigure;
 
     private static final String ERROR_MESSAGE_INVALID_INPUT = "An error occurred while the input files were parsed. Please make sure that both requirement inputs are valid.";
     private static final String ERROR_HEADER_INVALID_INPUT = "Error parsing input files";
 
     public static final String ERROR_MESSAGE_UNSPECIFIED = "Error.";
-    public static final String ERROR_HEADER_UNSPECIFIED = "An error occured, see logging.";
+    public static final String ERROR_HEADER_UNSPECIFIED = "An error occurred, see logging.";
 
     public MoreRedocGui() {
         super(APPLICATION_TITLE);
@@ -106,6 +104,17 @@ public class MoreRedocGui extends JFrame {
         gbcComboBoxToolSelection.gridy = currentRow;
         mainPanel.add(comboBoxToolSelection, gbcComboBoxToolSelection);
 
+        buttonConfigure = new JButton("Configure");
+        buttonConfigure.addActionListener(e -> comboBoxToolSelection.getItemAt(comboBoxToolSelection.getSelectedIndex()).getDataHandler().configure());
+        GridBagConstraints gbcButtonConfigure = new GridBagConstraints();
+        gbcButtonConfigure.anchor = GridBagConstraints.WEST;
+        gbcButtonConfigure.insets = new Insets(0, 0, 5, 0);
+        gbcButtonConfigure.gridx = 2;
+        gbcButtonConfigure.gridy = currentRow;
+        gbcButtonConfigure.fill = GridBagConstraints.HORIZONTAL;
+        gbcButtonConfigure.weightx = gbcButtonConfigure.weighty = 1;
+        mainPanel.add(buttonConfigure, gbcButtonConfigure);
+
         currentRow++;
         JLabel labelKeywords = new JLabel("Keywords:");
         GridBagConstraints gbcLabelKeywords = new GridBagConstraints();
@@ -125,7 +134,8 @@ public class MoreRedocGui extends JFrame {
         mainPanel.add(textfieldCsvKeywords, gbcTextfieldCsvKeywords);
         textfieldCsvKeywords.setColumns(10);
 
-        buttonChooseKeywordsCsv = new JButton(TEXT_CHOOSE_BUTTON);
+        String textChooseButton = "Select";
+        buttonChooseKeywordsCsv = new JButton(textChooseButton);
         buttonChooseKeywordsCsv.addActionListener(e -> {
             try {
                 chooseFileAndUpdateTextfield(textfieldCsvKeywords, mainPanel, JFileChooser.FILES_ONLY);
@@ -136,12 +146,14 @@ public class MoreRedocGui extends JFrame {
                 logger.info(e1);
             }
         });
-        GridBagConstraints gbcButton = new GridBagConstraints();
-        gbcButton.anchor = GridBagConstraints.WEST;
-        gbcButton.insets = new Insets(0, 0, 5, 0);
-        gbcButton.gridx = 2;
-        gbcButton.gridy = currentRow;
-        mainPanel.add(buttonChooseKeywordsCsv, gbcButton);
+        GridBagConstraints gbcButtonChooseKeywords = new GridBagConstraints();
+        gbcButtonChooseKeywords.anchor = GridBagConstraints.WEST;
+        gbcButtonChooseKeywords.insets = new Insets(0, 0, 5, 0);
+        gbcButtonChooseKeywords.gridx = 2;
+        gbcButtonChooseKeywords.gridy = currentRow;
+        gbcButtonChooseKeywords.fill = GridBagConstraints.HORIZONTAL;
+        gbcButtonChooseKeywords.weightx = gbcButtonConfigure.weighty = 1;
+        mainPanel.add(buttonChooseKeywordsCsv, gbcButtonChooseKeywords);
 
         currentRow++;
         JLabel labelCsvText = new JLabel("Text:");
@@ -163,7 +175,7 @@ public class MoreRedocGui extends JFrame {
         mainPanel.add(textfieldCsvText, gbcTextfieldCsvText);
         textfieldCsvText.setColumns(10);
 
-        buttonChooseTextCsv = new JButton(TEXT_CHOOSE_BUTTON);
+        buttonChooseTextCsv = new JButton(textChooseButton);
         buttonChooseTextCsv.addActionListener(e -> {
             try {
                 chooseFileAndUpdateTextfield(textfieldCsvText, mainPanel, JFileChooser.FILES_ONLY);
@@ -179,6 +191,8 @@ public class MoreRedocGui extends JFrame {
         gbcButtonChooseTextCsv.insets = new Insets(0, 0, 5, 0);
         gbcButtonChooseTextCsv.gridx = 2;
         gbcButtonChooseTextCsv.gridy = currentRow;
+        gbcButtonChooseTextCsv.fill = GridBagConstraints.HORIZONTAL;
+        gbcButtonChooseTextCsv.weightx = gbcButtonConfigure.weighty = 1;
         mainPanel.add(buttonChooseTextCsv, gbcButtonChooseTextCsv);
 
         currentRow++;
@@ -200,7 +214,7 @@ public class MoreRedocGui extends JFrame {
         mainPanel.add(textfieldOutputFolder, gbcTextfieldOutputFolder);
         textfieldOutputFolder.setColumns(10);
 
-        buttonChooseOutputFolder = new JButton(TEXT_CHOOSE_BUTTON);
+        buttonChooseOutputFolder = new JButton(textChooseButton);
         buttonChooseOutputFolder.addActionListener(e -> {
             try {
                 chooseFileAndUpdateTextfield(textfieldOutputFolder, mainPanel, JFileChooser.DIRECTORIES_ONLY);
@@ -216,10 +230,12 @@ public class MoreRedocGui extends JFrame {
         gbcButtonChooseOutputFolder.insets = new Insets(0, 0, 5, 0);
         gbcButtonChooseOutputFolder.gridx = 2;
         gbcButtonChooseOutputFolder.gridy = currentRow;
+        gbcButtonChooseOutputFolder.fill = GridBagConstraints.HORIZONTAL;
+        gbcButtonChooseOutputFolder.weightx = gbcButtonConfigure.weighty = 1;
         mainPanel.add(buttonChooseOutputFolder, gbcButtonChooseOutputFolder);
 
         currentRow++;
-        cbVerbsMethods = new JCheckBox("Model verbs as methods");
+        cbVerbsMethods = new JCheckBox("Model connecting verbs as methods + uses relationship");
         cbVerbsMethods.setSelected(true);
         cbVerbsMethods.setHorizontalTextPosition(SwingConstants.LEFT);
         GridBagConstraints gbcCbVerbsMethods = new GridBagConstraints();
@@ -230,7 +246,7 @@ public class MoreRedocGui extends JFrame {
         mainPanel.add(cbVerbsMethods, gbcCbVerbsMethods);
 
         currentRow++;
-        cbVerbsRelationships = new JCheckBox("Model verbs as relationships");
+        cbVerbsRelationships = new JCheckBox("Model connecting verbs as associations");
         cbVerbsRelationships.setSelected(true);
         cbVerbsRelationships.setHorizontalTextPosition(SwingConstants.LEFT);
         GridBagConstraints gbcCbVerbsRelationships = new GridBagConstraints();
@@ -241,7 +257,7 @@ public class MoreRedocGui extends JFrame {
         mainPanel.add(cbVerbsRelationships, gbcCbVerbsRelationships);
 
         currentRow++;
-        cbCropEmptyClasses = new JCheckBox("Crop classes with no attributes, methods and relationships");
+        cbCropEmptyClasses = new JCheckBox("Crop classes with neither attributes, methods nor relationships");
         cbCropEmptyClasses.setSelected(true);
         cbCropEmptyClasses.setHorizontalTextPosition(SwingConstants.LEFT);
         GridBagConstraints gbcCbCropEmptyClasses = new GridBagConstraints();
@@ -426,6 +442,7 @@ public class MoreRedocGui extends JFrame {
         this.cbSvg.setEnabled(activeState);
         this.cbPlantText.setEnabled(activeState);
 
+        this.buttonConfigure.setEnabled(activeState);
         this.buttonChooseKeywordsCsv.setEnabled(activeState);
         this.buttonChooseOutputFolder.setEnabled(activeState);
         this.buttonChooseTextCsv.setEnabled(activeState);

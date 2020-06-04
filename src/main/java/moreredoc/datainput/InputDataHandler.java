@@ -17,6 +17,5 @@ public interface InputDataHandler {
 
 	String getCsvDelimiter();
 
-
-
+	void configure();
 }

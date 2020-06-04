@@ -2,86 +2,134 @@ package moreredoc.datainput;
 
 import moreredoc.application.exceptions.InvalidRequirementInputException;
 import moreredoc.project.data.Requirement;
-import org.jboss.dna.common.text.Inflector;
+import org.apache.log4j.Logger;
 
-import java.util.ArrayList;
-import java.util.HashSet;
+import javax.swing.*;
+import java.awt.*;
 import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public final class SoftRedocDataHandler implements InputDataHandler {
 
+    private static final Logger logger = Logger.getLogger(SoftRedocDataHandler.class);
+
     @SuppressWarnings("unsused")
     private static final String EXPRESSION_TEST = "TEST";
-    @SuppressWarnings("unsused")
-    private static final String PREFIX_FUNQ_REQ = "FUNC-REQ";
-
     private static final String EXPRESSION_DATA = "DATA";
-    private static final String EXPRESSION_NEW_REQU = "REQU";
-    private static final String EXPRESSION_NONFUNCT_REQU = "Non-Functional  requirements";
+    @SuppressWarnings("unsused")
+    private static final String EXPRESSION_REQU = "REQU";
     private static final String EXPRESSION_SECT = "SECT";
     private static final String EXPRESSION_CASE = "CASE";
-    private static final String EXPRESSION_BUSINESS_OBJECTS = "Business-Objects";
-    private static final String EXPRESSION_BUSINESS_RULES = "Business-Rules";
-    private static final String EXPRESSION_SYSTEM_ACTORS = "System-Actors";
-    private static final String EXPRESSION_SYSTEM_USE_CASES = "system  Use Cases";
 
-    private static final int INDEX_TYPE_I = 0;
+    private static final int INDEX_TYPE = 0;
     private static final int INDEX_BASE_ENTITY = 1;
-    private static final int INDEX_TYPE = 3;
+    private static final int INDEX_TARGET_TYPE = 3;
     private static final int INDEX_TARGET_ENTITY = 4;
 
     private static final int INDEX_SENTENCE_REQU_ID = 0;
     private static final int INDEX_LN = 5;
     private static final int INDEX_SENTENCE = 6;
     private static final String LINE_NUMBER_METADATA_1 = "1";
-    private static final String LINE_NUMBER_METADATA_2 = "2";
 
-    private static final String CSV_DELIMITER = ";";
+    private String prefixFunctionalRequirement = "FUNC-REQ";
+    private String expressionBusinessObjects = "Business-Objects";
+    private String expressionBusinessRules = "Business-Rules";
+    private String expressionSystemActors = "System-Actors";
+    private String expressionSystemUseCases = "system  Use Cases";
+
+    private String csvDelimiter = ";";
+
+    @Override
+    public void configure() {
+        JTextField fieldPrefix = new JTextField(prefixFunctionalRequirement);
+        JTextField fieldCsvDelimiter = new JTextField(csvDelimiter);
+        JTextField fieldBusinessObjects = new JTextField(expressionBusinessObjects);
+        JTextField fieldBusinessRules = new JTextField(expressionBusinessRules);
+        JTextField fieldSystemActors = new JTextField(expressionSystemActors);
+        JTextField fieldSystemUseCases = new JTextField(expressionSystemUseCases);
+
+        JPanel panel = new JPanel(new GridLayout(0, 1));
+
+        panel.add(new JLabel("CSV delimiter:"));
+        panel.add(fieldCsvDelimiter);
+
+        panel.add(new JLabel("Prefix for functional requirement IDs:"));
+        panel.add(fieldPrefix);
+
+        panel.add(new JLabel("Expression for business objects:"));
+        panel.add(fieldBusinessObjects);
+
+        panel.add(new JLabel("Expression for business rules:"));
+        panel.add(fieldBusinessRules);
+
+        panel.add(new JLabel("Expression for system actors:"));
+        panel.add(fieldSystemActors);
+
+        panel.add(new JLabel("Expression for system use cases:"));
+        panel.add(fieldSystemUseCases);
+
+        int result = JOptionPane.showConfirmDialog(null, panel, "Test",
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+        if(result == JOptionPane.YES_OPTION){
+            this.prefixFunctionalRequirement = fieldPrefix.getText();
+            this.csvDelimiter = fieldCsvDelimiter.getText();
+            this.expressionBusinessObjects = fieldBusinessObjects.getText();
+            this.expressionBusinessRules = fieldBusinessRules.getText();
+            this.expressionSystemActors = fieldSystemActors.getText();
+            this.expressionSystemUseCases = fieldSystemUseCases.getText();
+        }
+    }
 
     @Override
     public List<Requirement> getRequirementsFromCsvInputs(List<List<String>> keywordInput,
             List<List<String>> sentencesInput) throws InvalidRequirementInputException {
         try {
-            return getRequirementSentences(getRequirementKeywords(keywordInput), sentencesInput);
+            List<Requirement> requirementsWithoutSentences = getRequirementsWithoutText(keywordInput);
+            return addTextToRequirements(requirementsWithoutSentences, sentencesInput);
         } catch (ArrayIndexOutOfBoundsException e) {
+            logger.error("Exception which causes InvalidRequirementInputException", e);
             throw new InvalidRequirementInputException();
         }
     }
 
     @Override
-    public Set<String> getAdditionalDomainConcepts(List<List<String>> csvInput) {
-        Set<String> result = new HashSet<>();
+    public String getCsvDelimiter() {
+        return csvDelimiter;
+    }
 
-        for (int i = 0; i < csvInput.size(); i++) {
-            List<String> currentCsvLine = csvInput.get(i);
-            String typeI = currentCsvLine.get(INDEX_TYPE_I).trim();
-            String baseEntity = currentCsvLine.get(INDEX_BASE_ENTITY).trim();
+    private List<Requirement> getRequirementsWithoutText(List<List<String>> keywordInput) {
+        List<Requirement> result = new ArrayList<>();
 
-            // add DATA from SECT, where base entity is either business object, business rule, system use case or system actor
-            if ((typeI.equals(EXPRESSION_SECT))
-                    && currentCsvLine.get(INDEX_TYPE).equals(EXPRESSION_DATA)
-                    && (baseEntity.equals(EXPRESSION_BUSINESS_OBJECTS) || baseEntity.equals(EXPRESSION_BUSINESS_RULES) || baseEntity.equals(EXPRESSION_SYSTEM_USE_CASES) || baseEntity.equals(EXPRESSION_SYSTEM_ACTORS))) {
-                result.add(currentCsvLine.get(INDEX_TARGET_ENTITY));
-            }
+        // iterate over raw input, check every line in csv data
+        for (int i = 0; i < keywordInput.size(); i++) {
+            // current line in csv, represented as list of strings
+            List<String> currentCsvLine = keywordInput.get(i);
 
-            // add DATA from CASES
-            if ((typeI.equals(EXPRESSION_CASE) && currentCsvLine.get(INDEX_TYPE).equals(EXPRESSION_DATA))){
-                result.add(currentCsvLine.get(INDEX_TARGET_ENTITY));
+            if (currentCsvLine.get(INDEX_BASE_ENTITY).startsWith(prefixFunctionalRequirement) && currentCsvLine.get(INDEX_TARGET_TYPE).equals(EXPRESSION_DATA)) {
+                String requirementId = currentCsvLine.get(INDEX_BASE_ENTITY);
+                // assuming IDs are unique
+                Optional<Requirement> currentRequirement = result.stream().filter(r -> r.getId().equals(requirementId)).findFirst();
+                if (currentRequirement.isPresent()) {
+                    currentRequirement.get().getKeywords().add(currentCsvLine.get(INDEX_TARGET_ENTITY));
+                } else {
+                    Requirement newRequirement = new Requirement(requirementId);
+                    result.add(newRequirement);
+                }
             }
         }
-
         return result;
     }
 
-    @Override
-    public String getCsvDelimiter() {
-        return CSV_DELIMITER;
-    }
-
-    private List<Requirement> getRequirementSentences(List<Requirement> requirements, List<List<String>> sentencesInput) {
+    private List<Requirement> addTextToRequirements(List<Requirement> requirements, List<List<String>> sentencesInput) {
         for (int i = 0; i < sentencesInput.size(); i++) {
             List<String> currentCsvLine = sentencesInput.get(i);
+
+            // deal with empty sentences
+            if (INDEX_SENTENCE >= currentCsvLine.size()) {
+                continue;
+            }
+
             String currentRequId = currentCsvLine.get(INDEX_SENTENCE_REQU_ID);
             String currentSentence = currentCsvLine.get(INDEX_SENTENCE);
 
@@ -90,7 +138,7 @@ public final class SoftRedocDataHandler implements InputDataHandler {
                 //if requirements id in sentence csv matches one in the given requirements
                 if (r.getId().trim().contains(currentRequId.trim())
                         && !currentCsvLine.get(INDEX_LN).contains(LINE_NUMBER_METADATA_1)
-                        && !currentCsvLine.get(INDEX_LN).contains(LINE_NUMBER_METADATA_2)) {
+                        && !currentCsvLine.get(INDEX_SENTENCE).contains(r.getId())) {
                     r.concatenateUnprocessedText(currentSentence);
                 }
             }
@@ -99,46 +147,25 @@ public final class SoftRedocDataHandler implements InputDataHandler {
         return requirements;
     }
 
-    private List<Requirement> getRequirementKeywords(List<List<String>> keywordInput) {
-        List<Requirement> result = new ArrayList<>();
-        Set<String> currentKeywordSet = new HashSet<>();
-        Requirement currentRequirement = new Requirement();
-        boolean notSeenRequirement = true;
+    @Override
+    public Set<String> getAdditionalDomainConcepts(List<List<String>> csvInput) {
+        Set<String> result = new HashSet<>();
 
-        // iterate over raw input, check every line in csv data
-        for (int i = 0; i < keywordInput.size(); i++) {
+        for (int i = 0; i < csvInput.size(); i++) {
+            List<String> currentCsvLine = csvInput.get(i);
+            String typeI = currentCsvLine.get(INDEX_TYPE).trim();
+            String baseEntity = currentCsvLine.get(INDEX_BASE_ENTITY).trim();
 
-            // current line in csv, represented as list of strings
-            List<String> currentCsvLine = keywordInput.get(i);
-
-            // if TYPE in csv equals "REQU", a new requirement begins
-            if (currentCsvLine.get(INDEX_TYPE).equals(EXPRESSION_NEW_REQU)) {
-                if (!notSeenRequirement) {
-                    currentRequirement.getKeywords().addAll(currentKeywordSet);
-                    result.add(currentRequirement);
-                    currentKeywordSet.clear();
-                }
-                notSeenRequirement = false;
-
-                // reset current requirement
-                currentRequirement = new Requirement();
-                currentRequirement.setId(currentCsvLine.get(INDEX_TARGET_ENTITY));
+            // add DATA from SECT, where base entity is either business object, business rule, system use case or system actor
+            if ((typeI.equals(EXPRESSION_SECT))
+                    && currentCsvLine.get(INDEX_TARGET_TYPE).equals(EXPRESSION_DATA)
+                    && (baseEntity.equals(expressionBusinessObjects) || baseEntity.equals(expressionBusinessRules) || baseEntity.equals(expressionSystemUseCases) || baseEntity.equals(expressionSystemActors))) {
+                result.add(currentCsvLine.get(INDEX_TARGET_ENTITY));
             }
 
-            // break, if nonfunctional requirements begin
-            else if (currentCsvLine.get(INDEX_TARGET_ENTITY).equals(EXPRESSION_NONFUNCT_REQU)) {
-                // add current requirement to result set to ensure, that the last requirement
-                // will not be lost
-                currentRequirement.getKeywords().addAll(currentKeywordSet);
-                result.add(currentRequirement);
-                break;
-            }
-            // if data is in current line, add it to current set, will be processed in next
-            // iteration(s)
-            else if (currentCsvLine.get(INDEX_TYPE).equals(EXPRESSION_DATA)) {
-                //singularize domain concept from softRedoc
-                String newKeyword = Inflector.getInstance().singularize(currentCsvLine.get(INDEX_TARGET_ENTITY));
-                currentKeywordSet.add(newKeyword);
+            // add DATA from CASES
+            if ((typeI.equals(EXPRESSION_CASE) && currentCsvLine.get(INDEX_TARGET_TYPE).equals(EXPRESSION_DATA))) {
+                result.add(currentCsvLine.get(INDEX_TARGET_ENTITY));
             }
         }
 
