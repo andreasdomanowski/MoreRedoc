@@ -235,7 +235,7 @@ public class MoreRedocGui extends JFrame {
         mainPanel.add(buttonChooseOutputFolder, gbcButtonChooseOutputFolder);
 
         currentRow++;
-        cbVerbsMethods = new JCheckBox("Model connecting verbs as methods + uses relationship");
+        cbVerbsMethods = new JCheckBox("Model connecting verbs as methods");
         cbVerbsMethods.setSelected(true);
         cbVerbsMethods.setHorizontalTextPosition(SwingConstants.LEFT);
         GridBagConstraints gbcCbVerbsMethods = new GridBagConstraints();
