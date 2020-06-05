@@ -7,7 +7,7 @@
 MoreRedoc takes redocumented requirements and tries to generate UML class diagrams according to these requirements.
 For now, redocumentation generated with SoftRedoc (written by Harry Sneed) is supported. 
 
-In general, this tool takes two csv files as inputs:
+In general, this tool takes two csv files as input:
 * one containing the full text for each requirement, separated for each requirement
 * one with keywords from the requirements, which are candidates for being domain concepts
 
@@ -16,33 +16,40 @@ SoftRedoc provides these two inputs after redocumenting requirement documents. [
 This tool was developed for my minor thesis (*Towards an Automatic Generation of UML Models from Redocumented Textual Requirements*, supervision: Dr. Birgit Demuth, Professur für Softwartechnologie, TU Dresden). It  includes a detailed explanation of the approach and literature review of other approaches and will be available on GitHub, too.
 
 ## Prerequisites
-- JDK 1.8
+- JDK 8
 - Maven 3
 - at least 8 GiB of RAM
     - use JVM option `-Xmx8G`
     
-MoreRedoc was developed and tested on Windows 10 & AdoptOpenJDK 1.8.0_252.
+MoreRedoc was developed and tested on Windows 10, AdoptOpenJDK 1.8.0_252 & Maven 3.6.3.
 
-## Build and run
+## Building and Usage
 ### With Maven
 1. Download or clone this repo
-2. Build a fat jar via 
-`mvn clean compile assembly:single`
-3. Run the compiled jar with 
-`java -jar -Xmx8G {name of the generated jar}.jar`
-4. Select the respective CSVs and modeling options
-5. Generate the model. Output can be found in the specified folder
+2. Build it either as a
+    1. Fat jar containing all dependencies for portability purposes
+         `mvn clean compile assembly:single`
+    2. Regular jar via `mvn clean package`
+3. Run the compiled jar with `java -jar -Xmx8G {name of the generated jar}.jar`
 
 ### With your IDE
 For Integrating it in your IDE, just import the maven project. Increase the JVM's heap space in your run configuration.
 * `moreredoc.application.MoreRedocGuiStarter` starts the GUI
 * `moreredoc.application.MoreRedocStarter` provides an API
 
+### Usage
+1. Select the respective CSVs and modeling options
+2. Generate the model
+    * Output can be found in the specified folder
+    * Model's filenames include a timestamp when they were generated
+
+Remember to increase the JVM's heap size in your run configuration.
+
 ## License
 - GPLv3, see [LICENSE](LICENSE)
 
 ## Support for other tools
-Including nother (re)documentation tools can easily be achieved.
+Including other (re)documentation tools can easily be achieved.
 - Implement a `moreredoc.datainput.InputDataHandler`for your tool
 - Add the tool with a reference to your *InputDataHandler* to the enum of supported tools in `moreredoc.datainput.tools.SupportedRedocumentationTools`
 - compound concepts in the input files (e.g. *customer number*) have to be separated by an underscore (*customer_number*)

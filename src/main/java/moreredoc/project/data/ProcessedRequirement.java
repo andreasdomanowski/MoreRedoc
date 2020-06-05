@@ -1,13 +1,13 @@
 package moreredoc.project.data;
 
-import java.util.List;
-import java.util.Set;
-
 import moreredoc.linguistics.processing.CorefReplacementService;
 import moreredoc.linguistics.processing.OpenIEService;
 import moreredoc.linguistics.processing.SentenceDecomposerService;
 import moreredoc.linguistics.processing.SentenceRegularizerService;
 import org.apache.log4j.Logger;
+
+import java.util.List;
+import java.util.Set;
 
 /*
  * Wrapper class for Requirements which represents processed (coref, normalized) requirements
@@ -28,7 +28,6 @@ public class ProcessedRequirement {
 	 */
 	@SuppressWarnings("unused")
 	private ProcessedRequirement() {
-		// no-op, won't be called!
 	}
 
 	public ProcessedRequirement(Requirement requirement) {
@@ -99,7 +98,7 @@ public class ProcessedRequirement {
 		String toReturn = "";
 
 		// sanitize string step 1 - remove keyword indicators
-		// but not yet the stopwords they are important for coref resolution
+		// but not yet the stopwords as they are important for coref resolution
 		toReturn = SentenceRegularizerService.removeKeywordIndicators(getUnprocessedText());
 
 		// do coref replacement
