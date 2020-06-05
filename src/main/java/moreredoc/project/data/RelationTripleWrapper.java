@@ -3,8 +3,8 @@ package moreredoc.project.data;
 import edu.stanford.nlp.ie.util.RelationTriple;
 
 public class RelationTripleWrapper {
-    private String sentence;
-    private RelationTriple triple;
+    private final String sentence;
+    private final RelationTriple triple;
 
     public RelationTripleWrapper(String sentence, RelationTriple triple) {
         super();

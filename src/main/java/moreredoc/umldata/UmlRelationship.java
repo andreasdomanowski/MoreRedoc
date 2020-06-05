@@ -7,7 +7,7 @@ public class UmlRelationship {
 
 	private Multiplicity multiplicity;
 	
-	private String name;
+	private final String name;
 
 	private static final String RELATIONSHIP_SIGN_ASSOCIATION = " -- ";
 	private static final String RELATIONSHIP_SIGN_DIRECTED_ASSOCIATION = " --> ";
@@ -26,7 +26,7 @@ public class UmlRelationship {
 		StringBuilder returnStringBuilder = new StringBuilder(toReturn + relationshipToAdd + to.getName());
 		
 		if(name != null) {
-			returnStringBuilder.append(" : "+ name);
+			returnStringBuilder.append(" : ").append(name);
 		}
 		return returnStringBuilder.toString();
 	}

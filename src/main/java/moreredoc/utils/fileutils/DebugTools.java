@@ -18,12 +18,11 @@ public class DebugTools {
 
     public static <E extends Comparable> void sortCopyAndWriteItToFile(List<E> in, String filePath) throws IOException {
         StringBuilder resultBuilder = new StringBuilder();
-        List<E> listCopy = new ArrayList<>();
-        listCopy.addAll(in);
+        List<E> listCopy = new ArrayList<>(in);
 
         Collections.sort(listCopy);
 
-        listCopy.forEach(x -> resultBuilder.append(x + System.lineSeparator()));
+        listCopy.forEach(x -> resultBuilder.append(x).append(System.lineSeparator()));
 
         FileUtils.writeStringToFile(new File(filePath), resultBuilder.toString(), (String) null);
     }

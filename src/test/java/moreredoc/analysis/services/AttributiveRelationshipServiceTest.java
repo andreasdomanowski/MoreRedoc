@@ -13,9 +13,12 @@ import static org.junit.Assert.fail;
 
 public class AttributiveRelationshipServiceTest {
 	private String genitiveOwnershipSentenceSingular = "customer's id";
-	private String genitiveOwnershipSentencePlural = "customers' id";
-	private String ofOwnershipSentenceSingular = "id of customer";
-	private String ofOwnershipSentencePlural = "ids of customer";
+	@SuppressWarnings("unused")
+	private final String genitiveOwnershipSentencePlural = "customers' id";
+	@SuppressWarnings("unused")
+	private final String ofOwnershipSentenceSingular = "id of customer";
+	@SuppressWarnings("unused")
+	private final String ofOwnershipSentencePlural = "ids of customer";
 	private Set<String> domainConcepts = new HashSet<>();
 	private PossessionTuple possession = new PossessionTuple("customer", "id", Multiplicity.NO_INFO);
 

@@ -47,14 +47,14 @@ public class UmlClass {
         StringBuilder resultBuilder = new StringBuilder("class " + this.name + " { \n");
 
         for (String attribute : attributes) {
-            resultBuilder.append("\t" + attribute + "\n");
+            resultBuilder.append("\t").append(attribute).append("\n");
         }
 
         for (String method : methods) {
             if (method.contains("(") && method.contains(")")) {
-                resultBuilder.append("\t" + method + "\n");
+                resultBuilder.append("\t").append(method).append("\n");
             } else {
-                resultBuilder.append("\t" + method + "()\n");
+                resultBuilder.append("\t").append(method).append("()\n");
             }
         }
 
