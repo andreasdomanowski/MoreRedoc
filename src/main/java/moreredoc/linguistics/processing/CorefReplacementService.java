@@ -57,7 +57,7 @@ public class CorefReplacementService {
 						for (int i = reprMent.startIndex; i < reprMent.endIndex; i++) {
 							CoreLabel matchedLabel = corefSentenceTokens.get(i - 1);
 							resolved.add(matchedLabel.word().replace("'s", ""));
-							newWordsBuilder.append(matchedLabel.word() + " ");
+							newWordsBuilder.append(matchedLabel.word()).append(" ");
 						}
 					}
 					else {
@@ -69,7 +69,7 @@ public class CorefReplacementService {
 
 		StringBuilder stringBuilder = new StringBuilder();
 
-		resolved.stream().forEach(str -> stringBuilder.append(str + " "));
+		resolved.forEach(str -> stringBuilder.append(str).append(" "));
 
 		return stringBuilder.toString();
 

@@ -1,9 +1,9 @@
 package moreredoc.analysis.data;
 
 public class VerbCandidate {
-	private String from;
-	private String to;
-	private String verb;
+	private final String from;
+	private final String to;
+	private final String verb;
 
 	public String getFrom() {
 		return from;

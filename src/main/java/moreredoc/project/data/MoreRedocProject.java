@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
 import java.util.*;
 
 public class MoreRedocProject {
-	private static Logger logger = Logger.getLogger(MoreRedocProject.class);
+	private static final Logger logger = Logger.getLogger(MoreRedocProject.class);
 
 	private InputDataHandler inputDataHandler;
 	private List<List<String>> keywordsRaw;
@@ -138,8 +138,8 @@ public class MoreRedocProject {
 		for (String s : projectDomainConcepts) {
 			int count = conceptCount.get(s);
 
-			for (int i = 0; i < splitProcessedText.length; i++) {
-				if (splitProcessedText[i].equals(s))
+			for (String value : splitProcessedText) {
+				if (value.equals(s))
 					count++;
 			}
 

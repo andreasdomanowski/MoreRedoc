@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NERAnalyzerService {
-	private StanfordCoreNLP pipeline = MoreRedocNlpPipeline.getCoreNlpPipeline();
+	private final StanfordCoreNLP pipeline = MoreRedocNlpPipeline.getCoreNlpPipeline();
 	
 	// tags strings from https://stanfordnlp.github.io/CoreNLP/ner.html
 	private static final String[] namedTypes = {"PERSON", "LOCATION", "ORGANIZATION", "MISC"};
@@ -47,8 +47,8 @@ public class NERAnalyzerService {
 	}
 	
 	private static boolean doesWordExistInArray(String word, String[] array) {
-		for(int i = 0; i < array.length; i++) {
-			if(word.equals(array[i])) {
+		for (String s : array) {
+			if (word.equals(s)) {
 				return true;
 			}
 		}

@@ -14,11 +14,11 @@ public class UmlModel {
 		StringBuilder plantTextBuilder = new StringBuilder("@startuml" + LINE_SEPARATOR);
 		
 		for(UmlClass c : classes.values()) {
-			plantTextBuilder.append(c.toPlantUmlClassString() + LINE_SEPARATOR);
+			plantTextBuilder.append(c.toPlantUmlClassString()).append(LINE_SEPARATOR);
 		}
 		
 		for(UmlRelationship r : relationships) {
-			plantTextBuilder.append(r.toPlantUmlRelationshipString() + LINE_SEPARATOR);
+			plantTextBuilder.append(r.toPlantUmlRelationshipString()).append(LINE_SEPARATOR);
 		}
 		plantTextBuilder.append("@enduml");
 		

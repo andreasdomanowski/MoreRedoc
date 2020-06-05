@@ -12,9 +12,7 @@ public class MoreRedocNlpPipeline {
 	private static StanfordCoreNLP pipeline = null;
 
 	public static synchronized StanfordCoreNLP getCoreNlpPipeline() {
-		if (pipeline != null)
-			return pipeline;
-		else {
+		if (pipeline == null) {
 			Properties props = new Properties();
 			props.put("annotators", "tokenize, ssplit, pos, lemma, ner, depparse, mention, coref, natlog, openie");
 
@@ -22,10 +20,9 @@ public class MoreRedocNlpPipeline {
 			props.setProperty("openie.format", "default");
 			props.setProperty("openie.max_entailments_per_clause", "90000");
 			props.setProperty("openie.triple.all_nominals", "false");
-			
-			pipeline = new StanfordCoreNLP(props);
 
-			return pipeline;
+			pipeline = new StanfordCoreNLP(props);
 		}
+		return pipeline;
 	}
 }

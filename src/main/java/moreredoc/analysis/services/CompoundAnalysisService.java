@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Set;
 
 public class CompoundAnalysisService {
-    private static Logger logger = Logger.getLogger(CompoundAnalysisService.class);
+    private static final Logger logger = Logger.getLogger(CompoundAnalysisService.class);
 
     private CompoundAnalysisService() {
     }

@@ -35,7 +35,7 @@ public class ProcessedRequirement {
 		this.corefResolvedRegularizedText = processText();
 		this.decomposedSentences = decomposeSentences();
 		this.processedText = generateProcessedText();
-		this.relationTriples = OpenIEService.performIE(processedText);
+		this.relationTriples = OpenIEService.performIE(processedText).getIeResults();
 	}
 
 	/**
@@ -48,17 +48,17 @@ public class ProcessedRequirement {
 		StringBuilder textBuilder = new StringBuilder();
 
 		// append whole resolved text
-		textBuilder.append(" " + this.corefResolvedRegularizedText + " ");
+		textBuilder.append(" ").append(this.corefResolvedRegularizedText).append(" ");
 
 		// append decomposed sentences
 		for (DecomposedSentenceTripel t : this.decomposedSentences) {
 			// append original sentence without part sentences
 			if (t.getOriginalWithoutPartSentences() != null)
-				textBuilder.append(" " + t.getOriginalWithoutPartSentences() + " ");
+				textBuilder.append(" ").append(t.getOriginalWithoutPartSentences()).append(" ");
 
 			for (String s : t.getSubsentences()) {
 				if (s != null) {
-					textBuilder.append(" " + s);
+					textBuilder.append(" ").append(s);
 				}
 			}
 		}
@@ -95,19 +95,19 @@ public class ProcessedRequirement {
 	}
 
 	private String processText() {
-		String toReturn = "";
+		String result;
 
 		// sanitize string step 1 - remove keyword indicators
 		// but not yet the stopwords as they are important for coref resolution
-		toReturn = SentenceRegularizerService.removeKeywordIndicators(getUnprocessedText());
+		result = SentenceRegularizerService.removeKeywordIndicators(getUnprocessedText());
 
 		// do coref replacement
-		toReturn = CorefReplacementService.resolveCoreferences(toReturn);
+		result = CorefReplacementService.resolveCoreferences(result);
 
 		// sanitize string step 2 - remove stopwords
-		toReturn = SentenceRegularizerService.removeStopwords(toReturn);
+		result = SentenceRegularizerService.removeStopwords(result);
 
-		return toReturn;
+		return result;
 	}
 
 	public List<RelationTripleWrapper> getRelationTriples() {

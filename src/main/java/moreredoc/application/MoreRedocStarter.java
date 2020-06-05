@@ -17,7 +17,7 @@ public class MoreRedocStarter {
     private MoreRedocStarter() {
     }
 
-    private static Logger logger = Logger.getLogger(MoreRedocStarter.class);
+    private static final Logger logger = Logger.getLogger(MoreRedocStarter.class);
 
     public static void generateModel(String pathCsvText, String pathCsvKeywords, MoreRedocOutputConfiguration outputConfiguration, MoreRedocAnalysisConfiguration analysisConfiguration, InputDataHandler inputDataHandler) throws InvalidRequirementInputException, IOException {
         List<List<String>> keywordsRaw = CsvReader.readCsv(pathCsvKeywords, inputDataHandler.getCsvDelimiter());

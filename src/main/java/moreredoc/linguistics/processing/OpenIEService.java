@@ -1,9 +1,5 @@
 package moreredoc.linguistics.processing;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import edu.stanford.nlp.ie.util.RelationTriple;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.naturalli.NaturalLogicAnnotations;
@@ -13,6 +9,10 @@ import edu.stanford.nlp.util.CoreMap;
 import moreredoc.linguistics.MoreRedocNlpPipeline;
 import moreredoc.project.data.RelationTripleWrapper;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 public class OpenIEService {
 	/**
 	 * Hide implicit constructor.
@@ -21,8 +21,8 @@ public class OpenIEService {
 		
 	}
 
-	public static List<RelationTripleWrapper> performIE(String text)  {
-		List<RelationTripleWrapper> toReturn = new ArrayList<>();
+	public static OpenIEResult performIE(String text)  {
+		List<RelationTripleWrapper> ieTriples = new ArrayList<>();
 
 		StanfordCoreNLP pipeline = MoreRedocNlpPipeline.getCoreNlpPipeline();
 
@@ -38,7 +38,7 @@ public class OpenIEService {
 
 			for (RelationTriple triple : triples) {
 				RelationTripleWrapper wrapper = new RelationTripleWrapper(sentence.toString(), triple);
-				toReturn.add(wrapper);
+				ieTriples.add(wrapper);
 			}
 
 			if (triples.isEmpty()) {
@@ -47,7 +47,25 @@ public class OpenIEService {
 
 		}
 
-		return toReturn;
+		return new OpenIEResult(ieTriples, sentencesWithoutOpenIeResult);
+	}
+
+	public static class OpenIEResult{
+		private final List<RelationTripleWrapper> ieResults;
+		private final List<String> sentencesWithoutResults;
+
+		public OpenIEResult(List<RelationTripleWrapper> ieResults, List<String> sentencesWithoutResults) {
+			this.ieResults = ieResults;
+			this.sentencesWithoutResults = sentencesWithoutResults;
+		}
+
+		public List<RelationTripleWrapper> getIeResults() {
+			return ieResults;
+		}
+
+		public List<String> getSentencesWithoutResults() {
+			return sentencesWithoutResults;
+		}
 	}
 
 }

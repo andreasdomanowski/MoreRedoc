@@ -5,9 +5,9 @@ import moreredoc.umldata.Multiplicity;
 import java.util.Objects;
 
 public class PossessionTuple {
-	private String owner;
-	private String owned;
-	private Multiplicity multiplicity;
+	private final String owner;
+	private final String owned;
+	private final Multiplicity multiplicity;
 
 	public PossessionTuple(String owner, String owned, Multiplicity multiplicity) {
 		super();

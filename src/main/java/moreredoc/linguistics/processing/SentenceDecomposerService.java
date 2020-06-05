@@ -1,12 +1,12 @@
 package moreredoc.linguistics.processing;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import edu.stanford.nlp.ling.Label;
 import edu.stanford.nlp.simple.Document;
 import edu.stanford.nlp.trees.Tree;
 import moreredoc.project.data.DecomposedSentenceTripel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SentenceDecomposerService {
 
@@ -64,7 +64,7 @@ public class SentenceDecomposerService {
         StringBuilder textBuilder = new StringBuilder();
 
         for (Label l : list) {
-            textBuilder.append(l.toString() + " ");
+            textBuilder.append(l.toString()).append(" ");
         }
 
         return sanitizeSentenceFromTree(textBuilder.toString());

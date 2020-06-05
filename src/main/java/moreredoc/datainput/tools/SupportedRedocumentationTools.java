@@ -6,8 +6,8 @@ import moreredoc.datainput.SoftRedocDataHandler;
 public enum SupportedRedocumentationTools {
     SOFTREDOC("softredoc", "SoftRedoc", new SoftRedocDataHandler());
 
-    private final String key;
-    private final String displayName;
+    public final String key;
+    public final String displayName;
 
     private final InputDataHandler dataHandler;
 
@@ -25,4 +25,5 @@ public enum SupportedRedocumentationTools {
     public InputDataHandler getDataHandler() {
         return dataHandler;
     }
+
 }
