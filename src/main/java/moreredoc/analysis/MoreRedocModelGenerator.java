@@ -7,6 +7,7 @@ import moreredoc.analysis.services.AttributiveRelationshipService;
 import moreredoc.analysis.services.CompoundAnalysisService;
 import moreredoc.analysis.services.VerbAnalyzerService;
 import moreredoc.linguistics.processing.Commons;
+import moreredoc.linguistics.processing.MoreRedocStringUtils;
 import moreredoc.project.data.MoreRedocProject;
 import moreredoc.project.data.ProcessedRequirement;
 import moreredoc.project.data.RelationTripleWrapper;
@@ -147,7 +148,7 @@ public class MoreRedocModelGenerator {
             }else{
                 for(String owner : clazz){
                     UmlClass ownerClass = this.classMapping.get(owner);
-                    ownerClass.addAttribute(attributeCandidate);
+                    ownerClass.addAttribute(MoreRedocStringUtils.removePrefixConceptIfPresent(ownerClass.getName(), attributeCandidate));
                 }
             }
         });

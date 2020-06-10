@@ -1,10 +1,11 @@
 package moreredoc.linguistics.processing;
 
-import static org.junit.Assert.assertArrayEquals;
+import org.junit.Test;
 
 import java.util.List;
 
-import org.junit.Test;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 
 public class MoreRedocStringUtilsTest {
 
@@ -22,5 +23,17 @@ public class MoreRedocStringUtilsTest {
 		int[] correctIndicesAsArray = { 1, 4 };
 
 		assertArrayEquals(correctIndicesAsArray, computedIndicesAsArray);
+	}
+
+	@Test
+	public void testRemovePrefix(){
+		String prefix = "customer";
+		String toTest = "customer_number";
+		String unchanged = "article_number";
+
+		assertEquals("number", MoreRedocStringUtils.removePrefixConceptIfPresent(prefix, toTest));
+		assertEquals(unchanged, MoreRedocStringUtils.removePrefixConceptIfPresent(prefix, unchanged));
+
+
 	}
 }
