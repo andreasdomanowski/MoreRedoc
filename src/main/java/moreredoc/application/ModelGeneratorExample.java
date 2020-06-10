@@ -16,11 +16,11 @@ public class ModelGeneratorExample {
 	}
 
 	public static void demonstrateModeling() throws IOException {
-		Set<String> methods = new HashSet(Arrays.asList("method1", "method2", "method3"));
+		Set<String> methods = new HashSet<>(Arrays.asList("method1", "method2", "method3"));
 
-		Set<String> class1Attributes = new HashSet(Arrays.asList("att1", "att2", "att3"));
-		Set<String> class2Attributes = new HashSet(Arrays.asList("att1", "att2", "att3"));
-		Set<String> class3Attributes = new HashSet(Arrays.asList("att1", "att2", "att3"));
+		Set<String> class1Attributes = new HashSet<>(Arrays.asList("att1", "att2", "att3"));
+		Set<String> class2Attributes = new HashSet<>(Arrays.asList("att1", "att2", "att3"));
+		Set<String> class3Attributes = new HashSet<>(Arrays.asList("att1", "att2", "att3"));
 
 		UmlClass class1 = new UmlClass("Class1", class1Attributes, methods);
 		UmlClass class2 = new UmlClass("Class2", class2Attributes, methods);
