@@ -8,10 +8,7 @@ import moreredoc.umlgenerator.PlantModelGenerator;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ModelGeneratorExample {
 	private ModelGeneratorExample(){
@@ -19,11 +16,11 @@ public class ModelGeneratorExample {
 	}
 
 	public static void demonstrateModeling() throws IOException {
-		List<String> methods = Arrays.asList("method1", "method2", "method3");
+		Set<String> methods = new HashSet(Arrays.asList("method1", "method2", "method3"));
 
-		List<String> class1Attributes = Arrays.asList("att1", "att2", "att3");
-		List<String> class2Attributes = Arrays.asList("att1", "att2", "att3");
-		List<String> class3Attributes = Arrays.asList("att1", "att2", "att3");
+		Set<String> class1Attributes = new HashSet(Arrays.asList("att1", "att2", "att3"));
+		Set<String> class2Attributes = new HashSet(Arrays.asList("att1", "att2", "att3"));
+		Set<String> class3Attributes = new HashSet(Arrays.asList("att1", "att2", "att3"));
 
 		UmlClass class1 = new UmlClass("Class1", class1Attributes, methods);
 		UmlClass class2 = new UmlClass("Class2", class2Attributes, methods);

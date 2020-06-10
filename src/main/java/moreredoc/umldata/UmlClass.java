@@ -1,14 +1,14 @@
 package moreredoc.umldata;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class UmlClass {
     private String name;
-    private List<String> attributes = new ArrayList<>();
-    private List<String> methods = new ArrayList<>();
+    private Set<String> attributes = new TreeSet<>();
+    private Set<String> methods = new TreeSet<>();
 
-    public UmlClass(String name, List<String> attributes, List<String> methods) {
+    public UmlClass(String name, Set<String> attributes, Set<String> methods) {
         super();
         this.name = name;
         this.attributes = attributes;
@@ -27,7 +27,7 @@ public class UmlClass {
         this.name = name;
     }
 
-    public List<String> getAttributes() {
+    public Set<String> getAttributes() {
         return attributes;
     }
 
@@ -35,7 +35,7 @@ public class UmlClass {
         this.attributes.add(attribute);
     }
 
-    public List<String> getMethods() {
+    public Set<String> getMethods() {
         return methods;
     }
 
