@@ -9,186 +9,187 @@ import org.apache.log4j.Logger;
 import java.util.*;
 
 public class MoreRedocProject {
-	private static final Logger logger = Logger.getLogger(MoreRedocProject.class);
+    private static final Logger logger = Logger.getLogger(MoreRedocProject.class);
 
-	private InputDataHandler inputDataHandler;
-	private List<List<String>> keywordsRaw;
+    private InputDataHandler inputDataHandler;
+    private List<List<String>> keywordsRaw;
 
-	// Set of all concepts
-	private Set<String> projectDomainConcepts = new HashSet<>();
-	private List<Requirement> projectRequirements;
-	private List<ProcessedRequirement> processedProjectRequirements = new ArrayList<>();
-	private Map<String, Integer> conceptCount = new HashMap<>();
+    // Set of all concepts
+    private Set<String> projectDomainConcepts = new HashSet<>();
+    private List<Requirement> projectRequirements;
+    private List<ProcessedRequirement> processedProjectRequirements = new ArrayList<>();
+    private Map<String, Integer> conceptCount = new HashMap<>();
 
-	private String wholeText;
-	private String wholeCorefResolvedRegularizedText;
-	private String wholeProcessedText;
+    private String wholeText;
+    private String wholeCorefResolvedRegularizedText;
+    private String wholeProcessedText;
 
-	/*
-	 * Hide default constructor because a project has to be initialized with
-	 * requirements
-	 */
-	@SuppressWarnings("unused")
-	private MoreRedocProject() {
-		throw new UnsupportedOperationException();
-	}
+    /*
+     * Hide default constructor because a project has to be initialized with
+     * requirements
+     */
+    @SuppressWarnings("unused")
+    private MoreRedocProject() {
+        throw new UnsupportedOperationException();
+    }
 
-	public MoreRedocProject(List<List<String>> keywordsRaw, List<List<String>> sentencesRaw,
-			InputDataHandler dataHandler) throws InvalidRequirementInputException {
-		Objects.requireNonNull(keywordsRaw);
-		Objects.requireNonNull(sentencesRaw);
-		Objects.requireNonNull(dataHandler);
+    public MoreRedocProject(List<List<String>> keywordsRaw, List<List<String>> sentencesRaw,
+            InputDataHandler dataHandler) throws InvalidRequirementInputException {
+        Objects.requireNonNull(keywordsRaw);
+        Objects.requireNonNull(sentencesRaw);
+        Objects.requireNonNull(dataHandler);
 
-		this.keywordsRaw = keywordsRaw;
-		this.inputDataHandler = dataHandler;
-		
-		this.projectRequirements = dataHandler.getRequirementsFromCsvInputs(keywordsRaw, sentencesRaw);
+        this.keywordsRaw = keywordsRaw;
+        this.inputDataHandler = dataHandler;
 
-		// process requirements via the ProcessedRequirement constructor
-		for (Requirement r : projectRequirements) {
-			processedProjectRequirements.add(new ProcessedRequirement(r));
-		}
+        this.projectRequirements = dataHandler.getRequirementsFromCsvInputs(keywordsRaw, sentencesRaw);
 
-		// after initializing the processed requirements, all texts of the project
-		// requirements can be generated
-		this.wholeText = generateText();
-		this.wholeCorefResolvedRegularizedText = generateCorefResolvedRegularizedText();
-		this.wholeProcessedText = generateWholeProcessedText();
+        // process requirements via the ProcessedRequirement constructor
+        for (Requirement r : projectRequirements) {
+            processedProjectRequirements.add(new ProcessedRequirement(r));
+        }
 
-		// calculate occurences of keywords
-		initializeDomainConcepts();
-	}
+        // after initializing the processed requirements, all texts of the project
+        // requirements can be generated
+        this.wholeText = generateText();
+        this.wholeCorefResolvedRegularizedText = generateCorefResolvedRegularizedText();
+        this.wholeProcessedText = generateWholeProcessedText();
 
-	/**
-	 * Generates a string containing all processed (normalization, coref,
-	 * decomposition) requirement texts
-	 * 
-	 * @return Processed Text for the whole Project
-	 */
-	private String generateWholeProcessedText() {
-		StringBuilder textBuilder = new StringBuilder();
+        // calculate occurrences of keywords
+        initializeDomainConcepts();
+    }
 
-		for (ProcessedRequirement r : this.getProcessedProjectRequirements()) {
-			textBuilder.append(r.getProcessedText());
-		}
+    /**
+     * Generates a string containing all processed (normalization, coref,
+     * decomposition) requirement texts
+     *
+     * @return Processed Text for the whole Project
+     */
+    private String generateWholeProcessedText() {
+        StringBuilder textBuilder = new StringBuilder();
 
-		return textBuilder.toString();
-	}
+        for (ProcessedRequirement r : this.getProcessedProjectRequirements()) {
+            textBuilder.append(r.getProcessedText());
+        }
 
-	private String generateCorefResolvedRegularizedText() {
-		StringBuilder textBuilder = new StringBuilder();
+        return textBuilder.toString();
+    }
 
-		for (ProcessedRequirement r : this.getProcessedProjectRequirements()) {
-			textBuilder.append(r.getCorefResolvedRegularizedText());
-		}
+    private String generateCorefResolvedRegularizedText() {
+        StringBuilder textBuilder = new StringBuilder();
 
-		return textBuilder.toString();
-	}
+        for (ProcessedRequirement r : this.getProcessedProjectRequirements()) {
+            textBuilder.append(r.getCorefResolvedRegularizedText());
+        }
 
-	private String generateText() {
-		StringBuilder textBuilder = new StringBuilder();
+        return textBuilder.toString();
+    }
 
-		for (Requirement r : this.getProjectRequirements()) {
-			textBuilder.append(r.getUnprocessedText());
-		}
+    private String generateText() {
+        StringBuilder textBuilder = new StringBuilder();
 
-		return textBuilder.toString();
-	}
+        for (Requirement r : this.getProjectRequirements()) {
+            textBuilder.append(r.getUnprocessedText());
+        }
 
-	private void initializeDomainConcepts() {
-		// add additional concepts
-		this.projectDomainConcepts.addAll(inputDataHandler.getAdditionalDomainConcepts(keywordsRaw));
-		for(String concept : projectDomainConcepts){
-			conceptCount.put(concept, 1);
-		}
+        return textBuilder.toString();
+    }
 
-		StringBuilder wholeProcessedTextBuilder = new StringBuilder();
+    private void initializeDomainConcepts() throws InvalidRequirementInputException {
+        // add additional concepts
+        inputDataHandler.getAdditionalDomainConcepts(keywordsRaw).forEach(word -> this.projectDomainConcepts.add(WordRegularizerService.regularize(word)));
 
-		for (ProcessedRequirement r : processedProjectRequirements) {
-			// concatenate processed text
-			wholeProcessedTextBuilder.append(r.getCorefResolvedRegularizedText());
-			// regularize strings, put in set
-			for (String s : r.getKeywords()) {
-				String regularizedConcept = WordRegularizerService.regularize(s);
-				projectDomainConcepts.add(regularizedConcept);
+        for (String concept : projectDomainConcepts) {
+            conceptCount.put(concept, 1);
+        }
 
-				int occurrences;
+        StringBuilder wholeProcessedTextBuilder = new StringBuilder();
 
-				// count occurences
-				// initialize value for count
-				if (conceptCount.get(regularizedConcept) == null) {
-					occurrences = 1;
-				} else {
-					occurrences = conceptCount.get(regularizedConcept) + 1;
-				}
+        for (ProcessedRequirement r : processedProjectRequirements) {
+            // concatenate processed text
+            wholeProcessedTextBuilder.append(r.getCorefResolvedRegularizedText());
+            // regularize strings, put in set
+            for (String s : r.getKeywords()) {
+                String regularizedConcept = WordRegularizerService.regularize(s);
+                projectDomainConcepts.add(regularizedConcept);
 
-				conceptCount.put(regularizedConcept, occurrences);
-			}
+                int occurrences;
 
-		}
-		// normalize each word of whole processed text
-		// split by whitespaces via regex
-		String[] splitProcessedText = StringUtils.split(wholeProcessedTextBuilder.toString());
-		for (int i = 0; i < splitProcessedText.length; i++) {
-			splitProcessedText[i] = WordRegularizerService.regularize(splitProcessedText[i]);
-		}
+                // count occurences
+                // initialize value for count
+                if (conceptCount.get(regularizedConcept) == null) {
+                    occurrences = 1;
+                } else {
+                    occurrences = conceptCount.get(regularizedConcept) + 1;
+                }
 
-		// count domain concept occurences in regularized text
-		// has to be done this way, otherwise it will count infixes..
-		for (String s : projectDomainConcepts) {
-			int count = conceptCount.get(s);
+                conceptCount.put(regularizedConcept, occurrences);
+            }
 
-			for (String value : splitProcessedText) {
-				if (value.equals(s))
-					count++;
-			}
+        }
+        // normalize each word of whole processed text
+        // split by whitespaces via regex
+        String[] splitProcessedText = StringUtils.split(wholeProcessedTextBuilder.toString());
+        for (int i = 0; i < splitProcessedText.length; i++) {
+            splitProcessedText[i] = WordRegularizerService.regularize(splitProcessedText[i]);
+        }
 
-			conceptCount.put(s, count);
-		}
+        // count domain concept occurences in regularized text
+        // has to be done this way, otherwise it will count infixes..
+        for (String s : projectDomainConcepts) {
+            int count = conceptCount.get(s);
 
-	}
+            for (String value : splitProcessedText) {
+                if (value.equals(s))
+                    count++;
+            }
 
-	public String getWholeText() {
-		return wholeText;
-	}
+            conceptCount.put(s, count);
+        }
 
-	public String getWholeCorefResolvedRegularizedText() {
-		return wholeCorefResolvedRegularizedText;
-	}
+    }
 
-	public String getWholeProcessedText() {
-		return wholeProcessedText;
-	}
+    public String getWholeText() {
+        return wholeText;
+    }
 
-	public Set<String> getProjectDomainConcepts() {
-		return projectDomainConcepts;
-	}
+    public String getWholeCorefResolvedRegularizedText() {
+        return wholeCorefResolvedRegularizedText;
+    }
 
-	public List<Requirement> getProjectRequirements() {
-		return projectRequirements;
-	}
+    public String getWholeProcessedText() {
+        return wholeProcessedText;
+    }
 
-	public List<ProcessedRequirement> getProcessedProjectRequirements() {
-		return processedProjectRequirements;
-	}
+    public Set<String> getProjectDomainConcepts() {
+        return projectDomainConcepts;
+    }
 
-	public Map<String, Integer> getEntityCount() {
-		return conceptCount;
-	}
+    public List<Requirement> getProjectRequirements() {
+        return projectRequirements;
+    }
 
-	public void printEntityCount() {
-		Set<String> keySet = conceptCount.keySet();
-		for (String s : keySet) {
-			logger.info("Keyword: " + s);
-			logger.info("\tabsolute: " + conceptCount.get(s));
-			logger.info("\trelative: " + getRelativeFrequencyOfKeyword(s));
-		}
-	}
+    public List<ProcessedRequirement> getProcessedProjectRequirements() {
+        return processedProjectRequirements;
+    }
 
-	public double getRelativeFrequencyOfKeyword(String keyword) {
-		int totalCount = conceptCount.keySet().size();
-		int occurrences = conceptCount.get(keyword);
+    public Map<String, Integer> getEntityCount() {
+        return conceptCount;
+    }
 
-		return (double) occurrences / totalCount;
-	}
+    public void printEntityCount() {
+        Set<String> keySet = conceptCount.keySet();
+        for (String s : keySet) {
+            logger.info("Keyword: " + s);
+            logger.info("\tabsolute: " + conceptCount.get(s));
+            logger.info("\trelative: " + getRelativeFrequencyOfKeyword(s));
+        }
+    }
+
+    public double getRelativeFrequencyOfKeyword(String keyword) {
+        int totalCount = conceptCount.keySet().size();
+        int occurrences = conceptCount.get(keyword);
+
+        return (double) occurrences / totalCount;
+    }
 }

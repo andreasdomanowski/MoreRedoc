@@ -13,7 +13,7 @@ public interface InputDataHandler {
 	/**
 	 * Provides a possibility to add further domain concepts
 	 */
-	Set<String> getAdditionalDomainConcepts(List<List<String>> csvInput);
+	Set<String> getAdditionalDomainConcepts(List<List<String>> csvInput) throws InvalidRequirementInputException;
 
 	String getCsvDelimiter();
 
