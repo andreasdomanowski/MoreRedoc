@@ -131,6 +131,8 @@
                     <excludes>
                         <exclude>${exclude.tests}</exclude>
                     </excludes>
+                    <forkMode>once</forkMode>
+                    <argLine>-Xmx8G</argLine>
                 </configuration>
             </plugin>
 
