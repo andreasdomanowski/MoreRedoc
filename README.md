@@ -27,7 +27,7 @@ MoreRedoc was developed and tested on Windows 10, AdoptOpenJDK 1.8.0_252 & Maven
 ### With Maven
 1. Download or clone this repo
 2. Build it either as a
-    1. Fat jar without tests containing all dependencies for portability purposes
+    1. Fat jar containing all dependencies for portability purposes
          `mvn clean compile assembly:assembly`
     2. Regular jar via `mvn clean package`
 3. Run the compiled jar with `java -jar -Xmx8G {name of the generated jar}.jar`
