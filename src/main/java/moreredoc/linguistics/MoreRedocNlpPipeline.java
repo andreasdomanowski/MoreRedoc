@@ -14,7 +14,7 @@ public class MoreRedocNlpPipeline {
 	public static synchronized StanfordCoreNLP getCoreNlpPipeline() {
 		if (pipeline == null) {
 			Properties props = new Properties();
-			props.put("annotators", "tokenize, ssplit, pos, lemma, ner, depparse, mention, coref, natlog, openie");
+			props.put("annotators", "tokenize, ssplit, pos, lemma, ner, depparse, coref, natlog, openie");
 
 			props.setProperty("openie.resolve_coref", "true");
 			props.setProperty("openie.format", "default");
