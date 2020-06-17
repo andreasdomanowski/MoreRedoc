@@ -2,6 +2,7 @@ package moreredoc.datainput;
 
 import moreredoc.application.exceptions.InvalidRequirementInputException;
 import moreredoc.project.data.Requirement;
+import moreredoc.utils.fileutils.CsvReader;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;
@@ -100,11 +101,14 @@ public final class SoftRedocDataHandler implements InputDataHandler {
     }
 
     @Override
-    public List<Requirement> getRequirementsFromCsvInputs(List<List<String>> keywordInput,
-            List<List<String>> sentencesInput) throws InvalidRequirementInputException {
+    public List<Requirement> getRequirementsFromCsvInputs(String csvKeywordsPath,
+            String csvTextPath) throws InvalidRequirementInputException {
         try {
-            List<Requirement> requirementsWithoutSentences = getRequirementsWithoutText(keywordInput);
-            return addTextToRequirements(requirementsWithoutSentences, sentencesInput);
+            List<List<String>> keywordsRaw = CsvReader.readCsv(csvKeywordsPath, this.csvDelimiter);
+            List<List<String>> sentencesRaw = CsvReader.readCsv(csvTextPath, this.csvDelimiter);
+
+            List<Requirement> requirementsWithoutSentences = getRequirementsWithoutText(keywordsRaw);
+            return addTextToRequirements(requirementsWithoutSentences, sentencesRaw);
         } catch (ArrayIndexOutOfBoundsException e) {
             logger.error("Exception which causes InvalidRequirementInputException", e);
             throw new InvalidRequirementInputException();
@@ -166,11 +170,13 @@ public final class SoftRedocDataHandler implements InputDataHandler {
     }
 
     @Override
-    public Set<String> getAdditionalDomainConcepts(List<List<String>> csvInput) {
+    public Set<String> getAdditionalDomainConcepts(String csvPath) {
+        List<List<String>> csvContent = CsvReader.readCsv(csvPath, this.csvDelimiter);
+
         Set<String> result = new HashSet<>();
 
-        for (int i = 0; i < csvInput.size(); i++) {
-            List<String> currentCsvLine = csvInput.get(i);
+        for (int i = 0; i < csvContent.size(); i++) {
+            List<String> currentCsvLine = csvContent.get(i);
             String typeI = currentCsvLine.get(INDEX_TYPE).trim();
             String baseEntity = currentCsvLine.get(INDEX_BASE_ENTITY).trim();
 

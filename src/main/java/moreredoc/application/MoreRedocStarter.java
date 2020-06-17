@@ -6,11 +6,9 @@ import moreredoc.application.exceptions.InvalidRequirementInputException;
 import moreredoc.datainput.InputDataHandler;
 import moreredoc.project.data.MoreRedocProject;
 import moreredoc.umlgenerator.PlantModelGenerator;
-import moreredoc.utils.fileutils.CsvReader;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
-import java.util.List;
 
 public class MoreRedocStarter {
 
@@ -20,10 +18,7 @@ public class MoreRedocStarter {
     private static final Logger logger = Logger.getLogger(MoreRedocStarter.class);
 
     public static void generateModel(String pathCsvText, String pathCsvKeywords, MoreRedocOutputConfiguration outputConfiguration, MoreRedocAnalysisConfiguration analysisConfiguration, InputDataHandler inputDataHandler) throws InvalidRequirementInputException, IOException {
-        List<List<String>> keywordsRaw = CsvReader.readCsv(pathCsvKeywords, inputDataHandler.getCsvDelimiter());
-        List<List<String>> sentencesRaw = CsvReader.readCsv(pathCsvText, inputDataHandler.getCsvDelimiter());
-
-        MoreRedocProject project = new MoreRedocProject(keywordsRaw, sentencesRaw, inputDataHandler);
+        MoreRedocProject project = new MoreRedocProject(pathCsvKeywords, pathCsvText, inputDataHandler);
 
 		logger.info("Start analysis");
 		MoreRedocModelGenerator analysis = new MoreRedocModelGenerator(project, analysisConfiguration);

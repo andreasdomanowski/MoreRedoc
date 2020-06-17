@@ -34,7 +34,7 @@ public class PlantModelGenerator {
 		}
 
 		if (outputConfiguration.isXmiRaw()) {
-			generateRawXMI(new File(pathOutputFolder + File.separator + filename +  "_.xmi"), plantUmlModel);
+			generateRawXMI(new File(pathOutputFolder + File.separator + filename +  ".xmi"), plantUmlModel);
 		}
 
 		if (outputConfiguration.isXmiArgo()) {

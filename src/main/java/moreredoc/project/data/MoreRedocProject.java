@@ -12,7 +12,6 @@ public class MoreRedocProject {
     private static final Logger logger = Logger.getLogger(MoreRedocProject.class);
 
     private InputDataHandler inputDataHandler;
-    private List<List<String>> keywordsRaw;
 
     // Set of all concepts
     private Set<String> projectDomainConcepts = new HashSet<>();
@@ -33,16 +32,15 @@ public class MoreRedocProject {
         throw new UnsupportedOperationException();
     }
 
-    public MoreRedocProject(List<List<String>> keywordsRaw, List<List<String>> sentencesRaw,
+    public MoreRedocProject(String csvPathKeywords, String csvPathText,
             InputDataHandler dataHandler) throws InvalidRequirementInputException {
-        Objects.requireNonNull(keywordsRaw);
-        Objects.requireNonNull(sentencesRaw);
+        Objects.requireNonNull(csvPathKeywords);
+        Objects.requireNonNull(csvPathText);
         Objects.requireNonNull(dataHandler);
 
-        this.keywordsRaw = keywordsRaw;
         this.inputDataHandler = dataHandler;
 
-        this.projectRequirements = dataHandler.getRequirementsFromCsvInputs(keywordsRaw, sentencesRaw);
+        this.projectRequirements = dataHandler.getRequirementsFromCsvInputs(csvPathKeywords, csvPathText);
 
         // process requirements via the ProcessedRequirement constructor
         for (Requirement r : projectRequirements) {
@@ -57,6 +55,9 @@ public class MoreRedocProject {
 
         // calculate occurrences of keywords
         initializeDomainConcepts();
+
+        // add additional concepts
+        inputDataHandler.getAdditionalDomainConcepts(csvPathKeywords).forEach(word -> this.projectDomainConcepts.add(WordRegularizerService.regularize(word)));
     }
 
     /**
@@ -95,10 +96,7 @@ public class MoreRedocProject {
         return textBuilder.toString();
     }
 
-    private void initializeDomainConcepts() throws InvalidRequirementInputException {
-        // add additional concepts
-        inputDataHandler.getAdditionalDomainConcepts(keywordsRaw).forEach(word -> this.projectDomainConcepts.add(WordRegularizerService.regularize(word)));
-
+    private void initializeDomainConcepts(){
         for (String concept : projectDomainConcepts) {
             conceptCount.put(concept, 1);
         }

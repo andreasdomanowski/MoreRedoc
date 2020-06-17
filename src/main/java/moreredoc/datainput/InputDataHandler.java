@@ -7,13 +7,14 @@ import java.util.List;
 import java.util.Set;
 
 public interface InputDataHandler {
-	List<Requirement> getRequirementsFromCsvInputs(List<List<String>> keywordInput,
-			List<List<String>> sentencesInput) throws InvalidRequirementInputException;
+	List<Requirement> getRequirementsFromCsvInputs(String csvKeywordsPath,
+			String csvTextPath) throws InvalidRequirementInputException;
 
 	/**
 	 * Provides a possibility to add further domain concepts
+	 * @param csvPath
 	 */
-	Set<String> getAdditionalDomainConcepts(List<List<String>> csvInput) throws InvalidRequirementInputException;
+	Set<String> getAdditionalDomainConcepts(String csvPath) throws InvalidRequirementInputException;
 
 	String getCsvDelimiter();
 
