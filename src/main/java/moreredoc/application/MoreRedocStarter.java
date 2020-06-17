@@ -17,7 +17,7 @@ public class MoreRedocStarter {
 
     private static final Logger logger = Logger.getLogger(MoreRedocStarter.class);
 
-    public static void generateModel(String pathCsvText, String pathCsvKeywords, MoreRedocOutputConfiguration outputConfiguration, MoreRedocAnalysisConfiguration analysisConfiguration, InputDataHandler inputDataHandler) throws InvalidRequirementInputException, IOException {
+    public static void generateModel(String pathCsvText, String pathCsvKeywords, MoreRedocOutputConfiguration outputConfiguration, MoreRedocAnalysisConfiguration analysisConfiguration, InputDataHandler inputDataHandler) throws InvalidRequirementInputException, IOException, InterruptedException {
         MoreRedocProject project = new MoreRedocProject(pathCsvKeywords, pathCsvText, inputDataHandler);
 
 		logger.info("Start analysis");

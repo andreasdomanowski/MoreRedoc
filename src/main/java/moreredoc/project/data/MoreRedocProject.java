@@ -16,7 +16,7 @@ public class MoreRedocProject {
     // Set of all concepts
     private Set<String> projectDomainConcepts = new HashSet<>();
     private List<Requirement> projectRequirements;
-    private List<ProcessedRequirement> processedProjectRequirements = new ArrayList<>();
+    private List<ProcessedRequirement> processedProjectRequirements = Collections.synchronizedList(new ArrayList<>());
     private Map<String, Integer> conceptCount = new HashMap<>();
 
     private String wholeText;
@@ -33,7 +33,7 @@ public class MoreRedocProject {
     }
 
     public MoreRedocProject(String csvPathKeywords, String csvPathText,
-            InputDataHandler dataHandler) throws InvalidRequirementInputException {
+            InputDataHandler dataHandler) throws InvalidRequirementInputException, InterruptedException {
         Objects.requireNonNull(csvPathKeywords);
         Objects.requireNonNull(csvPathText);
         Objects.requireNonNull(dataHandler);
@@ -42,9 +42,17 @@ public class MoreRedocProject {
 
         this.projectRequirements = dataHandler.getRequirementsFromCsvInputs(csvPathKeywords, csvPathText);
 
+        List<Thread> processedRequirementThreads = new ArrayList<>();
+
         // process requirements via the ProcessedRequirement constructor
         for (Requirement r : projectRequirements) {
-            processedProjectRequirements.add(new ProcessedRequirement(r));
+            Thread t = new Thread(() -> processedProjectRequirements.add(new ProcessedRequirement(r)));
+            t.start();
+            processedRequirementThreads.add(t);
+        }
+
+        for (Thread t : processedRequirementThreads) {
+            t.join();
         }
 
         // after initializing the processed requirements, all texts of the project
@@ -96,7 +104,7 @@ public class MoreRedocProject {
         return textBuilder.toString();
     }
 
-    private void initializeDomainConcepts(){
+    private void initializeDomainConcepts() {
         for (String concept : projectDomainConcepts) {
             conceptCount.put(concept, 1);
         }
