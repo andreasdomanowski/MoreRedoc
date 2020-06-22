@@ -16,8 +16,8 @@ import org.apache.log4j.Logger;
 
 import java.util.*;
 
-public class MoreRedocModelGenerator {
-    private static final Logger logger = Logger.getLogger(MoreRedocModelGenerator.class);
+public class MoreRedocAnalysis {
+    private static final Logger logger = Logger.getLogger(MoreRedocAnalysis.class);
 
     private MoreRedocProject project;
     private MoreRedocAnalysisConfiguration configuration;
@@ -33,11 +33,11 @@ public class MoreRedocModelGenerator {
      * Hide constructor with no arguments.
      */
     @SuppressWarnings("unused")
-    private MoreRedocModelGenerator() {
+    private MoreRedocAnalysis() {
 
     }
 
-    public MoreRedocModelGenerator(MoreRedocProject project, MoreRedocAnalysisConfiguration configuration) {
+    public MoreRedocAnalysis(MoreRedocProject project, MoreRedocAnalysisConfiguration configuration) {
         this.project = project;
         this.setConfiguration(configuration);
     }

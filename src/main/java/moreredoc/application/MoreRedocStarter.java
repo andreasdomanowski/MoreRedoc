@@ -1,11 +1,12 @@
 package moreredoc.application;
 
+import moreredoc.analysis.MoreRedocAnalysis;
 import moreredoc.analysis.MoreRedocAnalysisConfiguration;
-import moreredoc.analysis.MoreRedocModelGenerator;
 import moreredoc.application.exceptions.InvalidRequirementInputException;
 import moreredoc.datainput.InputDataHandler;
 import moreredoc.project.data.MoreRedocProject;
-import moreredoc.umlgenerator.PlantModelGenerator;
+import moreredoc.umldata.UmlModel;
+import moreredoc.umlgenerator.ModelOutputGenerator;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
@@ -21,14 +22,15 @@ public class MoreRedocStarter {
         MoreRedocProject project = new MoreRedocProject(pathCsvKeywords, pathCsvText, inputDataHandler);
 
 		logger.info("Start analysis");
-		MoreRedocModelGenerator analysis = new MoreRedocModelGenerator(project, analysisConfiguration);
+		MoreRedocAnalysis analysis = new MoreRedocAnalysis(project, analysisConfiguration);
 		logger.info("Analysis done.");
 
-        String dslString = analysis.generateModel().toPlantUmlDslString();
+        UmlModel model = analysis.generateModel();
+        String dslString = model.toPlantUmlDslString();
         logger.debug("PlantUML dsl string: " + dslString);
 
         logger.info("Start output file generation");
-		PlantModelGenerator modGen = new PlantModelGenerator(dslString, outputConfiguration);
+		ModelOutputGenerator modGen = new ModelOutputGenerator(model, outputConfiguration);
 		modGen.generateModels(outputConfiguration.getOutputFolder());
 		logger.info("Output files generated");
 	}

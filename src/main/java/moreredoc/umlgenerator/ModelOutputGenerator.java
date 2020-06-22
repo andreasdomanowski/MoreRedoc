@@ -1,6 +1,7 @@
 package moreredoc.umlgenerator;
 
 import moreredoc.application.MoreRedocOutputConfiguration;
+import moreredoc.umldata.UmlModel;
 import net.sourceforge.plantuml.FileFormat;
 import net.sourceforge.plantuml.FileFormatOption;
 import net.sourceforge.plantuml.SourceStringReader;
@@ -14,13 +15,13 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class PlantModelGenerator {
+public class ModelOutputGenerator {
 	private final String plantUmlModel;
 	private final MoreRedocOutputConfiguration outputConfiguration;
 	private final String filename = "model-" +  DateTimeFormatter.ofPattern("yyyy-MM-dd_'at'_HH_mm_ss").format(LocalDateTime.now());
 
-	public PlantModelGenerator(String plantUmlModel, MoreRedocOutputConfiguration outputConfiguration) {
-		this.plantUmlModel = plantUmlModel;
+	public ModelOutputGenerator(UmlModel model, MoreRedocOutputConfiguration outputConfiguration) {
+		this.plantUmlModel = model.toPlantUmlDslString();
 		this.outputConfiguration = outputConfiguration;
 	}
 

@@ -4,7 +4,7 @@ import moreredoc.umldata.UmlClass;
 import moreredoc.umldata.UmlModel;
 import moreredoc.umldata.UmlRelationship;
 import moreredoc.umldata.UmlRelationshipType;
-import moreredoc.umlgenerator.PlantModelGenerator;
+import moreredoc.umlgenerator.ModelOutputGenerator;
 
 import java.io.File;
 import java.io.IOException;
@@ -40,9 +40,8 @@ public class ModelGeneratorExample {
 		
 		UmlModel exampleModel = new UmlModel(classMapping, relationships);
 		
-		String dslString = exampleModel.toPlantUmlDslString();
 		MoreRedocOutputConfiguration outputConfiguration = new MoreRedocOutputConfiguration(new File("generatedModels").getAbsolutePath(), true, true, true, true, true, true);
-		PlantModelGenerator modGen = new PlantModelGenerator(dslString, outputConfiguration);
+		ModelOutputGenerator modGen = new ModelOutputGenerator(exampleModel, outputConfiguration);
 		modGen.generateModels(outputConfiguration.getOutputFolder());
 	}
 
