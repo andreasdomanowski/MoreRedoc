@@ -40,7 +40,10 @@ public class MoreRedocProject {
 
         this.inputDataHandler = dataHandler;
 
-        this.projectRequirements = dataHandler.getRequirementsFromCsvInputs(csvPathKeywords, csvPathText);
+        List<Requirement> requirementsFromCsvInputs = dataHandler.getRequirementsFromCsvInputs(csvPathKeywords, csvPathText);
+        Objects.requireNonNull(requirementsFromCsvInputs);
+
+        this.projectRequirements = requirementsFromCsvInputs;
 
         // process requirements via the ProcessedRequirement constructor
         for (Requirement r : projectRequirements) {
@@ -123,7 +126,6 @@ public class MoreRedocProject {
 
                 conceptCount.put(regularizedConcept, occurrences);
             }
-
         }
         // normalize each word of whole processed text
         // split by whitespaces via regex
