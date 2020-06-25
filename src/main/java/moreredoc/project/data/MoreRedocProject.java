@@ -54,7 +54,7 @@ public class MoreRedocProject {
         // requirements can be generated
         this.wholeText = generateText();
         this.wholeCorefResolvedRegularizedText = generateCorefResolvedRegularizedText();
-        this.wholeProcessedText = generateWholeProcessedText();
+        this.wholeProcessedText = generateNormalizedAndDecomposedCorefResolvedText();
 
         // calculate occurrences of keywords
         initializeDomainConcepts();
@@ -69,7 +69,7 @@ public class MoreRedocProject {
      *
      * @return Processed Text for the whole Project
      */
-    private String generateWholeProcessedText() {
+    private String generateNormalizedAndDecomposedCorefResolvedText() {
         StringBuilder textBuilder = new StringBuilder();
 
         for (ProcessedRequirement r : this.getProcessedProjectRequirements()) {
@@ -104,11 +104,8 @@ public class MoreRedocProject {
             conceptCount.put(concept, 1);
         }
 
-        StringBuilder wholeProcessedTextBuilder = new StringBuilder();
-
         for (ProcessedRequirement r : processedProjectRequirements) {
             // concatenate processed text
-            wholeProcessedTextBuilder.append(r.getCorefResolvedRegularizedText());
             // regularize strings, put in set
             for (String s : r.getKeywords()) {
                 String regularizedConcept = WordRegularizerService.regularize(s);
@@ -129,13 +126,13 @@ public class MoreRedocProject {
         }
         // normalize each word of whole processed text
         // split by whitespaces via regex
-        String[] splitProcessedText = StringUtils.split(wholeProcessedTextBuilder.toString());
+        String[] splitProcessedText = StringUtils.split(wholeCorefResolvedRegularizedText);
         for (int i = 0; i < splitProcessedText.length; i++) {
             splitProcessedText[i] = WordRegularizerService.regularize(splitProcessedText[i]);
         }
 
-        // count domain concept occurences in regularized text
-        // has to be done this way, otherwise it will count infixes..
+        // count domain concept occurrences in regularized text
+        // has to be done via iterating over splitted text, otherwise infixes will be counted
         for (String s : projectDomainConcepts) {
             int count = conceptCount.get(s);
 
