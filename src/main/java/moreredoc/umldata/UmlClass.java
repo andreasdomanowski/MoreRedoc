@@ -1,5 +1,7 @@
 package moreredoc.umldata;
 
+import edu.stanford.nlp.util.StringUtils;
+
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -16,7 +18,7 @@ public class UmlClass {
     }
 
     public UmlClass(String name) {
-        this.name = name;
+        this.name = StringUtils.capitalize(name);
     }
 
     public String getName() {
