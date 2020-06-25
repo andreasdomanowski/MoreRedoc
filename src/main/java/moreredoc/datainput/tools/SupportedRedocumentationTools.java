@@ -1,10 +1,12 @@
 package moreredoc.datainput.tools;
 
+import moreredoc.datainput.DemoDataHandler;
 import moreredoc.datainput.InputDataHandler;
 import moreredoc.datainput.SoftRedocDataHandler;
 
 public enum SupportedRedocumentationTools {
-    SOFTREDOC("softredoc", "SoftRedoc", new SoftRedocDataHandler());
+    SOFTREDOC("softredoc", "SoftRedoc", new SoftRedocDataHandler()),
+    DEMO("demo", "DemoTool", new DemoDataHandler());
 
     public final String key;
     public final String displayName;
