@@ -8,6 +8,7 @@ import moreredoc.analysis.services.CompoundAnalysisService;
 import moreredoc.analysis.services.VerbAnalyzerService;
 import moreredoc.linguistics.processing.Commons;
 import moreredoc.linguistics.processing.MoreRedocStringUtils;
+import moreredoc.linguistics.processing.WordRegularizerService;
 import moreredoc.project.data.MoreRedocProject;
 import moreredoc.project.data.ProcessedRequirement;
 import moreredoc.project.data.RelationTripleWrapper;
@@ -178,7 +179,7 @@ public class MoreRedocAnalysis {
             String currentFrom = candidate.getFrom();
             if (this.classMapping.containsKey(currentFrom) && !Commons.VERBS_TO_NOT_MODEL_WHEN_ALONE.contains(candidate.getVerb())) {
                 UmlClass currentFromClass = this.classMapping.get(currentFrom);
-                StringBuilder methodStringBuilder = new StringBuilder(candidate.getVerb());
+                StringBuilder methodStringBuilder = new StringBuilder(WordRegularizerService.regularizeVerbPhrase(candidate.getVerb()));
 
                 // if getTo != null, check if it is modelled as class
                 // if so, add association
@@ -191,7 +192,7 @@ public class MoreRedocAnalysis {
                             classMapping.put(candidate.getTo(), currentToClass);
                         }
                         UmlRelationship newRelationship = new UmlRelationship(currentFromClass, currentToClass,
-                                UmlRelationshipType.ASSOCIATION, candidate.getVerb(), Multiplicity.NO_INFO);
+                                UmlRelationshipType.ASSOCIATION, WordRegularizerService.regularizeVerbPhrase(candidate.getVerb()), Multiplicity.NO_INFO);
                         model.getRelationships().add(newRelationship);
                     }
                     if (configuration.getModelConnectingVerbsAsMethods()) {

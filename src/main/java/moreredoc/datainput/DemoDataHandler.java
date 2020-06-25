@@ -10,20 +10,23 @@ import java.util.Set;
 public class DemoDataHandler implements InputDataHandler {
     @Override
     public List<Requirement> getRequirementsFromCsvInputs(String csvKeywordsPath, String csvTextPath) {
+        String keywordCustomer = "customer";
+        String keywordArticle = "article";
+
         Requirement requirementLogin = new Requirement("idLogin");
-        requirementLogin.setKeywords(new HashSet<>(Arrays.asList("customer", "id", "password", "address")));
+        requirementLogin.setKeywords(new HashSet<>(Arrays.asList(keywordCustomer, "id", "password", "address")));
         requirementLogin.setUnprocessedText("The customer enters his customer id and his password. If they are correct, he is authenticated. Before shopping, the customer has to enter his address.");
 
         Requirement requirementCart = new Requirement("idCart");
-        requirementCart.setKeywords(new HashSet<>(Arrays.asList("customer", "article", "cart")));
+        requirementCart.setKeywords(new HashSet<>(Arrays.asList(keywordCustomer, keywordArticle, "cart")));
         requirementCart.setUnprocessedText("The customer browses the available articles. He puts the articles in his cart.");
 
         Requirement requirementArticle = new Requirement("idArticle");
-        requirementArticle.setKeywords(new HashSet<>(Arrays.asList("article", "article_id")));
+        requirementArticle.setKeywords(new HashSet<>(Arrays.asList(keywordArticle, "article_id")));
         requirementArticle.setUnprocessedText("Every article has an unique article id.");
 
         Requirement requirementOrder = new Requirement("idOrder");
-        requirementOrder.setKeywords(new HashSet<>(Arrays.asList("customer", "cart", "article")));
+        requirementOrder.setKeywords(new HashSet<>(Arrays.asList(keywordCustomer, "cart", keywordArticle)));
         requirementOrder.setUnprocessedText("When the shopping is done, the customer can order the cart. The cart's articles are shipped to the customer, if all articles are available.");
 
         return Arrays.asList(requirementLogin, requirementCart, requirementArticle, requirementOrder);
@@ -41,6 +44,6 @@ public class DemoDataHandler implements InputDataHandler {
 
     @Override
     public void configure() {
-
+        // not configurable
     }
 }

@@ -59,8 +59,8 @@ public class AttributiveRelationshipService {
 
             Multiplicity multiplicity = computeMultiplicity(ownedRaw, ownerRaw);
 
-			String ownerRegularized = WordRegularizerService.regularize(ownerRaw);
-			String ownedRegularized = WordRegularizerService.regularize(ownedRaw);
+			String ownerRegularized = WordRegularizerService.regularizeNoun(ownerRaw);
+			String ownedRegularized = WordRegularizerService.regularizeNoun(ownedRaw);
 
             // if pre and post words are domain concepts, add this relationship to list
             if (domainConcepts.contains(ownedRegularized) && domainConcepts.contains(ownerRegularized)) {
@@ -86,14 +86,14 @@ public class AttributiveRelationshipService {
                     && (i + 1) < splittedInput.length) {
 
 				String followingWordRaw = splittedInput[i + 1];
-				String followingWordRegularized = WordRegularizerService.regularize(followingWordRaw);
+				String followingWordRegularized = WordRegularizerService.regularizeNoun(followingWordRaw);
 
                 // if following word is a domnain concept, there's a possessive relationship
                 if (domainConcepts.contains(followingWordRegularized)) {
 					String ownerConceptRaw = splittedInput[i];
 					// delete genitive indicator from string, then regularize word
 					String ownerConceptRegularized = WordRegularizerService
-                            .regularize(ownerConceptRaw.replace(Commons.GENITIVE_INDICATOR, ""));
+                            .regularizeNoun(ownerConceptRaw.replace(Commons.GENITIVE_INDICATOR, ""));
                     if (domainConcepts.contains(ownerConceptRegularized)) {
                         // add to list
 						Multiplicity multiplicity = computeMultiplicity(ownerConceptRaw, followingWordRaw);

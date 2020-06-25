@@ -1,5 +1,6 @@
 package moreredoc.linguistics.processing;
 
+import org.apache.commons.lang3.StringUtils;
 import org.jboss.dna.common.text.Inflector;
 
 public class WordRegularizerService {
@@ -15,7 +16,7 @@ public class WordRegularizerService {
      * @param input Word which is to be regularized
      * @return Regularized word
      */
-    public static String regularize(String input) {
+    public static String regularizeNoun(String input) {
         return INFLECTOR.singularize(input).toLowerCase().trim();
     }
 
@@ -27,7 +28,7 @@ public class WordRegularizerService {
      */
     public static String[] arraySentenceRegularizer(String[] sentence) {
         for (int i = 0; i < sentence.length; i++) {
-            sentence[i] = WordRegularizerService.regularize(sentence[i]);
+            sentence[i] = WordRegularizerService.regularizeNoun(sentence[i]);
         }
         return sentence;
     }
@@ -40,6 +41,35 @@ public class WordRegularizerService {
      */
     public static String scrapGenitive(String inputWord) {
         inputWord = inputWord.replace(Commons.GENITIVE_INDICATOR, "");
-        return regularize(inputWord);
+        return regularizeNoun(inputWord);
+    }
+
+    /**
+     * Regularizes a verb. Therefore, auxiliary verbs are trimmed and partial stemming is performed.
+     */
+    public static String regularizeVerbPhrase(String in) {
+        if (in == null) {
+            return null;
+        }
+
+        String result = in.trim();
+
+        // remove s at last char if present
+        if (result.length() > 0 && result.charAt(result.length() - 1) == 's') {
+            result =  result.substring(0, result.length() - 1);
+        }
+
+        // remove auxiliary verbs
+        String[] splittedByWhitespace = StringUtils.split(result);
+
+        StringBuilder resultBuilder = new StringBuilder();
+
+        for(String s : splittedByWhitespace){
+            if(!Commons.VERBS_TO_NOT_MODEL_WHEN_ALONE.contains(s)){
+                resultBuilder.append(s).append(" ");
+            }
+        }
+
+        return resultBuilder.toString().trim();
     }
 }

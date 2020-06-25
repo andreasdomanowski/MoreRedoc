@@ -1,9 +1,9 @@
 package moreredoc.linguistics.processing;
 
+import org.junit.Test;
+
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
-
-import org.junit.Test;
 
 public class WordRegularizerServiceTest {
 
@@ -25,10 +25,10 @@ public class WordRegularizerServiceTest {
 
 		String regularizedCustomer = "customer";
 
-		assertEquals(WordRegularizerService.regularize(wordCustomer1), regularizedCustomer);
-		assertEquals(WordRegularizerService.regularize(wordCustomer2), regularizedCustomer);
-		assertEquals(WordRegularizerService.regularize(wordCustomer3), regularizedCustomer);
-		assertEquals(WordRegularizerService.regularize(wordCustomer4), regularizedCustomer);
+		assertEquals(WordRegularizerService.regularizeNoun(wordCustomer1), regularizedCustomer);
+		assertEquals(WordRegularizerService.regularizeNoun(wordCustomer2), regularizedCustomer);
+		assertEquals(WordRegularizerService.regularizeNoun(wordCustomer3), regularizedCustomer);
+		assertEquals(WordRegularizerService.regularizeNoun(wordCustomer4), regularizedCustomer);
 	}
 	
 	@Test
@@ -40,10 +40,10 @@ public class WordRegularizerServiceTest {
 
 		String scrapedAndRegularized = "customer";
 
-		assertEquals(WordRegularizerService.regularize(wordCustomer1), scrapedAndRegularized);
-		assertEquals(WordRegularizerService.regularize(wordCustomer2), scrapedAndRegularized);
-		assertEquals(WordRegularizerService.regularize(wordCustomer3), scrapedAndRegularized);
-		assertEquals(WordRegularizerService.regularize(wordCustomer4), scrapedAndRegularized);
+		assertEquals(WordRegularizerService.regularizeNoun(wordCustomer1), scrapedAndRegularized);
+		assertEquals(WordRegularizerService.regularizeNoun(wordCustomer2), scrapedAndRegularized);
+		assertEquals(WordRegularizerService.regularizeNoun(wordCustomer3), scrapedAndRegularized);
+		assertEquals(WordRegularizerService.regularizeNoun(wordCustomer4), scrapedAndRegularized);
 	}
 	
 	

@@ -60,7 +60,7 @@ public class MoreRedocProject {
         initializeDomainConcepts();
 
         // add additional concepts
-        inputDataHandler.getAdditionalDomainConcepts(csvPathKeywords).forEach(word -> this.projectDomainConcepts.add(WordRegularizerService.regularize(word)));
+        inputDataHandler.getAdditionalDomainConcepts(csvPathKeywords).forEach(word -> this.projectDomainConcepts.add(WordRegularizerService.regularizeNoun(word)));
     }
 
     /**
@@ -108,7 +108,7 @@ public class MoreRedocProject {
             // concatenate processed text
             // regularize strings, put in set
             for (String s : r.getKeywords()) {
-                String regularizedConcept = WordRegularizerService.regularize(s);
+                String regularizedConcept = WordRegularizerService.regularizeNoun(s);
                 projectDomainConcepts.add(regularizedConcept);
 
                 int occurrences;
@@ -128,7 +128,7 @@ public class MoreRedocProject {
         // split by whitespaces via regex
         String[] splitProcessedText = StringUtils.split(wholeCorefResolvedRegularizedText);
         for (int i = 0; i < splitProcessedText.length; i++) {
-            splitProcessedText[i] = WordRegularizerService.regularize(splitProcessedText[i]);
+            splitProcessedText[i] = WordRegularizerService.regularizeNoun(splitProcessedText[i]);
         }
 
         // count domain concept occurrences in regularized text

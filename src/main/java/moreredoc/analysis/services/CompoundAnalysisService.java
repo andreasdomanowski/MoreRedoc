@@ -31,14 +31,14 @@ public class CompoundAnalysisService {
         boolean isClassType = false;
 
         // regularized domain concept to test
-        domainConceptToTest = WordRegularizerService.regularize(domainConceptToTest);
+        domainConceptToTest = WordRegularizerService.regularizeNoun(domainConceptToTest);
 
         // split input string by whitespace, read into array
         String[] inputSplittedByWhitespace = StringUtils.split(in.trim());
 
         // normalize every word in input string/array
         for (int i = 0; i < inputSplittedByWhitespace.length; i++) {
-            inputSplittedByWhitespace[i] = WordRegularizerService.regularize(inputSplittedByWhitespace[i]);
+            inputSplittedByWhitespace[i] = WordRegularizerService.regularizeNoun(inputSplittedByWhitespace[i]);
         }
 
         // list containing every index of a occurrence in the array

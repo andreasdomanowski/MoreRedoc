@@ -28,7 +28,7 @@ public class SentenceRegularizerService {
 	public static String[] normalizeStringArray(String[] in) {
 		String[] clonedArray = in.clone();
 		for(int i = 0; i < in.length; i++) {
-			clonedArray[i] = WordRegularizerService.regularize(in[i]);
+			clonedArray[i] = WordRegularizerService.regularizeNoun(in[i]);
 		}
 
 		return clonedArray;
