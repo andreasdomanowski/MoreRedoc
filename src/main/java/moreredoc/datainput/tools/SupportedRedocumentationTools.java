@@ -6,7 +6,7 @@ import moreredoc.datainput.SoftRedocDataHandler;
 
 public enum SupportedRedocumentationTools {
     SOFTREDOC("softredoc", "SoftRedoc", new SoftRedocDataHandler()),
-    DEMO("demo", "DemoTool", new DemoDataHandler());
+    DEMO("demo", "DemoTool - paths are not used, specify random files/folders", new DemoDataHandler());
 
     public final String key;
     public final String displayName;

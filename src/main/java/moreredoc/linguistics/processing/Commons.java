@@ -25,4 +25,6 @@ public class Commons {
 
     // List of verbs which should not be modelled when being the only verbs
     public static final List<String> VERBS_TO_NOT_MODEL_WHEN_ALONE = Collections.unmodifiableList(Arrays.asList("will", "would", "may", "might", "shall", "can", "must", "should", "could", "be", "is", "are", "have", "has"));
+    public static final List<String> VERBS_TO_REMOVE_IN_VERB_PHRASE = Collections.unmodifiableList(Arrays.asList("will", "would", "may", "might", "shall", "can", "must", "should", "could", "be", "have", "has"));
+
 }

@@ -65,7 +65,7 @@ public class WordRegularizerService {
         StringBuilder resultBuilder = new StringBuilder();
 
         for(String s : splittedByWhitespace){
-            if(!Commons.VERBS_TO_NOT_MODEL_WHEN_ALONE.contains(s)){
+            if(!Commons.VERBS_TO_REMOVE_IN_VERB_PHRASE.contains(s)){
                 resultBuilder.append(s).append(" ");
             }
         }

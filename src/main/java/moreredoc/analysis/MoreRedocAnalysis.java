@@ -196,7 +196,27 @@ public class MoreRedocAnalysis {
                         model.getRelationships().add(newRelationship);
                     }
                     if (configuration.getModelConnectingVerbsAsMethods()) {
-                        methodStringBuilder.append("(").append(candidate.getTo()).append(")");
+                        Set<String> argumentSet = new HashSet<>();
+                        methodStringBuilder.append(" ").append(candidate.getTo());
+                        argumentSet.add(candidate.getTo());
+                        // if candidate contains other concepts, they have to be arguments, too
+
+                        for(String concept : this.project.getProjectDomainConcepts()){
+                            if(candidate.getVerb().contains(concept)){
+                                argumentSet.add(concept);
+                            }
+                        }
+
+                        StringBuilder argumentBuilder = new StringBuilder();
+                        Iterator<String> it = argumentSet.iterator();
+                        while(it.hasNext()){
+                            argumentBuilder.append(it.next());
+                            if(it.hasNext()){
+                                argumentBuilder.append(",");
+                            }
+                        }
+
+                        methodStringBuilder.append("(").append(argumentBuilder.toString()).append(")");
                     }
                 }
 
