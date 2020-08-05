@@ -1,0 +1,147 @@
+@startuml
+class Supply { 
+	amount
+	order_item
+}
+class Supplier { 
+	number
+}
+class Order { 
+	amount
+	confirmation
+	date
+	datum
+	number
+	remains in back_order_pool(back_order_pool)
+}
+class Item { 
+	cost
+	price
+	time
+	is sent together with order_confirmation(order_confirmation)
+	is sent with order_confirmation(order_confirmation)
+}
+class Back_order_pool { 
+}
+class Pool { 
+}
+class Bill { 
+	removed from back_order(back_order)
+	removed from pool(pool)
+}
+class System { 
+	sum
+	is required()
+	monitor article(article)
+	monitor stock(stock)
+}
+class Back_order { 
+	file
+	pool
+}
+class Moment { 
+}
+class Dispatch_order { 
+	list
+	sent dispatch_office(dispatch_office)
+}
+class Supply_order { 
+	is sent out supplier at moment(supplier,moment)
+	is sent out supplier in time(supplier,time)
+	is sent out supplier(supplier)
+}
+class Article_type { 
+	stock
+}
+class Order_confirmation { 
+}
+class Customer_order { 
+	For Billing i invoice(invoice)
+}
+class Minimum { 
+	amount
+	article_amount
+	order_amount
+	quantity
+}
+class Dispatch { 
+	job
+	order_item
+}
+class Stock { 
+}
+class Query { 
+}
+class Batch { 
+	component
+	job
+	mode
+	process
+}
+class Article { 
+	amount
+	category
+	database
+	datum
+	name
+	number
+	price
+	quantity
+	is available in quantity(quantity)
+	is available on stock(stock)
+	is dispatched()
+}
+class Week { 
+	Once are()
+}
+class Possibility { 
+	scan article(article)
+	scan stock(stock)
+}
+class Dispatch_office { 
+}
+class Invoice { 
+	include item(item)
+	sent to customer(customer)
+}
+class Time { 
+}
+class Customer { 
+	address_datum
+	credibility
+	customer_number
+	database
+	datum
+	number
+	enter customer_number(customer_number)
+	first enter customer_number(customer_number)
+}
+Customer o-- Order
+Supply o-- Order
+Dispatch o-- Order
+Supply_order o-- Item
+Order o-- Item
+Dispatch o-- Item
+Dispatch_order o-- Item
+Back_order o-- Item
+Customer o-- Query
+Query o-- Article
+Order o-- Article
+Possibility -- Article : scan
+Possibility -- Stock : scan
+Article -- Stock : is available on
+Dispatch_order -- Dispatch_office : sent
+Item -- Order_confirmation : is sent with
+Item -- Order_confirmation : is sent together with
+Invoice -- Item : include
+Invoice -- Customer : sent to
+Customer_order -- Invoice : For Billing i
+Supply_order -- Time : is sent out supplier in
+Supply_order -- Moment : is sent out supplier at
+System -- Article : monitor
+System -- Stock : monitor
+Supply_order -- Supplier : is sent out
+Order -- Back_order_pool : remains in
+Bill -- Back_order : removed from
+Bill -- Pool : removed from
+@enduml

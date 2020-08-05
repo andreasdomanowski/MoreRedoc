@@ -1,0 +1,1421 @@
+Type;Base Entity                         ;Rel ;Type;Target Entity
+PROD;UNI                                 ;OWNS;SYST;ORDERS
+SYST;ORDERS                              ;OWNS;DOCU;OrderEntry.txt
+DOCU;OrderEntry.txt                      ;ISAT;LIB ;OrderEntry.txt
+DOCU;OrderEntry                          ;OWNS;SECT; requirements
+DOCU;OrderEntry                          ;OWNS;SECT;Functional  requirements
+DOCU;OrderEntry                          ;OWNS;REQU;FUNC-REQ-01 ArticleDisplay
+REQU;FUNC-REQ-01 ArticleDisplay          ;USES;DATA;customer
+REQU;FUNC-REQ-01 ArticleDisplay          ;USES;DATA;possibility
+REQU;FUNC-REQ-01 ArticleDisplay          ;USES;DATA;articles
+REQU;FUNC-REQ-01 ArticleDisplay          ;USES;DATA;stock
+REQU;FUNC-REQ-01 ArticleDisplay          ;USES;DATA;prices
+REQU;FUNC-REQ-01 ArticleDisplay          ;EXEC;TEST;ORDERS0001
+REQU;FUNC-REQ-01 ArticleDisplay          ;USES;DATA;articles
+REQU;FUNC-REQ-01 ArticleDisplay          ;USES;DATA;category
+REQU;FUNC-REQ-01 ArticleDisplay          ;EXEC;TEST;ORDERS0002
+DOCU;OrderEntry                          ;OWNS;REQU;FUNC-REQ-02 OrderProcessing
+REQU;FUNC-REQ-02 OrderProcessing         ;USES;DATA;customer
+REQU;FUNC-REQ-02 OrderProcessing         ;USES;DATA;possibility
+REQU;FUNC-REQ-02 OrderProcessing         ;USES;DATA;articles
+REQU;FUNC-REQ-02 OrderProcessing         ;EXEC;TEST;ORDERS0003
+REQU;FUNC-REQ-02 OrderProcessing         ;USES;DATA;customer_number
+REQU;FUNC-REQ-02 OrderProcessing         ;EXEC;TEST;ORDERS0004
+REQU;FUNC-REQ-02 OrderProcessing         ;USES;DATA;identity
+REQU;FUNC-REQ-02 OrderProcessing         ;USES;DATA;credibility
+REQU;FUNC-REQ-02 OrderProcessing         ;EXEC;TEST;ORDERS0005
+REQU;FUNC-REQ-02 OrderProcessing         ;USES;DATA;order
+REQU;FUNC-REQ-02 OrderProcessing         ;USES;DATA;items
+REQU;FUNC-REQ-02 OrderProcessing         ;USES;DATA;time
+REQU;FUNC-REQ-02 OrderProcessing         ;EXEC;TEST;ORDERS0006
+REQU;FUNC-REQ-02 OrderProcessing         ;USES;DATA;article
+REQU;FUNC-REQ-02 OrderProcessing         ;USES;DATA;stock
+REQU;FUNC-REQ-02 OrderProcessing         ;USES;DATA;quantity
+REQU;FUNC-REQ-02 OrderProcessing         ;USES;DATA;order
+REQU;FUNC-REQ-02 OrderProcessing         ;EXEC;TEST;ORDERS0007
+REQU;FUNC-REQ-02 OrderProcessing         ;USES;DATA;article
+REQU;FUNC-REQ-02 OrderProcessing         ;USES;DATA;stock
+REQU;FUNC-REQ-02 OrderProcessing         ;USES;DATA;order
+REQU;FUNC-REQ-02 OrderProcessing         ;EXEC;TEST;ORDERS0008
+REQU;FUNC-REQ-02 OrderProcessing         ;USES;DATA;quantity
+REQU;FUNC-REQ-02 OrderProcessing         ;USES;DATA;stock
+REQU;FUNC-REQ-02 OrderProcessing         ;USES;DATA;order
+REQU;FUNC-REQ-02 OrderProcessing         ;EXEC;TEST;ORDERS0009
+DOCU;OrderEntry                          ;OWNS;REQU;FUNC-REQ-03 Dispatching
+REQU;FUNC-REQ-03 Dispatching             ;USES;DATA;article_item
+REQU;FUNC-REQ-03 Dispatching             ;USES;DATA;dispatch_order
+REQU;FUNC-REQ-03 Dispatching             ;USES;DATA;dispatch_office
+REQU;FUNC-REQ-03 Dispatching             ;EXEC;TEST;ORDERS0010
+REQU;FUNC-REQ-03 Dispatching             ;USES;DATA;item
+REQU;FUNC-REQ-03 Dispatching             ;USES;DATA;customer
+REQU;FUNC-REQ-03 Dispatching             ;USES;DATA;day
+REQU;FUNC-REQ-03 Dispatching             ;EXEC;TEST;ORDERS0011
+REQU;FUNC-REQ-03 Dispatching             ;USES;DATA;order_confirmation
+REQU;FUNC-REQ-03 Dispatching             ;EXEC;TEST;ORDERS0012
+DOCU;OrderEntry                          ;OWNS;REQU;FUNC-REQ-04 Billing
+REQU;FUNC-REQ-04 Billing                 ;USES;DATA;customer_order
+REQU;FUNC-REQ-04 Billing                 ;USES;DATA;item
+REQU;FUNC-REQ-04 Billing                 ;USES;DATA;invoice
+REQU;FUNC-REQ-04 Billing                 ;USES;DATA;customer
+REQU;FUNC-REQ-04 Billing                 ;EXEC;TEST;ORDERS0013
+REQU;FUNC-REQ-04 Billing                 ;USES;DATA;invoices
+REQU;FUNC-REQ-04 Billing                 ;USES;DATA;month
+REQU;FUNC-REQ-04 Billing                 ;USES;DATA;month
+REQU;FUNC-REQ-04 Billing                 ;EXEC;TEST;ORDERS0014
+REQU;FUNC-REQ-04 Billing                 ;USES;DATA;invoice
+REQU;FUNC-REQ-04 Billing                 ;USES;DATA;items
+REQU;FUNC-REQ-04 Billing                 ;USES;DATA;prices
+REQU;FUNC-REQ-04 Billing                 ;USES;DATA;total_sum
+REQU;FUNC-REQ-04 Billing                 ;USES;DATA;amount_due
+REQU;FUNC-REQ-04 Billing                 ;EXEC;TEST;ORDERS0015
+REQU;FUNC-REQ-04 Billing                 ;USES;DATA;invoices
+REQU;FUNC-REQ-04 Billing                 ;USES;DATA;accountant
+REQU;FUNC-REQ-04 Billing                 ;EXEC;TEST;ORDERS0016
+DOCU;OrderEntry                          ;OWNS;REQU;FUNC-REQ-05 Resupplying
+REQU;FUNC-REQ-05 Resupplying             ;USES;DATA;system
+REQU;FUNC-REQ-05 Resupplying             ;USES;DATA;articles
+REQU;FUNC-REQ-05 Resupplying             ;USES;DATA;stock
+REQU;FUNC-REQ-05 Resupplying             ;EXEC;TEST;ORDERS0017
+REQU;FUNC-REQ-05 Resupplying             ;USES;DATA;quantity
+REQU;FUNC-REQ-05 Resupplying             ;USES;DATA;article
+REQU;FUNC-REQ-05 Resupplying             ;USES;DATA;stock
+REQU;FUNC-REQ-05 Resupplying             ;USES;DATA;minimum_quantity
+REQU;FUNC-REQ-05 Resupplying             ;USES;DATA;article
+REQU;FUNC-REQ-05 Resupplying             ;EXEC;TEST;ORDERS0018
+REQU;FUNC-REQ-05 Resupplying             ;USES;DATA;supply_orders
+REQU;FUNC-REQ-05 Resupplying             ;USES;DATA;week
+REQU;FUNC-REQ-05 Resupplying             ;USES;DATA;week
+REQU;FUNC-REQ-05 Resupplying             ;EXEC;TEST;ORDERS0019
+REQU;FUNC-REQ-05 Resupplying             ;USES;DATA;supply_order
+REQU;FUNC-REQ-05 Resupplying             ;USES;DATA;supplier
+REQU;FUNC-REQ-05 Resupplying             ;USES;DATA;moment
+REQU;FUNC-REQ-05 Resupplying             ;USES;DATA;time
+REQU;FUNC-REQ-05 Resupplying             ;EXEC;TEST;ORDERS0020
+REQU;FUNC-REQ-05 Resupplying             ;USES;DATA;prices
+REQU;FUNC-REQ-05 Resupplying             ;USES;DATA;suppliers
+REQU;FUNC-REQ-05 Resupplying             ;EXEC;TEST;ORDERS0021
+DOCU;OrderEntry                          ;OWNS;REQU;FUNC-REQ-06 BackOrderProcessing
+REQU;FUNC-REQ-06 BackOrderProcessing     ;USES;DATA;order
+REQU;FUNC-REQ-06 BackOrderProcessing     ;EXEC;TEST;ORDERS0022
+REQU;FUNC-REQ-06 BackOrderProcessing     ;USES;DATA;week
+REQU;FUNC-REQ-06 BackOrderProcessing     ;USES;DATA;week
+REQU;FUNC-REQ-06 BackOrderProcessing     ;USES;DATA;back_orders
+REQU;FUNC-REQ-06 BackOrderProcessing     ;EXEC;TEST;ORDERS0023
+REQU;FUNC-REQ-06 BackOrderProcessing     ;USES;DATA;order
+REQU;FUNC-REQ-06 BackOrderProcessing     ;USES;DATA;article
+REQU;FUNC-REQ-06 BackOrderProcessing     ;USES;DATA;bill
+REQU;FUNC-REQ-06 BackOrderProcessing     ;USES;DATA;back_order
+REQU;FUNC-REQ-06 BackOrderProcessing     ;USES;DATA;pool
+REQU;FUNC-REQ-06 BackOrderProcessing     ;USES;DATA;back_orders
+REQU;FUNC-REQ-06 BackOrderProcessing     ;EXEC;TEST;ORDERS0024
+REQU;FUNC-REQ-06 BackOrderProcessing     ;USES;DATA;back_order_pool
+REQU;FUNC-REQ-06 BackOrderProcessing     ;EXEC;TEST;ORDERS0025
+DOCU;OrderEntry                          ;OWNS;SECT;Non-Functional  requirements
+DOCU;OrderEntry                          ;OWNS;REQU;NF-REQ-01 ResponseTime
+REQU;NF-REQ-01 ResponseTime              ;USES;DATA;response_time
+REQU;NF-REQ-01 ResponseTime              ;USES;DATA;customer_query
+REQU;NF-REQ-01 ResponseTime              ;USES;DATA;second
+REQU;NF-REQ-01 ResponseTime              ;EXEC;TEST;ORDERS0026
+REQU;NF-REQ-01 ResponseTime              ;USES;DATA;response_time
+REQU;NF-REQ-01 ResponseTime              ;USES;DATA;customer_order
+REQU;NF-REQ-01 ResponseTime              ;USES;DATA;seconds
+REQU;NF-REQ-01 ResponseTime              ;EXEC;TEST;ORDERS0027
+DOCU;OrderEntry                          ;OWNS;REQU;NF-REQ-02 TransactionCapacity
+REQU;NF-REQ-02 TransactionCapacity       ;USES;DATA;system
+REQU;NF-REQ-02 TransactionCapacity       ;USES;DATA;process
+REQU;NF-REQ-02 TransactionCapacity       ;USES;DATA;orders
+REQU;NF-REQ-02 TransactionCapacity       ;USES;DATA;hour
+REQU;NF-REQ-02 TransactionCapacity       ;USES;DATA;loss
+REQU;NF-REQ-02 TransactionCapacity       ;EXEC;TEST;ORDERS0028
+DOCU;OrderEntry                          ;OWNS;REQU;NF-REQ-03  availability
+REQU;NF-REQ-03  availability             ;USES;DATA;system
+REQU;NF-REQ-03  availability             ;USES;DATA;hours
+REQU;NF-REQ-03  availability             ;USES;DATA;day
+REQU;NF-REQ-03  availability             ;USES;DATA;days
+REQU;NF-REQ-03  availability             ;USES;DATA;week
+REQU;NF-REQ-03  availability             ;USES;DATA;time
+REQU;NF-REQ-03  availability             ;EXEC;TEST;ORDERS0029
+DOCU;OrderEntry                          ;OWNS;REQU;NF-REQ-04  security
+REQU;NF-REQ-04  security                 ;USES;DATA;customers
+REQU;NF-REQ-04  security                 ;USES;DATA;system
+REQU;NF-REQ-04  security                 ;EXEC;TEST;ORDERS0030
+REQU;NF-REQ-04  security                 ;USES;DATA;persons
+REQU;NF-REQ-04  security                 ;EXEC;TEST;ORDERS0031
+REQU;NF-REQ-04  security                 ;USES;DATA;system
+REQU;NF-REQ-04  security                 ;USES;DATA;persons
+REQU;NF-REQ-04  security                 ;EXEC;TEST;ORDERS0032
+DOCU;OrderEntry                          ;OWNS;REQU;NF-REQ-05 Recoverability
+REQU;NF-REQ-05 Recoverability            ;USES;DATA;system_crash
+REQU;NF-REQ-05 Recoverability            ;USES;DATA;system
+REQU;NF-REQ-05 Recoverability            ;USES;DATA;minutes
+REQU;NF-REQ-05 Recoverability            ;USES;DATA;data
+REQU;NF-REQ-05 Recoverability            ;USES;DATA;state
+REQU;NF-REQ-05 Recoverability            ;USES;DATA;crash
+REQU;NF-REQ-05 Recoverability            ;EXEC;TEST;ORDERS0033
+DOCU;OrderEntry                          ;OWNS;REQU;NF-REQ-06 DataSecurity
+REQU;NF-REQ-06 DataSecurity              ;USES;DATA;customer
+REQU;NF-REQ-06 DataSecurity              ;USES;DATA;article_data
+REQU;NF-REQ-06 DataSecurity              ;USES;DATA;backup_database
+REQU;NF-REQ-06 DataSecurity              ;USES;DATA;day
+REQU;NF-REQ-06 DataSecurity              ;EXEC;TEST;ORDERS0034
+REQU;NF-REQ-06 DataSecurity              ;USES;DATA;backup_data
+REQU;NF-REQ-06 DataSecurity              ;USES;DATA;year
+REQU;NF-REQ-06 DataSecurity              ;EXEC;TEST;ORDERS0035
+DOCU;OrderEntry                          ;OWNS;REQU;NF-REQ-07  usability
+REQU;NF-REQ-07  usability                ;USES;DATA;system_user_interface
+REQU;NF-REQ-07  usability                ;USES;DATA;score
+REQU;NF-REQ-07  usability                ;EXEC;TEST;ORDERS0036
+DOCU;OrderEntry                          ;OWNS;REQU;NF-REQ-08 Maintainability
+REQU;NF-REQ-08 Maintainability           ;USES;DATA;system_source_code
+REQU;NF-REQ-08 Maintainability           ;USES;DATA;index
+REQU;NF-REQ-08 Maintainability           ;USES;DATA;code_audit
+REQU;NF-REQ-08 Maintainability           ;EXEC;TEST;ORDERS0037
+DOCU;OrderEntry                          ;OWNS;REQU;NF-REQ-09 Reusability
+REQU;NF-REQ-09 Reusability               ;USES;DATA;system_source_code
+REQU;NF-REQ-09 Reusability               ;USES;DATA;rate
+REQU;NF-REQ-09 Reusability               ;USES;DATA;code
+REQU;NF-REQ-09 Reusability               ;EXEC;TEST;ORDERS0038
+DOCU;OrderEntry                          ;OWNS;REQU;NF-REQ-10  reliability
+REQU;NF-REQ-10  reliability              ;USES;DATA;system
+REQU;NF-REQ-10  reliability              ;USES;DATA;release
+REQU;NF-REQ-10  reliability              ;USES;DATA;error_probability
+REQU;NF-REQ-10  reliability              ;EXEC;TEST;ORDERS0039
+DOCU;OrderEntry                          ;OWNS;SECT;Functional  characteristics
+DOCU;OrderEntry                          ;OWNS;SECT;Business-Objects
+SECT;Business-Objects                    ;USES;DATA;system
+SECT;Business-Objects                    ;USES;DATA;invoice
+SECT;Business-Objects                    ;USES;DATA;customer
+SECT;Business-Objects                    ;USES;DATA;invoice
+SECT;Business-Objects                    ;USES;DATA;article
+SECT;Business-Objects                    ;USES;DATA;invoice
+SECT;Business-Objects                    ;USES;DATA;price
+SECT;Business-Objects                    ;USES;DATA;invoice
+SECT;Business-Objects                    ;USES;DATA;supplier
+SECT;Business-Objects                    ;USES;DATA;invoice
+SECT;Business-Objects                    ;USES;DATA;customer_order
+SECT;Business-Objects                    ;USES;DATA;invoice
+SECT;Business-Objects                    ;USES;DATA;order_item
+SECT;Business-Objects                    ;USES;DATA;invoice
+SECT;Business-Objects                    ;USES;DATA;dispatch_item
+SECT;Business-Objects                    ;USES;DATA;invoice
+SECT;Business-Objects                    ;USES;DATA;supply_order_item
+SECT;Business-Objects                    ;USES;DATA;invoice
+SECT;Business-Objects                    ;USES;DATA;supply_order
+SECT;Business-Objects                    ;USES;DATA;invoice
+SECT;Business-Objects                    ;EXEC;TEST;ORDERS0040
+SECT;Business-Objects                    ;USES;DATA;invoice
+SECT;Business-Objects                    ;USES;DATA;back_order_item
+SECT;Business-Objects                    ;USES;DATA;dispatch_order
+DOCU;OrderEntry                          ;OWNS;SECT;Business-Rules
+SECT;Business-Rules                      ;USES;DATA;order_entry_system
+SECT;Business-Rules                      ;USES;DATA;customers
+SECT;Business-Rules                      ;USES;DATA;order_articles
+SECT;Business-Rules                      ;EXEC;TEST;ORDERS0041
+SECT;Business-Rules                      ;USES;DATA;customers
+SECT;Business-Rules                      ;USES;DATA;credibility
+SECT;Business-Rules                      ;USES;DATA;order_articles
+SECT;Business-Rules                      ;EXEC;TEST;ORDERS0042
+SECT;Business-Rules                      ;USES;DATA;articles
+SECT;Business-Rules                      ;USES;DATA;stock
+SECT;Business-Rules                      ;EXEC;TEST;ORDERS0043
+SECT;Business-Rules                      ;USES;DATA;order_item
+SECT;Business-Rules                      ;USES;DATA;amount
+SECT;Business-Rules                      ;USES;DATA;articles
+SECT;Business-Rules                      ;USES;DATA;stock
+SECT;Business-Rules                      ;USES;DATA;minimum_amount
+SECT;Business-Rules                      ;EXEC;TEST;ORDERS0044
+SECT;Business-Rules                      ;USES;DATA;amount
+SECT;Business-Rules                      ;USES;DATA;article
+SECT;Business-Rules                      ;USES;DATA;back_order_item
+SECT;Business-Rules                      ;EXEC;TEST;ORDERS0045
+SECT;Business-Rules                      ;USES;DATA;amount
+SECT;Business-Rules                      ;USES;DATA;article
+SECT;Business-Rules                      ;USES;DATA;stock
+SECT;Business-Rules                      ;USES;DATA;minimum_amount
+SECT;Business-Rules                      ;EXEC;TEST;ORDERS0046
+SECT;Business-Rules                      ;USES;DATA;order
+SECT;Business-Rules                      ;USES;DATA;order_item
+SECT;Business-Rules                      ;USES;DATA;dispatch
+SECT;Business-Rules                      ;USES;DATA;order
+SECT;Business-Rules                      ;USES;DATA;dispatch_office
+SECT;Business-Rules                      ;USES;DATA;articles
+SECT;Business-Rules                      ;USES;DATA;customer
+SECT;Business-Rules                      ;EXEC;TEST;ORDERS0047
+SECT;Business-Rules                      ;USES;DATA;supply_order_item
+SECT;Business-Rules                      ;USES;DATA;supplier
+SECT;Business-Rules                      ;USES;DATA;offers
+SECT;Business-Rules                      ;USES;DATA;price
+SECT;Business-Rules                      ;USES;DATA;moment
+SECT;Business-Rules                      ;EXEC;TEST;ORDERS0048
+SECT;Business-Rules                      ;USES;DATA;invoices
+SECT;Business-Rules                      ;USES;DATA;tags
+SECT;Business-Rules                      ;EXEC;TEST;ORDERS0049
+SECT;Business-Rules                      ;USES;DATA;total_amount_due
+SECT;Business-Rules                      ;USES;DATA;invoice
+SECT;Business-Rules                      ;USES;DATA;sum
+SECT;Business-Rules                      ;USES;DATA;items_times
+SECT;Business-Rules                      ;USES;DATA;value
+SECT;Business-Rules                      ;USES;DATA;tax
+SECT;Business-Rules                      ;EXEC;TEST;ORDERS0050
+DOCU;OrderEntry                          ;OWNS;SECT;System-Actors
+SECT;System-Actors                       ;USES;DATA;system
+SECT;System-Actors                       ;USES;DATA;subjects
+SECT;System-Actors                       ;USES;DATA;system
+SECT;System-Actors                       ;USES;DATA;system
+SECT;System-Actors                       ;USES;DATA;customer
+SECT;System-Actors                       ;USES;DATA;accountant
+SECT;System-Actors                       ;USES;DATA;dispatcher
+SECT;System-Actors                       ;USES;DATA;stock_clerk
+SECT;System-Actors                       ;USES;DATA;supplier
+SECT;System-Actors                       ;USES;DATA;system
+SECT;System-Actors                       ;EXEC;TEST;ORDERS0051
+SECT;System-Actors                       ;USES;DATA;customers
+SECT;System-Actors                       ;USES;DATA;query_articles
+SECT;System-Actors                       ;USES;DATA;stock
+SECT;System-Actors                       ;USES;DATA;orders
+SECT;System-Actors                       ;USES;DATA;time
+SECT;System-Actors                       ;EXEC;TEST;ORDERS0052
+SECT;System-Actors                       ;USES;DATA;dispatcher
+SECT;System-Actors                       ;USES;DATA;dispatch_orders
+SECT;System-Actors                       ;USES;DATA;articles
+SECT;System-Actors                       ;USES;DATA;customer
+SECT;System-Actors                       ;EXEC;TEST;ORDERS0053
+SECT;System-Actors                       ;USES;DATA;accountant
+SECT;System-Actors                       ;USES;DATA;invoices
+SECT;System-Actors                       ;USES;DATA;customers
+SECT;System-Actors                       ;EXEC;TEST;ORDERS0054
+SECT;System-Actors                       ;USES;DATA;stock_clerk
+SECT;System-Actors                       ;USES;DATA;supply_orders
+SECT;System-Actors                       ;USES;DATA;suppliers
+SECT;System-Actors                       ;EXEC;TEST;ORDERS0055
+SECT;System-Actors                       ;USES;DATA;order
+SECT;System-Actors                       ;USES;DATA;administrator
+SECT;System-Actors                       ;USES;DATA;back_orders
+SECT;System-Actors                       ;EXEC;TEST;ORDERS0056
+SECT;System-Actors                       ;USES;DATA;supplier
+SECT;System-Actors                       ;USES;DATA;supply_orders
+SECT;System-Actors                       ;USES;DATA;articles
+SECT;System-Actors                       ;EXEC;TEST;ORDERS0057
+DOCU;OrderEntry                          ;OWNS;SECT;User-Interfaces
+SECT;User-Interfaces                     ;USES;DATA;customer_website
+SECT;User-Interfaces                     ;USES;DATA;web_pages
+SECT;User-Interfaces                     ;USES;DATA;web_page
+SECT;User-Interfaces                     ;USES;DATA;customers
+SECT;User-Interfaces                     ;USES;DATA;articles
+SECT;User-Interfaces                     ;USES;DATA;stock
+SECT;User-Interfaces                     ;USES;DATA;web_page
+SECT;User-Interfaces                     ;USES;DATA;articles
+SECT;User-Interfaces                     ;EXEC;TEST;ORDERS0058
+SECT;User-Interfaces                     ;USES;DATA;customer_query_page
+SECT;User-Interfaces                     ;USES;DATA;customer
+SECT;User-Interfaces                     ;USES;DATA;article
+SECT;User-Interfaces                     ;USES;DATA;category
+SECT;User-Interfaces                     ;EXEC;TEST;ORDERS0059
+SECT;User-Interfaces                     ;USES;DATA;customer_number
+SECT;User-Interfaces                     ;USES;DATA;customer_number
+SECT;User-Interfaces                     ;USES;DATA;article_category
+SECT;User-Interfaces                     ;USES;DATA;article_category
+SECT;User-Interfaces                     ;USES;DATA;article_category
+SECT;User-Interfaces                     ;USES;DATA;system_lists
+SECT;User-Interfaces                     ;USES;DATA;articles
+SECT;User-Interfaces                     ;USES;DATA;category
+SECT;User-Interfaces                     ;USES;DATA;name
+SECT;User-Interfaces                     ;USES;DATA;number
+SECT;User-Interfaces                     ;USES;DATA;description
+SECT;User-Interfaces                     ;USES;DATA;type
+SECT;User-Interfaces                     ;EXEC;TEST;ORDERS0060
+SECT;User-Interfaces                     ;USES;DATA;article_number
+SECT;User-Interfaces                     ;USES;DATA;article_number
+SECT;User-Interfaces                     ;USES;DATA;article_name
+SECT;User-Interfaces                     ;USES;DATA;article_name
+SECT;User-Interfaces                     ;USES;DATA;article_name
+SECT;User-Interfaces                     ;USES;DATA;article_description
+SECT;User-Interfaces                     ;USES;DATA;article_description
+SECT;User-Interfaces                     ;USES;DATA;article_description
+SECT;User-Interfaces                     ;USES;DATA;article_price
+SECT;User-Interfaces                     ;USES;DATA;article_price
+SECT;User-Interfaces                     ;USES;DATA;article_price
+SECT;User-Interfaces                     ;USES;DATA;customer_number
+SECT;User-Interfaces                     ;USES;DATA;customer_order_panel
+SECT;User-Interfaces                     ;USES;DATA;customer
+SECT;User-Interfaces                     ;USES;DATA;order
+SECT;User-Interfaces                     ;USES;DATA;customer_number
+SECT;User-Interfaces                     ;USES;DATA;data
+SECT;User-Interfaces                     ;USES;DATA;customer_number
+SECT;User-Interfaces                     ;USES;DATA;customer_number
+SECT;User-Interfaces                     ;EXEC;TEST;ORDERS0061
+SECT;User-Interfaces                     ;USES;DATA;customer_number
+SECT;User-Interfaces                     ;USES;DATA;customer_name
+SECT;User-Interfaces                     ;USES;DATA;customer_name
+SECT;User-Interfaces                     ;USES;DATA;customer_name
+SECT;User-Interfaces                     ;USES;DATA;order_number
+SECT;User-Interfaces                     ;USES;DATA;order_number
+SECT;User-Interfaces                     ;USES;DATA;order_number
+SECT;User-Interfaces                     ;USES;DATA;order_items
+SECT;User-Interfaces                     ;USES;DATA;order_items
+SECT;User-Interfaces                     ;USES;DATA;order_items
+SECT;User-Interfaces                     ;USES;DATA;order_item
+SECT;User-Interfaces                     ;USES;DATA;data
+SECT;User-Interfaces                     ;USES;DATA;order_item_number
+SECT;User-Interfaces                     ;USES;DATA;order_item_number
+SECT;User-Interfaces                     ;EXEC;TEST;ORDERS0062
+SECT;User-Interfaces                     ;USES;DATA;order_item_number
+SECT;User-Interfaces                     ;USES;DATA;article_number
+SECT;User-Interfaces                     ;USES;DATA;article_number
+SECT;User-Interfaces                     ;USES;DATA;order_item_amount
+SECT;User-Interfaces                     ;USES;DATA;order_item_amount
+SECT;User-Interfaces                     ;USES;DATA;customer_order
+SECT;User-Interfaces                     ;USES;DATA;order_number
+SECT;User-Interfaces                     ;USES;DATA;order_date
+SECT;User-Interfaces                     ;EXEC;TEST;ORDERS0063
+SECT;User-Interfaces                     ;USES;DATA;customer_order_confirmation
+SECT;User-Interfaces                     ;USES;DATA;order
+SECT;User-Interfaces                     ;USES;DATA;error
+SECT;User-Interfaces                     ;USES;DATA;message
+SECT;User-Interfaces                     ;EXEC;TEST;ORDERS0064
+SECT;User-Interfaces                     ;USES;DATA;customer_number
+SECT;User-Interfaces                     ;USES;DATA;customer_number
+SECT;User-Interfaces                     ;USES;DATA;order_number
+SECT;User-Interfaces                     ;USES;DATA;order_number
+SECT;User-Interfaces                     ;USES;DATA;confirmation_message
+SECT;User-Interfaces                     ;USES;DATA;confirmation_message
+SECT;User-Interfaces                     ;USES;DATA;error_message
+SECT;User-Interfaces                     ;USES;DATA;error_message
+SECT;User-Interfaces                     ;USES;DATA;user
+SECT;User-Interfaces                     ;USES;DATA;process
+SECT;User-Interfaces                     ;EXEC;TEST;ORDERS0065
+SECT;User-Interfaces                     ;USES;DATA;invoices
+SECT;User-Interfaces                     ;USES;DATA;invoices
+SECT;User-Interfaces                     ;USES;DATA;invoices
+SECT;User-Interfaces                     ;USES;DATA;supply_orders
+SECT;User-Interfaces                     ;USES;DATA;supply_orders
+SECT;User-Interfaces                     ;EXEC;TEST;ORDERS0066
+SECT;User-Interfaces                     ;USES;DATA;supply_orders
+SECT;User-Interfaces                     ;USES;DATA;process
+SECT;User-Interfaces                     ;USES;DATA;process
+SECT;User-Interfaces                     ;EXEC;TEST;ORDERS0067
+SECT;User-Interfaces                     ;USES;DATA;process
+SECT;User-Interfaces                     ;USES;DATA;contents
+SECT;User-Interfaces                     ;USES;DATA;page
+SECT;User-Interfaces                     ;EXEC;TEST;ORDERS0068
+SECT;User-Interfaces                     ;USES;DATA;date
+SECT;User-Interfaces                     ;USES;OBJT;date
+SECT;User-Interfaces                     ;USES;REPO;type
+DOCU;OrderEntry                          ;OWNS;SECT;System-Reports
+SECT;System-Reports                      ;USES;DATA;system
+SECT;System-Reports                      ;USES;DATA;dispatch_order
+SECT;System-Reports                      ;EXEC;TEST;ORDERS0069
+SECT;System-Reports                      ;USES;DATA;OrderNumber
+SECT;System-Reports                      ;USES;OBJT;OrderNumber
+SECT;System-Reports                      ;USES;DATA;CustomerNumber
+SECT;System-Reports                      ;USES;OBJT;CustomerNumber
+SECT;System-Reports                      ;USES;DATA;ArticleNumber
+SECT;System-Reports                      ;USES;OBJT;ArticleNumber
+SECT;System-Reports                      ;USES;DATA;ArticleName
+SECT;System-Reports                      ;USES;OBJT;ArticleName
+SECT;System-Reports                      ;USES;DATA;OrderAmount
+SECT;System-Reports                      ;USES;OBJT;OrderAmount
+SECT;System-Reports                      ;USES;DATA;supply_order
+SECT;System-Reports                      ;USES;DATA;SupplyOrderNumber
+SECT;System-Reports                      ;USES;OBJT;SupplyOrderNumber
+SECT;System-Reports                      ;USES;DATA;SupplierNumber
+SECT;System-Reports                      ;USES;OBJT;SupplierNumber
+SECT;System-Reports                      ;USES;DATA;ArticleNumber
+SECT;System-Reports                      ;USES;OBJT;ArticleNumber
+SECT;System-Reports                      ;USES;DATA;ArticleName
+SECT;System-Reports                      ;USES;OBJT;ArticleName
+SECT;System-Reports                      ;USES;DATA;SupplyAmount
+SECT;System-Reports                      ;USES;OBJT;SupplyAmount
+SECT;System-Reports                      ;USES;DATA;invoice
+SECT;System-Reports                      ;USES;DATA;InvoiceNumber
+SECT;System-Reports                      ;USES;OBJT;InvoiceNumber
+SECT;System-Reports                      ;USES;DATA;CustomerNumber
+SECT;System-Reports                      ;USES;OBJT;CustomerNumber
+SECT;System-Reports                      ;USES;DATA;CustomerName
+SECT;System-Reports                      ;USES;OBJT;CustomerName
+SECT;System-Reports                      ;USES;DATA;CustomerAddress
+SECT;System-Reports                      ;USES;OBJT;CustomerAddress
+SECT;System-Reports                      ;USES;DATA;OrderNumber
+SECT;System-Reports                      ;USES;OBJT;OrderNumber
+SECT;System-Reports                      ;USES;DATA;BillingItems(10)
+SECT;System-Reports                      ;USES;OBJT;BillingItems(10)
+SECT;System-Reports                      ;USES;DATA;BillingItemNumber
+SECT;System-Reports                      ;USES;OBJT;BillingItemNumber
+SECT;System-Reports                      ;USES;DATA;ArticleNumber
+SECT;System-Reports                      ;USES;OBJT;ArticleNumber
+SECT;System-Reports                      ;USES;DATA;ArticleName
+SECT;System-Reports                      ;USES;OBJT;ArticleName
+SECT;System-Reports                      ;USES;DATA;Ordermount
+SECT;System-Reports                      ;USES;OBJT;Ordermount
+SECT;System-Reports                      ;USES;DATA;list
+SECT;System-Reports                      ;USES;DATA;back_orders
+SECT;System-Reports                      ;EXEC;TEST;ORDERS0070
+SECT;System-Reports                      ;USES;DATA;OrderNumber
+SECT;System-Reports                      ;USES;OBJT;OrderNumber
+SECT;System-Reports                      ;USES;DATA;CustomerNumber
+SECT;System-Reports                      ;USES;OBJT;CustomerNumber
+SECT;System-Reports                      ;USES;DATA;CustomerName
+SECT;System-Reports                      ;USES;OBJT;CustomerName
+SECT;System-Reports                      ;USES;DATA;OrderItem(10)
+SECT;System-Reports                      ;USES;OBJT;OrderItem(10)
+SECT;System-Reports                      ;USES;DATA;OrderItemNumber
+SECT;System-Reports                      ;USES;OBJT;OrderItemNumber
+SECT;System-Reports                      ;USES;DATA;ArticleNumber
+SECT;System-Reports                      ;USES;OBJT;ArticleNumber
+SECT;System-Reports                      ;USES;DATA;ArticleName
+SECT;System-Reports                      ;USES;OBJT;ArticleName
+SECT;System-Reports                      ;USES;DATA;OrderAmount
+SECT;System-Reports                      ;USES;OBJT;OrderAmount
+DOCU;OrderEntry                          ;OWNS;SECT; system  Use Cases
+SECT; system  Use Cases                  ;USES;DATA;system
+SECT; system  Use Cases                  ;USES;DATA;dispatch
+SECT; system  Use Cases                  ;USES;DATA;dispatch
+SECT; system  Use Cases                  ;EXEC;TEST;ORDERS0071
+SECT; system  Use Cases                  ;USES;DATA;dispatch
+SECT; system  Use Cases                  ;USES;DATA;supply_order
+SECT; system  Use Cases                  ;USES;DATA;supply_order
+SECT; system  Use Cases                  ;USES;DATA;supply_order
+SECT; system  Use Cases                  ;USES;DATA;back_order
+SECT; system  Use Cases                  ;USES;DATA;back_order
+SECT; system  Use Cases                  ;USES;DATA;back_order
+SECT; system  Use Cases                  ;USES;DATA;customer_query
+SECT; system  Use Cases                  ;USES;DATA;customer_query
+SECT; system  Use Cases                  ;EXEC;TEST;ORDERS0072
+SECT; system  Use Cases                  ;USES;DATA;customer_query
+SECT; system  Use Cases                  ;USES;DATA;customer_order
+SECT; system  Use Cases                  ;USES;DATA;customer_order
+SECT; system  Use Cases                  ;USES;DATA;customer_order
+CASE;Customer_Query                      ;PERF;STEP;UseCase-01  Customer_Query
+DOCU;OrderEntry                          ;OWNS;CASE;Customer_Query
+CASE;Customer_Query                      ;USES;DATA;customer
+CASE;Customer_Query                      ;USES;DATA;article_category
+CASE;Customer_Query                      ;USES;DATA;query
+CASE;Customer_Query                      ;USES;DATA;status
+CASE;Customer_Query                      ;USES;DATA;articles
+CASE;Customer_Query                      ;USES;DATA;category
+CASE;Customer_Query                      ;EXEC;TEST;ORDERS0073
+CASE;Customer_Query                      ;USES;DATA;article_database
+CASE;Customer_Query                      ;USES;DATA;articles
+CASE;Customer_Query                      ;EXEC;TEST;ORDERS0074
+CASE;Customer_Query                      ;USES;DATA;order
+CASE;Customer_Query                      ;USES;DATA;article_name
+CASE;Customer_Query                      ;USES;DATA;article_number
+CASE;Customer_Query                      ;USES;DATA;name
+CASE;Customer_Query                      ;USES;DATA;price
+CASE;Customer_Query                      ;EXEC;TEST;ORDERS0075
+CASE;Customer_Query                      ;USES;DATA;article
+CASE;Customer_Query                      ;USES;DATA;article_name
+CASE;Customer_Query                      ;USES;DATA;article_price
+CASE;Customer_Query                      ;USES;DATA;description
+CASE;Customer_Query                      ;USES;DATA;process
+CASE;Customer_Query                      ;USES;DATA;customer
+CASE;Customer_Query                      ;USES;DATA;customer
+CASE;Customer_Query                      ;EXEC;TEST;ORDERS0076
+CASE;Customer_Query                      ;USES;DATA;articles
+CASE;Customer_Query                      ;USES;DATA;category
+CASE;Customer_Query                      ;EXEC;TEST;ORDERS0077
+CASE;Customer_Query                      ;USES;DATA;articles
+CASE;Customer_Query                      ;USES;DATA;category
+CASE;Customer_Query                      ;USES;DATA;name
+CASE;Customer_Query                      ;USES;DATA;order
+CASE;Customer_Query                      ;EXEC;TEST;ORDERS0078
+CASE;Customer_Query                      ;PERF;STEP;1) <system> displays <article> categorie
+CASE;Customer_Query                      ;USES;DATA;system
+CASE;Customer_Query                      ;USES;DATA;article
+CASE;Customer_Query                      ;EXEC;TEST;ORDERS0079
+CASE;Customer_Query                      ;PERF;STEP;2) <customer> selects a <category>.
+CASE;Customer_Query                      ;USES;DATA;customer
+CASE;Customer_Query                      ;USES;DATA;category
+CASE;Customer_Query                      ;EXEC;TEST;ORDERS0080
+CASE;Customer_Query                      ;PERF;STEP;3) <system> displays all <articles> in t
+CASE;Customer_Query                      ;USES;DATA;system
+CASE;Customer_Query                      ;USES;DATA;articles
+CASE;Customer_Query                      ;USES;DATA;category
+CASE;Customer_Query                      ;USES;DATA;prices
+CASE;Customer_Query                      ;USES;DATA;order
+CASE;Customer_Query                      ;USES;DATA;order
+CASE;Customer_Query                      ;USES;DATA;order
+CASE;Customer_Query                      ;EXEC;TEST;ORDERS0081
+CASE;Customer_Query                      ;USES;DATA;order
+CASE;Customer_Query                      ;USES;DATA;system
+CASE;Customer_Query                      ;USES;DATA;customer
+CASE;Customer_Query                      ;EXEC;TEST;ORDERS0082
+CASE;Customer_Query                      ;USES;DATA;customers
+CASE;Customer_Query                      ;USES;DATA;articles
+CASE;Customer_Query                      ;USES;DATA;stock
+CASE;Customer_Query                      ;USES;DATA;article
+CASE;Customer_Query                      ;USES;DATA;articles
+CASE;Customer_Query                      ;USES;DATA;stock
+CASE;Customer_Query                      ;USES;DATA;vendor
+CASE;Customer_Query                      ;EXEC;TEST;ORDERS0083
+CASE;Customer_Order_Processing           ;PERF;STEP;UseCase-02  Customer_Order_Processing
+DOCU;OrderEntry                          ;OWNS;CASE;Customer_Order_Processing
+CASE;Customer_Order_Processing           ;USES;DATA;customer_order
+CASE;Customer_Order_Processing           ;USES;DATA;system
+CASE;Customer_Order_Processing           ;USES;DATA;customer
+CASE;Customer_Order_Processing           ;USES;DATA;customer_database
+CASE;Customer_Order_Processing           ;EXEC;TEST;ORDERS0084
+CASE;Customer_Order_Processing           ;USES;DATA;credibility
+CASE;Customer_Order_Processing           ;EXEC;TEST;ORDERS0085
+CASE;Customer_Order_Processing           ;USES;DATA;customer
+CASE;Customer_Order_Processing           ;USES;DATA;credibility
+CASE;Customer_Order_Processing           ;USES;DATA;customer_order
+CASE;Customer_Order_Processing           ;EXEC;TEST;ORDERS0086
+CASE;Customer_Order_Processing           ;USES;DATA;customer
+CASE;Customer_Order_Processing           ;USES;DATA;rejection_message
+CASE;Customer_Order_Processing           ;EXEC;TEST;ORDERS0087
+CASE;Customer_Order_Processing           ;USES;DATA;order
+CASE;Customer_Order_Processing           ;USES;DATA;system
+CASE;Customer_Order_Processing           ;USES;DATA;order_item
+CASE;Customer_Order_Processing           ;USES;DATA;time
+CASE;Customer_Order_Processing           ;USES;DATA;order_items
+CASE;Customer_Order_Processing           ;EXEC;TEST;ORDERS0088
+CASE;Customer_Order_Processing           ;USES;DATA;article
+CASE;Customer_Order_Processing           ;USES;DATA;stock
+CASE;Customer_Order_Processing           ;EXEC;TEST;ORDERS0089
+CASE;Customer_Order_Processing           ;USES;DATA;customer
+CASE;Customer_Order_Processing           ;USES;DATA;article
+CASE;Customer_Order_Processing           ;USES;DATA;order_item
+CASE;Customer_Order_Processing           ;EXEC;TEST;ORDERS0090
+CASE;Customer_Order_Processing           ;USES;DATA;article
+CASE;Customer_Order_Processing           ;USES;DATA;stock
+CASE;Customer_Order_Processing           ;USES;DATA;amount
+CASE;Customer_Order_Processing           ;USES;DATA;stock
+CASE;Customer_Order_Processing           ;USES;DATA;amount
+CASE;Customer_Order_Processing           ;EXEC;TEST;ORDERS0091
+CASE;Customer_Order_Processing           ;USES;DATA;amount
+CASE;Customer_Order_Processing           ;USES;DATA;stock
+CASE;Customer_Order_Processing           ;USES;DATA;amount
+CASE;Customer_Order_Processing           ;USES;DATA;back_order
+CASE;Customer_Order_Processing           ;USES;DATA;customer
+CASE;Customer_Order_Processing           ;USES;DATA;order
+CASE;Customer_Order_Processing           ;EXEC;TEST;ORDERS0092
+CASE;Customer_Order_Processing           ;USES;DATA;back_order
+CASE;Customer_Order_Processing           ;USES;DATA;order_number
+CASE;Customer_Order_Processing           ;USES;DATA;order_number
+CASE;Customer_Order_Processing           ;EXEC;TEST;ORDERS0093
+CASE;Customer_Order_Processing           ;USES;DATA;order_number
+CASE;Customer_Order_Processing           ;USES;DATA;order_date
+CASE;Customer_Order_Processing           ;USES;DATA;order_date
+CASE;Customer_Order_Processing           ;USES;DATA;order_date
+CASE;Customer_Order_Processing           ;USES;DATA;customer_number
+CASE;Customer_Order_Processing           ;USES;DATA;customer_number
+CASE;Customer_Order_Processing           ;USES;DATA;customer_number
+CASE;Customer_Order_Processing           ;USES;DATA;article_number
+CASE;Customer_Order_Processing           ;USES;DATA;article_number
+CASE;Customer_Order_Processing           ;USES;DATA;article_number
+CASE;Customer_Order_Processing           ;USES;DATA;order_amount
+CASE;Customer_Order_Processing           ;USES;DATA;order_amount
+CASE;Customer_Order_Processing           ;USES;DATA;order_amount
+CASE;Customer_Order_Processing           ;USES;DATA;back_orders
+CASE;Customer_Order_Processing           ;USES;DATA;file
+CASE;Customer_Order_Processing           ;USES;DATA;week
+CASE;Customer_Order_Processing           ;USES;DATA;batch_component
+CASE;Customer_Order_Processing           ;EXEC;TEST;ORDERS0094
+CASE;Customer_Order_Processing           ;USES;DATA;component
+CASE;Customer_Order_Processing           ;USES;DATA;customer
+CASE;Customer_Order_Processing           ;USES;DATA;order
+CASE;Customer_Order_Processing           ;USES;DATA;component
+CASE;Customer_Order_Processing           ;EXEC;TEST;ORDERS0095
+CASE;Customer_Order_Processing           ;USES;DATA;article_amount
+CASE;Customer_Order_Processing           ;USES;DATA;stock
+CASE;Customer_Order_Processing           ;EXEC;TEST;ORDERS0096
+CASE;Customer_Order_Processing           ;USES;DATA;order
+CASE;Customer_Order_Processing           ;USES;DATA;amount
+CASE;Customer_Order_Processing           ;USES;DATA;amount
+CASE;Customer_Order_Processing           ;USES;DATA;stock
+CASE;Customer_Order_Processing           ;USES;DATA;dispatch_order_item
+CASE;Customer_Order_Processing           ;EXEC;TEST;ORDERS0097
+CASE;Customer_Order_Processing           ;USES;DATA;order_number
+CASE;Customer_Order_Processing           ;USES;DATA;dispatch_order_item
+CASE;Customer_Order_Processing           ;USES;DATA;order_number
+CASE;Customer_Order_Processing           ;USES;DATA;order_number
+CASE;Customer_Order_Processing           ;EXEC;TEST;ORDERS0098
+CASE;Customer_Order_Processing           ;USES;DATA;order_number
+CASE;Customer_Order_Processing           ;USES;DATA;customer_number
+CASE;Customer_Order_Processing           ;USES;DATA;customer_number
+CASE;Customer_Order_Processing           ;USES;DATA;customer_number
+CASE;Customer_Order_Processing           ;USES;DATA;article_number
+CASE;Customer_Order_Processing           ;USES;DATA;article_number
+CASE;Customer_Order_Processing           ;USES;DATA;article_number
+CASE;Customer_Order_Processing           ;USES;DATA;order_amount
+CASE;Customer_Order_Processing           ;USES;DATA;order_amount
+CASE;Customer_Order_Processing           ;USES;DATA;order_amount
+CASE;Customer_Order_Processing           ;USES;DATA;dispatch_orders
+CASE;Customer_Order_Processing           ;USES;DATA;file
+CASE;Customer_Order_Processing           ;USES;DATA;batch
+CASE;Customer_Order_Processing           ;USES;DATA;mode
+CASE;Customer_Order_Processing           ;USES;DATA;day
+CASE;Customer_Order_Processing           ;USES;DATA;program
+CASE;Customer_Order_Processing           ;EXEC;TEST;ORDERS0099
+CASE;Customer_Order_Processing           ;USES;DATA;article_amount
+CASE;Customer_Order_Processing           ;USES;DATA;stock
+CASE;Customer_Order_Processing           ;USES;DATA;amount
+CASE;Customer_Order_Processing           ;USES;DATA;minimum_article_amount
+CASE;Customer_Order_Processing           ;EXEC;TEST;ORDERS0100
+CASE;Customer_Order_Processing           ;USES;DATA;supply
+CASE;Customer_Order_Processing           ;USES;DATA;order_item
+CASE;Customer_Order_Processing           ;EXEC;TEST;ORDERS0101
+CASE;Customer_Order_Processing           ;USES;DATA;supply_order_item
+CASE;Customer_Order_Processing           ;USES;DATA;article_number
+CASE;Customer_Order_Processing           ;USES;DATA;article_number
+CASE;Customer_Order_Processing           ;EXEC;TEST;ORDERS0102
+CASE;Customer_Order_Processing           ;USES;DATA;article_number
+CASE;Customer_Order_Processing           ;USES;DATA;supply_amount
+CASE;Customer_Order_Processing           ;USES;DATA;supply_amount
+CASE;Customer_Order_Processing           ;USES;DATA;supply_amount
+CASE;Customer_Order_Processing           ;USES;DATA;supply_order_items
+CASE;Customer_Order_Processing           ;USES;DATA;file
+CASE;Customer_Order_Processing           ;USES;DATA;program
+CASE;Customer_Order_Processing           ;USES;DATA;batch_mode
+CASE;Customer_Order_Processing           ;EXEC;TEST;ORDERS0103
+CASE;Customer_Order_Processing           ;USES;DATA;order_item
+CASE;Customer_Order_Processing           ;USES;DATA;item
+CASE;Customer_Order_Processing           ;USES;DATA;order_number
+CASE;Customer_Order_Processing           ;USES;DATA;customer_order
+CASE;Customer_Order_Processing           ;USES;DATA;data_attributes
+CASE;Customer_Order_Processing           ;USES;DATA;order_number
+CASE;Customer_Order_Processing           ;USES;DATA;customer_order
+CASE;Customer_Order_Processing           ;USES;DATA;order_number
+CASE;Customer_Order_Processing           ;USES;DATA;customer_order
+CASE;Customer_Order_Processing           ;EXEC;TEST;ORDERS0104
+CASE;Customer_Order_Processing           ;USES;DATA;order_number
+CASE;Customer_Order_Processing           ;USES;DATA;customer_order
+CASE;Customer_Order_Processing           ;USES;DATA;order_date
+CASE;Customer_Order_Processing           ;USES;DATA;customer_order
+CASE;Customer_Order_Processing           ;USES;DATA;order_date
+CASE;Customer_Order_Processing           ;USES;DATA;customer_order
+CASE;Customer_Order_Processing           ;USES;DATA;customer_number
+CASE;Customer_Order_Processing           ;USES;DATA;customer_order
+CASE;Customer_Order_Processing           ;USES;DATA;customer_number
+CASE;Customer_Order_Processing           ;USES;DATA;customer_order
+CASE;Customer_Order_Processing           ;USES;DATA;article_number
+CASE;Customer_Order_Processing           ;USES;DATA;order_item
+CASE;Customer_Order_Processing           ;USES;DATA;article_number
+CASE;Customer_Order_Processing           ;USES;DATA;order_item
+CASE;Customer_Order_Processing           ;USES;DATA;order_amount
+CASE;Customer_Order_Processing           ;USES;DATA;order_item
+CASE;Customer_Order_Processing           ;USES;DATA;order_amount
+CASE;Customer_Order_Processing           ;USES;DATA;order_item
+CASE;Customer_Order_Processing           ;USES;DATA;article_price
+CASE;Customer_Order_Processing           ;USES;DATA;article_data
+CASE;Customer_Order_Processing           ;USES;DATA;article_price
+CASE;Customer_Order_Processing           ;USES;DATA;article_data
+CASE;Customer_Order_Processing           ;USES;DATA;item_price
+CASE;Customer_Order_Processing           ;USES;DATA;order_amount
+CASE;Customer_Order_Processing           ;USES;DATA;article_price
+CASE;Customer_Order_Processing           ;USES;DATA;item_price
+CASE;Customer_Order_Processing           ;USES;DATA;order_amount
+CASE;Customer_Order_Processing           ;USES;DATA;article_price
+CASE;Customer_Order_Processing           ;USES;DATA;items
+CASE;Customer_Order_Processing           ;USES;DATA;file
+CASE;Customer_Order_Processing           ;USES;DATA;month
+CASE;Customer_Order_Processing           ;USES;DATA;program
+CASE;Customer_Order_Processing           ;USES;DATA;bills
+CASE;Customer_Order_Processing           ;EXEC;TEST;ORDERS0105
+CASE;Customer_Order_Processing           ;USES;DATA;component
+CASE;Customer_Order_Processing           ;EXEC;TEST;ORDERS0106
+CASE;Customer_Order_Processing           ;USES;DATA;order_item
+CASE;Customer_Order_Processing           ;USES;DATA;order_items
+CASE;Customer_Order_Processing           ;USES;DATA;order
+CASE;Customer_Order_Processing           ;EXEC;TEST;ORDERS0107
+CASE;Customer_Order_Processing           ;USES;DATA;order_items
+CASE;Customer_Order_Processing           ;EXEC;TEST;ORDERS0108
+CASE;Customer_Order_Processing           ;USES;DATA;customer
+CASE;Customer_Order_Processing           ;USES;DATA;confirmation
+CASE;Customer_Order_Processing           ;USES;DATA;order_item
+CASE;Customer_Order_Processing           ;USES;DATA;error_message
+CASE;Customer_Order_Processing           ;USES;DATA;order_item
+CASE;Customer_Order_Processing           ;EXEC;TEST;ORDERS0109
+CASE;Customer_Order_Processing           ;USES;DATA;description
+CASE;Customer_Order_Processing           ;USES;DATA;process
+CASE;Customer_Order_Processing           ;USES;DATA;customer
+CASE;Customer_Order_Processing           ;USES;DATA;article
+CASE;Customer_Order_Processing           ;USES;DATA;stock
+CASE;Customer_Order_Processing           ;EXEC;TEST;ORDERS0110
+CASE;Customer_Order_Processing           ;USES;DATA;customer
+CASE;Customer_Order_Processing           ;USES;DATA;purchase_articles
+CASE;Customer_Order_Processing           ;EXEC;TEST;ORDERS0111
+CASE;Customer_Order_Processing           ;USES;DATA;customer
+CASE;Customer_Order_Processing           ;EXEC;TEST;ORDERS0112
+CASE;Customer_Order_Processing           ;USES;DATA;article_amount
+CASE;Customer_Order_Processing           ;USES;DATA;order
+CASE;Customer_Order_Processing           ;USES;DATA;dispatch_order
+CASE;Customer_Order_Processing           ;USES;DATA;order_item
+CASE;Customer_Order_Processing           ;USES;DATA;item
+CASE;Customer_Order_Processing           ;USES;DATA;order_item
+CASE;Customer_Order_Processing           ;USES;DATA;back_order
+CASE;Customer_Order_Processing           ;USES;DATA;order_item
+CASE;Customer_Order_Processing           ;EXEC;TEST;ORDERS0113
+CASE;Customer_Order_Processing           ;USES;DATA;supply_order_item
+CASE;Customer_Order_Processing           ;USES;DATA;article_amount
+CASE;Customer_Order_Processing           ;USES;DATA;minimum_order_amount
+CASE;Customer_Order_Processing           ;EXEC;TEST;ORDERS0114
+CASE;Customer_Order_Processing           ;PERF;STEP;1) <system> displays <customer_order_pan
+CASE;Customer_Order_Processing           ;USES;DATA;system
+CASE;Customer_Order_Processing           ;USES;DATA;customer_order_panel
+CASE;Customer_Order_Processing           ;PERF;STEP;2) <customer> submits his <customer_numb
+CASE;Customer_Order_Processing           ;USES;DATA;customer
+CASE;Customer_Order_Processing           ;USES;DATA;customer_number
+CASE;Customer_Order_Processing           ;EXEC;TEST;ORDERS0115
+CASE;Customer_Order_Processing           ;PERF;STEP;3) <system> checks <customer_credibility
+CASE;Customer_Order_Processing           ;USES;DATA;system
+CASE;Customer_Order_Processing           ;USES;DATA;customer_credibility
+CASE;Customer_Order_Processing           ;PERF;STEP;4) <customer> submits an <article_number
+CASE;Customer_Order_Processing           ;USES;DATA;customer
+CASE;Customer_Order_Processing           ;USES;DATA;article_number
+CASE;Customer_Order_Processing           ;USES;DATA;amount
+CASE;Customer_Order_Processing           ;EXEC;TEST;ORDERS0116
+CASE;Customer_Order_Processing           ;PERF;STEP;5) <system> checks if the <article> is o
+CASE;Customer_Order_Processing           ;USES;DATA;system
+CASE;Customer_Order_Processing           ;USES;DATA;article
+CASE;Customer_Order_Processing           ;USES;DATA;stock
+CASE;Customer_Order_Processing           ;EXEC;TEST;ORDERS0117
+CASE;Customer_Order_Processing           ;PERF;STEP;6) <system> checks if the <article_amoun
+CASE;Customer_Order_Processing           ;USES;DATA;system
+CASE;Customer_Order_Processing           ;USES;DATA;article_amount
+CASE;Customer_Order_Processing           ;USES;DATA;stock
+CASE;Customer_Order_Processing           ;EXEC;TEST;ORDERS0118
+CASE;Customer_Order_Processing           ;PERF;STEP;7) <system> subtracts <order_amount> fro
+CASE;Customer_Order_Processing           ;USES;DATA;system
+CASE;Customer_Order_Processing           ;USES;DATA;order_amount
+CASE;Customer_Order_Processing           ;USES;DATA;article_amount
+CASE;Customer_Order_Processing           ;USES;DATA;article
+CASE;Customer_Order_Processing           ;USES;DATA;amount
+CASE;Customer_Order_Processing           ;USES;DATA;order_amount
+CASE;Customer_Order_Processing           ;USES;DATA;amount
+CASE;Customer_Order_Processing           ;USES;DATA;order_amount
+CASE;Customer_Order_Processing           ;USES;DATA;amount
+CASE;Customer_Order_Processing           ;USES;DATA;order_amount
+CASE;Customer_Order_Processing           ;EXEC;TEST;ORDERS0119
+CASE;Customer_Order_Processing           ;USES;DATA;amount
+CASE;Customer_Order_Processing           ;USES;DATA;order_amount
+CASE;Customer_Order_Processing           ;EXEC;TEST;ORDERS0120
+CASE;Customer_Order_Processing           ;PERF;STEP;8) <system> generates a <dispatch_order_
+CASE;Customer_Order_Processing           ;USES;DATA;system
+CASE;Customer_Order_Processing           ;USES;DATA;dispatch_order_item
+CASE;Customer_Order_Processing           ;USES;DATA;article_amount
+CASE;Customer_Order_Processing           ;USES;DATA;order
+CASE;Customer_Order_Processing           ;USES;DATA;amount
+CASE;Customer_Order_Processing           ;USES;DATA;amount
+CASE;Customer_Order_Processing           ;USES;DATA;amount
+CASE;Customer_Order_Processing           ;EXEC;TEST;ORDERS0121
+CASE;Customer_Order_Processing           ;USES;DATA;amount
+CASE;Customer_Order_Processing           ;PERF;STEP;9) <system> generates a billing <item> i
+CASE;Customer_Order_Processing           ;USES;DATA;system
+CASE;Customer_Order_Processing           ;USES;DATA;item
+CASE;Customer_Order_Processing           ;USES;DATA;article_amount
+CASE;Customer_Order_Processing           ;USES;DATA;order
+CASE;Customer_Order_Processing           ;USES;DATA;amount
+CASE;Customer_Order_Processing           ;USES;DATA;amount
+CASE;Customer_Order_Processing           ;USES;DATA;amount
+CASE;Customer_Order_Processing           ;EXEC;TEST;ORDERS0122
+CASE;Customer_Order_Processing           ;USES;DATA;amount
+CASE;Customer_Order_Processing           ;PERF;STEP;10) <system> generates a <supply_order_i
+CASE;Customer_Order_Processing           ;USES;DATA;system
+CASE;Customer_Order_Processing           ;USES;DATA;supply_order_item
+CASE;Customer_Order_Processing           ;USES;DATA;article_amount
+CASE;Customer_Order_Processing           ;USES;DATA;minimum_amount
+CASE;Customer_Order_Processing           ;USES;DATA;minimum_amount
+CASE;Customer_Order_Processing           ;USES;DATA;minimum_amount
+CASE;Customer_Order_Processing           ;EXEC;TEST;ORDERS0123
+CASE;Customer_Order_Processing           ;USES;DATA;minimum_amount
+CASE;Customer_Order_Processing           ;PERF;STEP;11) <system> generates a <back_order> if
+CASE;Customer_Order_Processing           ;USES;DATA;system
+CASE;Customer_Order_Processing           ;USES;DATA;back_order
+CASE;Customer_Order_Processing           ;USES;DATA;article_amount
+CASE;Customer_Order_Processing           ;USES;DATA;order
+CASE;Customer_Order_Processing           ;USES;DATA;amount
+CASE;Customer_Order_Processing           ;USES;DATA;amount
+CASE;Customer_Order_Processing           ;USES;DATA;amount
+CASE;Customer_Order_Processing           ;EXEC;TEST;ORDERS0124
+CASE;Customer_Order_Processing           ;USES;DATA;amount
+CASE;Customer_Order_Processing           ;PERF;STEP;12) <system> reports a <delay> of <deliv
+CASE;Customer_Order_Processing           ;USES;DATA;system
+CASE;Customer_Order_Processing           ;USES;DATA;delay
+CASE;Customer_Order_Processing           ;USES;DATA;delivery
+CASE;Customer_Order_Processing           ;USES;DATA;article_amount
+CASE;Customer_Order_Processing           ;USES;DATA;order
+CASE;Customer_Order_Processing           ;USES;DATA;amount
+CASE;Customer_Order_Processing           ;USES;DATA;amount
+CASE;Customer_Order_Processing           ;USES;DATA;amount
+CASE;Customer_Order_Processing           ;EXEC;TEST;ORDERS0125
+CASE;Customer_Order_Processing           ;USES;DATA;amount
+CASE;Customer_Order_Processing           ;USES;DATA;system
+CASE;Customer_Order_Processing           ;USES;DATA;order
+CASE;Customer_Order_Processing           ;USES;DATA;customer
+CASE;Customer_Order_Processing           ;USES;DATA;customer
+CASE;Customer_Order_Processing           ;USES;DATA;credibility
+CASE;Customer_Order_Processing           ;EXEC;TEST;ORDERS0126
+CASE;Customer_Order_Processing           ;USES;DATA;customers
+CASE;Customer_Order_Processing           ;USES;DATA;credit
+CASE;Customer_Order_Processing           ;USES;DATA;order_articles
+CASE;Customer_Order_Processing           ;USES;DATA;article_amount
+CASE;Customer_Order_Processing           ;USES;DATA;stock
+CASE;Customer_Order_Processing           ;USES;DATA;minimum
+CASE;Customer_Order_Processing           ;USES;DATA;amount
+CASE;Customer_Order_Processing           ;USES;DATA;customer
+CASE;Customer_Order_Processing           ;USES;DATA;customer_order
+CASE;Customer_Order_Processing           ;USES;DATA;order_item
+CASE;Customer_Order_Processing           ;USES;DATA;article
+CASE;Customer_Order_Processing           ;USES;DATA;dispatch_item
+CASE;Customer_Order_Processing           ;USES;DATA;item
+CASE;Customer_Order_Processing           ;USES;DATA;supply_order_item
+CASE;Customer_Order_Processing           ;USES;DATA;back_order_item
+CASE;Customer_Order_Processing           ;USES;DATA;process
+CASE;Customer_Order_Processing           ;USES;DATA;component
+CASE;Customer_Order_Processing           ;USES;DATA;customer_data
+CASE;Customer_Order_Processing           ;USES;DATA;article_data
+CASE;Customer_Order_Processing           ;EXEC;TEST;ORDERS0127
+CASE;Customer_Order_Processing           ;USES;DATA;files
+CASE;Customer_Order_Processing           ;USES;DATA;dispatch_items
+CASE;Customer_Order_Processing           ;USES;DATA;items
+CASE;Customer_Order_Processing           ;USES;DATA;supply_order_items
+CASE;Customer_Order_Processing           ;EXEC;TEST;ORDERS0128
+CASE;Dispatching                         ;PERF;STEP;UseCase-03  Dispatching
+DOCU;OrderEntry                          ;OWNS;CASE;Dispatching
+CASE;Dispatching                         ;USES;DATA;dispatcher
+CASE;Dispatching                         ;USES;DATA;process
+CASE;Dispatching                         ;USES;DATA;day
+CASE;Dispatching                         ;EXEC;TEST;ORDERS0129
+CASE;Dispatching                         ;USES;DATA;process
+CASE;Dispatching                         ;USES;DATA;batch_job
+CASE;Dispatching                         ;USES;DATA;background
+CASE;Dispatching                         ;EXEC;TEST;ORDERS0130
+CASE;Dispatching                         ;USES;DATA;dispatch_orders
+CASE;Dispatching                         ;USES;DATA;customer_order
+CASE;Dispatching                         ;USES;DATA;customer_data
+CASE;Dispatching                         ;USES;DATA;customer_name_and_address
+CASE;Dispatching                         ;USES;DATA;dispatch_order_list
+CASE;Dispatching                         ;EXEC;TEST;ORDERS0131
+CASE;Dispatching                         ;USES;DATA;list
+CASE;Dispatching                         ;USES;DATA;warehouse
+CASE;Dispatching                         ;USES;DATA;articles
+CASE;Dispatching                         ;USES;DATA;customers
+CASE;Dispatching                         ;USES;DATA;dispatch_order
+CASE;Dispatching                         ;EXEC;TEST;ORDERS0132
+CASE;Dispatching                         ;USES;DATA;description
+CASE;Dispatching                         ;USES;DATA;process
+CASE;Dispatching                         ;USES;DATA;dispatcher
+CASE;Dispatching                         ;USES;DATA;dispatch_order_items
+CASE;Dispatching                         ;EXEC;TEST;ORDERS0133
+CASE;Dispatching                         ;USES;DATA;dispatch_orders
+CASE;Dispatching                         ;EXEC;TEST;ORDERS0134
+CASE;Dispatching                         ;PERF;STEP;1) <dispatcher> starts <dispatch_job>.
+CASE;Dispatching                         ;USES;DATA;dispatcher
+CASE;Dispatching                         ;USES;DATA;dispatch_job
+CASE;Dispatching                         ;PERF;STEP;2) <system> sorts <dispatch_items> by <c
+CASE;Dispatching                         ;USES;DATA;system
+CASE;Dispatching                         ;USES;DATA;dispatch_items
+CASE;Dispatching                         ;USES;DATA;customer_number
+CASE;Dispatching                         ;EXEC;TEST;ORDERS0135
+CASE;Dispatching                         ;PERF;STEP;3) <system> adds <customer_data> to <dis
+CASE;Dispatching                         ;USES;DATA;system
+CASE;Dispatching                         ;USES;DATA;customer_data
+CASE;Dispatching                         ;USES;DATA;dispatch_order
+CASE;Dispatching                         ;EXEC;TEST;ORDERS0136
+CASE;Dispatching                         ;PERF;STEP;4) <system> prints <dispatch_order>.
+CASE;Dispatching                         ;USES;DATA;system
+CASE;Dispatching                         ;USES;DATA;dispatch_order
+CASE;Dispatching                         ;EXEC;TEST;ORDERS0137
+CASE;Dispatching                         ;USES;DATA;system
+CASE;Dispatching                         ;USES;DATA;customer
+CASE;Dispatching                         ;USES;DATA;match
+CASE;Dispatching                         ;USES;DATA;dispatch_item
+CASE;Dispatching                         ;USES;DATA;dispatch_orders
+CASE;Dispatching                         ;USES;DATA;customer
+CASE;Dispatching                         ;EXEC;TEST;ORDERS0138
+CASE;Dispatching                         ;USES;DATA;dispatch_items
+CASE;Dispatching                         ;USES;DATA;dispatch_orders
+CASE;Dispatching                         ;USES;DATA;customers
+CASE;Dispatching                         ;USES;DATA;dispatch_orders
+CASE;Dispatching                         ;USES;DATA;dispatcher
+CASE;Dispatching                         ;USES;DATA;warehouse
+CASE;Dispatching                         ;EXEC;TEST;ORDERS0139
+CASE;Supply_Order_Processing             ;PERF;STEP;UseCase-04  Supply_Order_Processing
+DOCU;OrderEntry                          ;OWNS;CASE;Supply_Order_Processing
+CASE;Supply_Order_Processing             ;USES;DATA;week
+CASE;Supply_Order_Processing             ;USES;DATA;supply_clerk
+CASE;Supply_Order_Processing             ;USES;DATA;job
+CASE;Supply_Order_Processing             ;USES;DATA;supply
+CASE;Supply_Order_Processing             ;USES;DATA;week
+CASE;Supply_Order_Processing             ;EXEC;TEST;ORDERS0140
+CASE;Supply_Order_Processing             ;USES;DATA;job
+CASE;Supply_Order_Processing             ;USES;DATA;batch_process
+CASE;Supply_Order_Processing             ;USES;DATA;background
+CASE;Supply_Order_Processing             ;EXEC;TEST;ORDERS0141
+CASE;Supply_Order_Processing             ;USES;DATA;supply_order_items
+CASE;Supply_Order_Processing             ;USES;DATA;supplier
+CASE;Supply_Order_Processing             ;USES;DATA;article
+CASE;Supply_Order_Processing             ;USES;DATA;supplier
+CASE;Supply_Order_Processing             ;USES;DATA;price
+CASE;Supply_Order_Processing             ;EXEC;TEST;ORDERS0142
+CASE;Supply_Order_Processing             ;USES;DATA;price
+CASE;Supply_Order_Processing             ;USES;DATA;database
+CASE;Supply_Order_Processing             ;EXEC;TEST;ORDERS0143
+CASE;Supply_Order_Processing             ;USES;DATA;suppliers
+CASE;Supply_Order_Processing             ;USES;DATA;supply_order
+CASE;Supply_Order_Processing             ;USES;DATA;items
+CASE;Supply_Order_Processing             ;USES;DATA;supplier_number
+CASE;Supply_Order_Processing             ;USES;DATA;supplier
+CASE;Supply_Order_Processing             ;USES;DATA;supply_order
+CASE;Supply_Order_Processing             ;EXEC;TEST;ORDERS0144
+CASE;Supply_Order_Processing             ;USES;DATA;supply_deadline
+CASE;Supply_Order_Processing             ;USES;DATA;data
+CASE;Supply_Order_Processing             ;USES;DATA;days
+CASE;Supply_Order_Processing             ;EXEC;TEST;ORDERS0145
+CASE;Supply_Order_Processing             ;USES;DATA;supply
+CASE;Supply_Order_Processing             ;USES;DATA;orders
+CASE;Supply_Order_Processing             ;USES;DATA;email
+CASE;Supply_Order_Processing             ;USES;DATA;suppliers
+CASE;Supply_Order_Processing             ;EXEC;TEST;ORDERS0146
+CASE;Supply_Order_Processing             ;USES;DATA;description
+CASE;Supply_Order_Processing             ;USES;DATA;process
+CASE;Supply_Order_Processing             ;USES;DATA;stock_clerk
+CASE;Supply_Order_Processing             ;USES;DATA;week
+CASE;Supply_Order_Processing             ;USES;DATA;supply_order_items
+CASE;Supply_Order_Processing             ;EXEC;TEST;ORDERS0147
+CASE;Supply_Order_Processing             ;USES;DATA;supply_order
+CASE;Supply_Order_Processing             ;USES;DATA;supplier
+CASE;Supply_Order_Processing             ;EXEC;TEST;ORDERS0148
+CASE;Supply_Order_Processing             ;PERF;STEP;1) <supply_clerk> starts <job>.
+CASE;Supply_Order_Processing             ;USES;DATA;supply_clerk
+CASE;Supply_Order_Processing             ;USES;DATA;job
+CASE;Supply_Order_Processing             ;PERF;STEP;2) <system> selects cheapest <supplier>
+CASE;Supply_Order_Processing             ;USES;DATA;system
+CASE;Supply_Order_Processing             ;USES;DATA;supplier
+CASE;Supply_Order_Processing             ;USES;DATA;article
+CASE;Supply_Order_Processing             ;EXEC;TEST;ORDERS0149
+CASE;Supply_Order_Processing             ;PERF;STEP;3) <system_orders_supply_order_items> by
+CASE;Supply_Order_Processing             ;USES;DATA;system_orders_supply_order_items
+CASE;Supply_Order_Processing             ;USES;DATA;supplier_number
+CASE;Supply_Order_Processing             ;EXEC;TEST;ORDERS0150
+CASE;Supply_Order_Processing             ;PERF;STEP;4) <system> prints a <supply_order> for
+CASE;Supply_Order_Processing             ;USES;DATA;system
+CASE;Supply_Order_Processing             ;USES;DATA;supply_order
+CASE;Supply_Order_Processing             ;USES;DATA;supplier
+CASE;Supply_Order_Processing             ;EXEC;TEST;ORDERS0151
+CASE;Supply_Order_Processing             ;USES;DATA;system
+CASE;Supply_Order_Processing             ;USES;DATA;supply_order_items
+CASE;Supply_Order_Processing             ;USES;DATA;system
+CASE;Supply_Order_Processing             ;USES;DATA;price
+CASE;Supply_Order_Processing             ;USES;DATA;article
+CASE;Supply_Order_Processing             ;USES;DATA;system
+CASE;Supply_Order_Processing             ;USES;DATA;supplier
+CASE;Supply_Order_Processing             ;USES;DATA;article
+CASE;Supply_Order_Processing             ;USES;DATA;supplier
+CASE;Supply_Order_Processing             ;USES;DATA;article
+CASE;Supply_Order_Processing             ;USES;DATA;offers
+CASE;Supply_Order_Processing             ;USES;DATA;price
+CASE;Supply_Order_Processing             ;EXEC;TEST;ORDERS0152
+CASE;Supply_Order_Processing             ;USES;DATA;supply_order_items
+CASE;Supply_Order_Processing             ;USES;DATA;prices
+CASE;Supply_Order_Processing             ;USES;DATA;supplier
+CASE;Supply_Order_Processing             ;USES;DATA;supply_order
+CASE;Supply_Order_Processing             ;USES;DATA;supply_orders
+CASE;Supply_Order_Processing             ;USES;DATA;email
+CASE;Supply_Order_Processing             ;EXEC;TEST;ORDERS0153
+CASE;Billing                             ;PERF;STEP;UseCase-05  Billing
+DOCU;OrderEntry                          ;OWNS;CASE;Billing
+CASE;Billing                             ;USES;DATA;month
+CASE;Billing                             ;USES;DATA;account
+CASE;Billing                             ;USES;DATA;job
+CASE;Billing                             ;EXEC;TEST;ORDERS0154
+CASE;Billing                             ;USES;DATA;batch
+CASE;Billing                             ;USES;DATA;process
+CASE;Billing                             ;USES;DATA;items
+CASE;Billing                             ;EXEC;TEST;ORDERS0155
+CASE;Billing                             ;USES;DATA;items
+CASE;Billing                             ;USES;DATA;customer_number
+CASE;Billing                             ;USES;DATA;order_number
+CASE;Billing                             ;EXEC;TEST;ORDERS0156
+CASE;Billing                             ;USES;DATA;customer
+CASE;Billing                             ;USES;DATA;customer_address_data
+CASE;Billing                             ;USES;DATA;customer_data_base
+CASE;Billing                             ;USES;DATA;customer_address_data
+CASE;Billing                             ;USES;DATA;customer_data_base
+CASE;Billing                             ;EXEC;TEST;ORDERS0157
+CASE;Billing                             ;USES;DATA;customer_address_data
+CASE;Billing                             ;USES;DATA;customer_data_base
+CASE;Billing                             ;USES;DATA;cost
+CASE;Billing                             ;USES;DATA;item
+CASE;Billing                             ;USES;DATA;order_amount
+CASE;Billing                             ;USES;DATA;article_price
+CASE;Billing                             ;USES;DATA;cost
+CASE;Billing                             ;USES;DATA;item
+CASE;Billing                             ;USES;DATA;order_amount
+CASE;Billing                             ;USES;DATA;article_price
+CASE;Billing                             ;EXEC;TEST;ORDERS0158
+CASE;Billing                             ;USES;DATA;cost
+CASE;Billing                             ;USES;DATA;item
+CASE;Billing                             ;USES;DATA;order_amount
+CASE;Billing                             ;USES;DATA;article_price
+CASE;Billing                             ;USES;DATA;costs
+CASE;Billing                             ;USES;DATA;items
+CASE;Billing                             ;USES;DATA;total_cost
+CASE;Billing                             ;USES;DATA;costs
+CASE;Billing                             ;USES;DATA;items
+CASE;Billing                             ;USES;DATA;total_cost
+CASE;Billing                             ;EXEC;TEST;ORDERS0159
+CASE;Billing                             ;USES;DATA;costs
+CASE;Billing                             ;USES;DATA;items
+CASE;Billing                             ;USES;DATA;total_cost
+CASE;Billing                             ;USES;DATA;total_cost
+CASE;Billing                             ;USES;DATA;amount_due
+CASE;Billing                             ;USES;DATA;total_cost
+CASE;Billing                             ;USES;DATA;amount_due
+CASE;Billing                             ;EXEC;TEST;ORDERS0160
+CASE;Billing                             ;USES;DATA;total_cost
+CASE;Billing                             ;USES;DATA;amount_due
+CASE;Billing                             ;USES;DATA;data_due
+CASE;Billing                             ;USES;DATA;data_due
+CASE;Billing                             ;EXEC;TEST;ORDERS0161
+CASE;Billing                             ;USES;DATA;data_due
+CASE;Billing                             ;USES;DATA;invoice
+CASE;Billing                             ;USES;DATA;invoice_header
+CASE;Billing                             ;USES;DATA;order_data
+CASE;Billing                             ;USES;DATA;customer_data
+CASE;Billing                             ;USES;DATA;invoice_body
+CASE;Billing                             ;USES;DATA;items
+CASE;Billing                             ;USES;DATA;invoice_trailer
+CASE;Billing                             ;USES;DATA;amount_due
+CASE;Billing                             ;USES;DATA;date_due
+CASE;Billing                             ;EXEC;TEST;ORDERS0162
+CASE;Billing                             ;USES;DATA;due_date
+CASE;Billing                             ;USES;DATA;days
+CASE;Billing                             ;USES;DATA;date
+CASE;Billing                             ;USES;DATA;invoice
+CASE;Billing                             ;EXEC;TEST;ORDERS0163
+CASE;Billing                             ;USES;DATA;description
+CASE;Billing                             ;USES;DATA;process
+CASE;Billing                             ;USES;DATA;accountant
+CASE;Billing                             ;USES;DATA;item
+CASE;Billing                             ;EXEC;TEST;ORDERS0164
+CASE;Billing                             ;USES;DATA;invoice
+CASE;Billing                             ;USES;DATA;customer
+CASE;Billing                             ;USES;DATA;month
+CASE;Billing                             ;EXEC;TEST;ORDERS0165
+CASE;Billing                             ;PERF;STEP;1) Billing <job> is started.
+CASE;Billing                             ;USES;DATA;job
+CASE;Billing                             ;EXEC;TEST;ORDERS0166
+CASE;Billing                             ;PERF;STEP;2) <system> sorts the billing <items> by
+CASE;Billing                             ;USES;DATA;system
+CASE;Billing                             ;USES;DATA;items
+CASE;Billing                             ;USES;DATA;customer
+CASE;Billing                             ;EXEC;TEST;ORDERS0167
+CASE;Billing                             ;PERF;STEP;3) <system> gets <address_data> for each
+CASE;Billing                             ;USES;DATA;system
+CASE;Billing                             ;USES;DATA;address_data
+CASE;Billing                             ;USES;DATA;customer
+CASE;Billing                             ;EXEC;TEST;ORDERS0168
+CASE;Billing                             ;PERF;STEP;4) <system> computes the <item_cost> for
+CASE;Billing                             ;USES;DATA;system
+CASE;Billing                             ;USES;DATA;item_cost
+CASE;Billing                             ;USES;DATA;item
+CASE;Billing                             ;EXEC;TEST;ORDERS0169
+CASE;Billing                             ;PERF;STEP;5) <system_sums> up the <total_cost> fro
+CASE;Billing                             ;USES;DATA;system_sums
+CASE;Billing                             ;USES;DATA;total_cost
+CASE;Billing                             ;USES;DATA;item_costs
+CASE;Billing                             ;USES;DATA;item
+CASE;Billing                             ;USES;DATA;item
+CASE;Billing                             ;USES;DATA;item
+CASE;Billing                             ;EXEC;TEST;ORDERS0170
+CASE;Billing                             ;USES;DATA;item
+CASE;Billing                             ;PERF;STEP;6) <system> computes the <VAT> of the <t
+CASE;Billing                             ;USES;DATA;system
+CASE;Billing                             ;USES;DATA;total_cost
+CASE;Billing                             ;EXEC;TEST;ORDERS0171
+CASE;Billing                             ;PERF;STEP;7) <system> calculates the <data_due>.
+CASE;Billing                             ;USES;DATA;system
+CASE;Billing                             ;USES;DATA;data_due
+CASE;Billing                             ;EXEC;TEST;ORDERS0172
+CASE;Billing                             ;PERF;STEP;8) <system> prints an <invoice> for each
+CASE;Billing                             ;USES;DATA;system
+CASE;Billing                             ;USES;DATA;invoice
+CASE;Billing                             ;USES;DATA;customer
+CASE;Billing                             ;EXEC;TEST;ORDERS0173
+CASE;Billing                             ;USES;DATA;system
+CASE;Billing                             ;USES;DATA;items
+CASE;Billing                             ;USES;DATA;system
+CASE;Billing                             ;USES;DATA;customer_data
+CASE;Billing                             ;USES;DATA;order
+CASE;Billing                             ;USES;DATA;due_date
+CASE;Billing                             ;USES;DATA;date
+CASE;Billing                             ;USES;DATA;days
+CASE;Billing                             ;USES;DATA;total_cost
+CASE;Billing                             ;USES;DATA;cost
+CASE;Billing                             ;USES;DATA;items
+CASE;Billing                             ;USES;DATA;customer
+CASE;Billing                             ;USES;DATA;invoice
+CASE;Billing                             ;USES;CASE;from
+CASE;Billing                             ;USES;DATA;invoices
+CASE;Billing                             ;USES;DATA;regular_mail
+CASE;Billing                             ;EXEC;TEST;ORDERS0174
+CASE;Back_Order_Processing               ;PERF;STEP;UseCase-06  Back_Order_Processing
+DOCU;OrderEntry                          ;OWNS;CASE;Back_Order_Processing
+CASE;Back_Order_Processing               ;USES;DATA;week
+CASE;Back_Order_Processing               ;USES;DATA;dispatcher
+CASE;Back_Order_Processing               ;USES;DATA;batch_process
+CASE;Back_Order_Processing               ;USES;DATA;process
+CASE;Back_Order_Processing               ;USES;DATA;back_orders
+CASE;Back_Order_Processing               ;EXEC;TEST;ORDERS0175
+CASE;Back_Order_Processing               ;USES;DATA;back_orders
+CASE;Back_Order_Processing               ;USES;DATA;order_items
+CASE;Back_Order_Processing               ;USES;DATA;customer_order
+CASE;Back_Order_Processing               ;EXEC;TEST;ORDERS0176
+CASE;Back_Order_Processing               ;USES;DATA;article
+CASE;Back_Order_Processing               ;EXEC;TEST;ORDERS0177
+CASE;Back_Order_Processing               ;USES;DATA;article_amount
+CASE;Back_Order_Processing               ;USES;DATA;stock
+CASE;Back_Order_Processing               ;USES;DATA;order_amount
+CASE;Back_Order_Processing               ;EXEC;TEST;ORDERS0178
+CASE;Back_Order_Processing               ;USES;DATA;order_amount
+CASE;Back_Order_Processing               ;USES;DATA;article_amount
+CASE;Back_Order_Processing               ;USES;DATA;dispatch_item
+CASE;Back_Order_Processing               ;USES;DATA;item
+CASE;Back_Order_Processing               ;EXEC;TEST;ORDERS0179
+CASE;Back_Order_Processing               ;USES;DATA;article_amount
+CASE;Back_Order_Processing               ;USES;DATA;minimum_amount
+CASE;Back_Order_Processing               ;USES;DATA;stock
+CASE;Back_Order_Processing               ;USES;DATA;supply_order_item
+CASE;Back_Order_Processing               ;EXEC;TEST;ORDERS0180
+CASE;Back_Order_Processing               ;USES;DATA;back_order
+CASE;Back_Order_Processing               ;EXEC;TEST;ORDERS0181
+CASE;Back_Order_Processing               ;USES;DATA;article
+CASE;Back_Order_Processing               ;USES;DATA;error_message
+CASE;Back_Order_Processing               ;EXEC;TEST;ORDERS0182
+CASE;Back_Order_Processing               ;USES;DATA;order_amount
+CASE;Back_Order_Processing               ;USES;DATA;article_amount
+CASE;Back_Order_Processing               ;USES;DATA;back_order
+CASE;Back_Order_Processing               ;USES;DATA;back_order_file
+CASE;Back_Order_Processing               ;EXEC;TEST;ORDERS0183
+CASE;Back_Order_Processing               ;USES;DATA;description
+CASE;Back_Order_Processing               ;USES;DATA;process
+CASE;Back_Order_Processing               ;USES;DATA;dispatcher
+CASE;Back_Order_Processing               ;USES;DATA;back_order
+CASE;Back_Order_Processing               ;EXEC;TEST;ORDERS0184
+CASE;Back_Order_Processing               ;USES;DATA;back_order
+CASE;Back_Order_Processing               ;EXEC;TEST;ORDERS0185
+CASE;Back_Order_Processing               ;USES;DATA;dispatch_order_items
+CASE;Back_Order_Processing               ;EXEC;TEST;ORDERS0186
+CASE;Back_Order_Processing               ;USES;DATA;items
+CASE;Back_Order_Processing               ;EXEC;TEST;ORDERS0187
+CASE;Back_Order_Processing               ;USES;DATA;supply_order_items
+CASE;Back_Order_Processing               ;EXEC;TEST;ORDERS0188
+CASE;Back_Order_Processing               ;PERF;STEP;1) <dispatcher> starts <back_order> proc
+CASE;Back_Order_Processing               ;USES;DATA;dispatcher
+CASE;Back_Order_Processing               ;USES;DATA;back_order
+CASE;Back_Order_Processing               ;EXEC;TEST;ORDERS0189
+CASE;Back_Order_Processing               ;PERF;STEP;2) <system> processes each <back_order>.
+CASE;Back_Order_Processing               ;USES;DATA;system
+CASE;Back_Order_Processing               ;USES;DATA;back_order
+CASE;Back_Order_Processing               ;EXEC;TEST;ORDERS0190
+CASE;Back_Order_Processing               ;PERF;STEP;3) <system> checks if <article> is on <s
+CASE;Back_Order_Processing               ;USES;DATA;system
+CASE;Back_Order_Processing               ;USES;DATA;article
+CASE;Back_Order_Processing               ;USES;DATA;stock
+CASE;Back_Order_Processing               ;EXEC;TEST;ORDERS0191
+CASE;Back_Order_Processing               ;PERF;STEP;4) <system> checks if <article_amount> i
+CASE;Back_Order_Processing               ;USES;DATA;system
+CASE;Back_Order_Processing               ;USES;DATA;article_amount
+CASE;Back_Order_Processing               ;USES;DATA;system
+CASE;Back_Order_Processing               ;USES;DATA;dispatch_order_item
+CASE;Back_Order_Processing               ;EXEC;TEST;ORDERS0192
+CASE;Back_Order_Processing               ;PERF;STEP;5) <system> creates <dispatch_order_item
+CASE;Back_Order_Processing               ;USES;DATA;system
+CASE;Back_Order_Processing               ;USES;DATA;dispatch_order_item
+CASE;Back_Order_Processing               ;USES;DATA;system
+CASE;Back_Order_Processing               ;USES;DATA;item
+CASE;Back_Order_Processing               ;USES;DATA;system
+CASE;Back_Order_Processing               ;USES;DATA;item
+CASE;Back_Order_Processing               ;USES;DATA;system
+CASE;Back_Order_Processing               ;USES;DATA;item
+CASE;Back_Order_Processing               ;EXEC;TEST;ORDERS0193
+CASE;Back_Order_Processing               ;PERF;STEP;6) <system> creates billing <item>.
+CASE;Back_Order_Processing               ;USES;DATA;system
+CASE;Back_Order_Processing               ;USES;DATA;item
+CASE;Back_Order_Processing               ;EXEC;TEST;ORDERS0194
+CASE;Back_Order_Processing               ;PERF;STEP;7) <system> creates <supply_order_item>
+CASE;Back_Order_Processing               ;USES;DATA;system
+CASE;Back_Order_Processing               ;USES;DATA;supply_order_item
+CASE;Back_Order_Processing               ;USES;DATA;article_amount
+CASE;Back_Order_Processing               ;USES;DATA;stock
+CASE;Back_Order_Processing               ;USES;DATA;minimum_amount
+CASE;Back_Order_Processing               ;USES;DATA;minimum_amount
+CASE;Back_Order_Processing               ;USES;DATA;minimum_amount
+CASE;Back_Order_Processing               ;EXEC;TEST;ORDERS0195
+CASE;Back_Order_Processing               ;USES;DATA;minimum_amount
+CASE;Back_Order_Processing               ;PERF;STEP;8) <system> skips over <back_order>.
+CASE;Back_Order_Processing               ;USES;DATA;system
+CASE;Back_Order_Processing               ;USES;DATA;back_order
+CASE;Back_Order_Processing               ;EXEC;TEST;ORDERS0196
+CASE;Back_Order_Processing               ;USES;DATA;system
+CASE;Back_Order_Processing               ;USES;DATA;article
+CASE;Back_Order_Processing               ;EXEC;TEST;ORDERS0197
+CASE;Back_Order_Processing               ;USES;DATA;system
+CASE;Back_Order_Processing               ;USES;DATA;customer
+CASE;Back_Order_Processing               ;EXEC;TEST;ORDERS0198
+CASE;Back_Order_Processing               ;USES;DATA;article_amount
+CASE;Back_Order_Processing               ;USES;DATA;minimum_amount
+CASE;Back_Order_Processing               ;USES;DATA;stock
+CASE;Back_Order_Processing               ;USES;DATA;system
+CASE;Back_Order_Processing               ;USES;DATA;supply_order_item
+CASE;Back_Order_Processing               ;EXEC;TEST;ORDERS0199
+CASE;Back_Order_Processing               ;USES;DATA;back_order
+CASE;Back_Order_Processing               ;USES;DATA;customer
+CASE;Back_Order_Processing               ;USES;DATA;article
+CASE;Back_Order_Processing               ;USES;DATA;dispatch_order_item
+CASE;Back_Order_Processing               ;USES;DATA;item
+CASE;Back_Order_Processing               ;USES;DATA;supply_order_item
+CASE;Back_Order_Processing               ;USES;DATA;customer_order
+CASE;Back_Order_Processing               ;EXEC;TEST;ORDERS0200
+DOCU;OrderEntry                          ;OWNS;SECT;Technical  system_features
+DOCU;OrderEntry                          ;OWNS;SECT; system  Quantities .
+DOCU;OrderEntry                          ;OWNS;REQU;NF-REQ-11 Data-Quantities
+REQU;NF-REQ-11 Data-Quantities           ;USES;DATA;customers
+REQU;NF-REQ-11 Data-Quantities           ;USES;DATA;articles
+REQU;NF-REQ-11 Data-Quantities           ;USES;DATA;suppliers
+REQU;NF-REQ-11 Data-Quantities           ;EXEC;TEST;ORDERS0201
+REQU;NF-REQ-11 Data-Quantities           ;USES;DATA;system
+REQU;NF-REQ-11 Data-Quantities           ;USES;DATA;customer_orders
+REQU;NF-REQ-11 Data-Quantities           ;USES;DATA;day
+REQU;NF-REQ-11 Data-Quantities           ;EXEC;TEST;ORDERS0202
+DOCU;OrderEntry                          ;OWNS;REQU;NF-REQ-12 Supply-Quantities
+REQU;NF-REQ-12 Supply-Quantities         ;USES;DATA;month
+REQU;NF-REQ-12 Supply-Quantities         ;USES;DATA;data_carrier
+REQU;NF-REQ-12 Supply-Quantities         ;USES;DATA;file
+REQU;NF-REQ-12 Supply-Quantities         ;USES;DATA;latest_supplier
+REQU;NF-REQ-12 Supply-Quantities         ;USES;DATA;data
+REQU;NF-REQ-12 Supply-Quantities         ;USES;DATA;supplier_prices
+REQU;NF-REQ-12 Supply-Quantities         ;USES;DATA;supply_orders
+REQU;NF-REQ-12 Supply-Quantities         ;USES;DATA;month
+REQU;NF-REQ-12 Supply-Quantities         ;EXEC;TEST;ORDERS0203
+REQU;NF-REQ-12 Supply-Quantities         ;USES;DATA;supplier
+REQU;NF-REQ-12 Supply-Quantities         ;USES;DATA;articles
+DOCU;OrderEntry                          ;OWNS;REQU;NF-REQ-13 Article-Quantities
+REQU;NF-REQ-13 Article-Quantities        ;USES;DATA;month
+REQU;NF-REQ-13 Article-Quantities        ;USES;DATA;data_carrier
+REQU;NF-REQ-13 Article-Quantities        ;USES;DATA;file
+REQU;NF-REQ-13 Article-Quantities        ;USES;DATA;article_data
+REQU;NF-REQ-13 Article-Quantities        ;USES;DATA;latest_article_prices
+REQU;NF-REQ-13 Article-Quantities        ;EXEC;TEST;ORDERS0204
+REQU;NF-REQ-13 Article-Quantities        ;USES;DATA;deletions
+REQU;NF-REQ-13 Article-Quantities        ;USES;DATA;insertions
+REQU;NF-REQ-13 Article-Quantities        ;USES;DATA;articles
+REQU;NF-REQ-13 Article-Quantities        ;USES;DATA;month
+REQU;NF-REQ-13 Article-Quantities        ;EXEC;TEST;ORDERS0205
+DOCU;OrderEntry                          ;OWNS;REQU;FUNC-REQ-07 Monthly-Reporting
+REQU;FUNC-REQ-07 Monthly-Reporting       ;USES;DATA;month
+REQU;FUNC-REQ-07 Monthly-Reporting       ;USES;DATA;system
+REQU;FUNC-REQ-07 Monthly-Reporting       ;EXEC;TEST;ORDERS0206
+REQU;FUNC-REQ-07 Monthly-Reporting       ;USES;DATA;number
+REQU;FUNC-REQ-07 Monthly-Reporting       ;USES;DATA;articles
+REQU;FUNC-REQ-07 Monthly-Reporting       ;USES;DATA;number
+REQU;FUNC-REQ-07 Monthly-Reporting       ;USES;DATA;article_type
+REQU;FUNC-REQ-07 Monthly-Reporting       ;USES;DATA;stock
+REQU;FUNC-REQ-07 Monthly-Reporting       ;EXEC;TEST;ORDERS0207
+REQU;FUNC-REQ-07 Monthly-Reporting       ;USES;DATA;warehouse_manager
+REQU;FUNC-REQ-07 Monthly-Reporting       ;USES;DATA;sales_manager
+REQU;FUNC-REQ-07 Monthly-Reporting       ;EXEC;TEST;ORDERS0208
+DOCU;OrderEntry                          ;OWNS;SECT;Technical  constraints
+SECT;Technical  constraints              ;USES;DATA;constraints
+SECT;Technical  constraints              ;USES;DATA;order_entry_system
+SECT;Technical  constraints              ;USES;DATA;system
+SECT;Technical  constraints              ;USES;DATA;web_application
+SECT;Technical  constraints              ;USES;DATA;system
+SECT;Technical  constraints              ;USES;DATA;web_application
+SECT;Technical  constraints              ;EXEC;TEST;ORDERS0209
+SECT;Technical  constraints              ;USES;DATA;system
+SECT;Technical  constraints              ;USES;DATA;web_application
+SECT;Technical  constraints              ;USES;DATA;system
+SECT;Technical  constraints              ;EXEC;TEST;ORDERS0210
+SECT;Technical  constraints              ;USES;DATA;master_data
+SECT;Technical  constraints              ;USES;DATA;files
+SECT;Technical  constraints              ;USES;DATA;data
+SECT;Technical  constraints              ;EXEC;TEST;ORDERS0211
+SECT;Technical  constraints              ;USES;DATA;master_data
+SECT;Technical  constraints              ;USES;DATA;files
+SECT;Technical  constraints              ;USES;DATA;data
+SECT;Technical  constraints              ;USES;DATA;base_tables
+SECT;Technical  constraints              ;EXEC;TEST;ORDERS0212
+SECT;Technical  constraints              ;USES;DATA;components
+SECT;Technical  constraints              ;EXEC;TEST;ORDERS0213
+SECT;Technical  constraints              ;USES;DATA;components
+SECT;Technical  constraints              ;EXEC;TEST;ORDERS0214
+SECT;Technical  constraints              ;USES;DATA;batch_components
+SECT;Technical  constraints              ;EXEC;TEST;ORDERS0215
+SECT;Technical  constraints              ;USES;DATA;system
+SECT;Technical  constraints              ;EXEC;TEST;ORDERS0216
+SECT;Technical  constraints              ;USES;DATA;system
+SECT;Technical  constraints              ;EXEC;TEST;ORDERS0217
+SECT;Technical  constraints              ;USES;DATA;customer_orders
+SECT;Technical  constraints              ;USES;DATA;seconds
+SECT;Technical  constraints              ;EXEC;TEST;ORDERS0218
+SECT;Technical  constraints              ;USES;DATA;customer_orders
+SECT;Technical  constraints              ;USES;DATA;seconds
+SECT;Technical  constraints              ;EXEC;TEST;ORDERS0219
+SECT;Technical  constraints              ;USES;DATA;user_interface
+SECT;Technical  constraints              ;USES;DATA;user_hour
+SECT;Technical  constraints              ;EXEC;TEST;ORDERS0220
+SECT;Technical  constraints              ;USES;DATA;user_interface
+SECT;Technical  constraints              ;USES;DATA;user_hour
+SECT;Technical  constraints              ;EXEC;TEST;ORDERS0221
+SECT;Technical  constraints              ;USES;DATA;customer_language_preference
+SECT;Technical  constraints              ;EXEC;TEST;ORDERS0222
+SECT;Technical  constraints              ;USES;DATA;order_entry_transactions
+SECT;Technical  constraints              ;EXEC;TEST;ORDERS0223
+SECT;Technical  constraints              ;USES;DATA;order_entry_transactions
+SECT;Technical  constraints              ;EXEC;TEST;ORDERS0224
+SECT;Technical  constraints              ;USES;REPO;and
+DOCU;OrderEntry                          ;OWNS;SECT; quality_requirements
+SECT; quality_requirements               ;USES;DATA;system_crash
+SECT; quality_requirements               ;USES;DATA;month
+SECT; quality_requirements               ;USES;DATA;system_crash
+SECT; quality_requirements               ;USES;DATA;month
+SECT; quality_requirements               ;EXEC;TEST;ORDERS0225
+SECT; quality_requirements               ;USES;DATA;system_crash
+SECT; quality_requirements               ;USES;DATA;month
+SECT; quality_requirements               ;EXEC;TEST;ORDERS0226
+SECT; quality_requirements               ;USES;DATA;hour
+SECT; quality_requirements               ;USES;DATA;system
+SECT; quality_requirements               ;EXEC;TEST;ORDERS0227
+SECT; quality_requirements               ;USES;DATA;hour
+SECT; quality_requirements               ;USES;DATA;system
+SECT; quality_requirements               ;EXEC;TEST;ORDERS0228
+SECT; quality_requirements               ;USES;DATA;errors
+SECT; quality_requirements               ;USES;DATA;statements
+SECT; quality_requirements               ;USES;DATA;errors
+SECT; quality_requirements               ;USES;DATA;statements
+SECT; quality_requirements               ;EXEC;TEST;ORDERS0229
+SECT; quality_requirements               ;USES;DATA;errors
+SECT; quality_requirements               ;USES;DATA;statements
+SECT; quality_requirements               ;EXEC;TEST;ORDERS0230
+SECT; quality_requirements               ;USES;DATA;response_time_constraint
+SECT; quality_requirements               ;USES;DATA;seconds
+SECT; quality_requirements               ;USES;DATA;transaction
+SECT; quality_requirements               ;EXEC;TEST;ORDERS0231
+SECT; quality_requirements               ;USES;DATA;response_time_constraint
+SECT; quality_requirements               ;USES;DATA;seconds
+SECT; quality_requirements               ;USES;DATA;transaction
+SECT; quality_requirements               ;EXEC;TEST;ORDERS0232
+SECT; quality_requirements               ;USES;DATA;design
+SECT; quality_requirements               ;USES;DATA;design
+SECT; quality_requirements               ;EXEC;TEST;ORDERS0233
+SECT; quality_requirements               ;USES;DATA;design
+SECT; quality_requirements               ;EXEC;TEST;ORDERS0234
+SECT; quality_requirements               ;USES;DATA;metric
+SECT; quality_requirements               ;USES;DATA;metric
+SECT; quality_requirements               ;EXEC;TEST;ORDERS0235
+SECT; quality_requirements               ;USES;DATA;metric
+SECT; quality_requirements               ;EXEC;TEST;ORDERS0236
+SECT; quality_requirements               ;USES;DATA;metric
+SECT; quality_requirements               ;EXEC;TEST;ORDERS0237
+SECT; quality_requirements               ;USES;DATA;system
+SECT; quality_requirements               ;EXEC;TEST;ORDERS0238
+SECT; quality_requirements               ;USES;DATA;system
+SECT; quality_requirements               ;EXEC;TEST;ORDERS0239
+SECT; quality_requirements               ;USES;DATA;minor_importance
+SECT; quality_requirements               ;EXEC;TEST;ORDERS0240
+SECT; quality_requirements               ;USES;DATA;system
+SECT; quality_requirements               ;EXEC;TEST;ORDERS0241

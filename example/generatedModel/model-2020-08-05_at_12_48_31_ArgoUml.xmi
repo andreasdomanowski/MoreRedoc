@@ -1,0 +1,582 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<XMI xmlns:UML="href://org.omg/UML/1.3" xmi.version="1.1">
+<XMI.header>
+<XMI.metamodel xmi.name="UML" xmi.version="1.3"/>
+</XMI.header>
+<XMI.content>
+<UML:Model name="PlantUML" xmi.id="model1">
+<UML:Namespace.ownedElement>
+<UML:Association name="" namespace="model1" xmi.id="ass297">
+<UML:Association.connection>
+<UML:AssociationEnd association="ass297" type="cl0265" xmi.id="end298">
+<UML:AssociationEnd.participant>
+<UML:Class name="Customer" namespace="model1" xmi.id="cl0265">
+<UML:Classifier.feature>
+<UML:Attribute name="address_datum" xmi.id="att299"/>
+<UML:Attribute name="credibility" xmi.id="att300"/>
+<UML:Attribute name="customer_number" xmi.id="att301"/>
+<UML:Attribute name="database" xmi.id="att302"/>
+<UML:Attribute name="datum" xmi.id="att303"/>
+<UML:Attribute name="number" xmi.id="att304"/>
+<UML:Operation name="enter customer_number(customer_number)" xmi.id="att305"/>
+<UML:Operation name="first enter customer_number(customer_number)" xmi.id="att306"/>
+</UML:Classifier.feature>
+</UML:Class>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+<UML:AssociationEnd association="ass297" type="cl0241" xmi.id="end307">
+<UML:AssociationEnd.participant>
+<UML:Class name="Order" namespace="model1" xmi.id="cl0241">
+<UML:Classifier.feature>
+<UML:Attribute name="amount" xmi.id="att308"/>
+<UML:Attribute name="confirmation" xmi.id="att309"/>
+<UML:Attribute name="date" xmi.id="att310"/>
+<UML:Attribute name="datum" xmi.id="att311"/>
+<UML:Attribute name="number" xmi.id="att312"/>
+<UML:Operation name="remains in back_order_pool(back_order_pool)" xmi.id="att313"/>
+</UML:Classifier.feature>
+</UML:Class>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+</UML:Association.connection>
+</UML:Association>
+<UML:Association name="" namespace="model1" xmi.id="ass314">
+<UML:Association.connection>
+<UML:AssociationEnd association="ass314" type="cl0239" xmi.id="end315">
+<UML:AssociationEnd.participant>
+<UML:Class name="Supply" namespace="model1" xmi.id="cl0239">
+<UML:Classifier.feature>
+<UML:Attribute name="amount" xmi.id="att316"/>
+<UML:Attribute name="order_item" xmi.id="att317"/>
+</UML:Classifier.feature>
+</UML:Class>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+<UML:AssociationEnd association="ass314" type="cl0241" xmi.id="end318">
+<UML:AssociationEnd.participant>
+<UML:Class xmi.idref="cl0241"/>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+</UML:Association.connection>
+</UML:Association>
+<UML:Association name="" namespace="model1" xmi.id="ass319">
+<UML:Association.connection>
+<UML:AssociationEnd association="ass319" type="cl0255" xmi.id="end320">
+<UML:AssociationEnd.participant>
+<UML:Class name="Dispatch" namespace="model1" xmi.id="cl0255">
+<UML:Classifier.feature>
+<UML:Attribute name="job" xmi.id="att321"/>
+<UML:Attribute name="order_item" xmi.id="att322"/>
+</UML:Classifier.feature>
+</UML:Class>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+<UML:AssociationEnd association="ass319" type="cl0241" xmi.id="end323">
+<UML:AssociationEnd.participant>
+<UML:Class xmi.idref="cl0241"/>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+</UML:Association.connection>
+</UML:Association>
+<UML:Association name="" namespace="model1" xmi.id="ass324">
+<UML:Association.connection>
+<UML:AssociationEnd association="ass324" type="cl0250" xmi.id="end325">
+<UML:AssociationEnd.participant>
+<UML:Class name="Supply_order" namespace="model1" xmi.id="cl0250">
+<UML:Classifier.feature>
+<UML:Operation name="is sent out supplier at moment(supplier,moment)" xmi.id="att326"/>
+<UML:Operation name="is sent out supplier in time(supplier,time)" xmi.id="att327"/>
+<UML:Operation name="is sent out supplier(supplier)" xmi.id="att328"/>
+</UML:Classifier.feature>
+</UML:Class>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+<UML:AssociationEnd association="ass324" type="cl0242" xmi.id="end329">
+<UML:AssociationEnd.participant>
+<UML:Class name="Item" namespace="model1" xmi.id="cl0242">
+<UML:Classifier.feature>
+<UML:Attribute name="cost" xmi.id="att330"/>
+<UML:Attribute name="price" xmi.id="att331"/>
+<UML:Attribute name="time" xmi.id="att332"/>
+<UML:Operation name="is sent together with order_confirmation(order_confirmation)" xmi.id="att333"/>
+<UML:Operation name="is sent with order_confirmation(order_confirmation)" xmi.id="att334"/>
+</UML:Classifier.feature>
+</UML:Class>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+</UML:Association.connection>
+</UML:Association>
+<UML:Association name="" namespace="model1" xmi.id="ass335">
+<UML:Association.connection>
+<UML:AssociationEnd association="ass335" type="cl0241" xmi.id="end336">
+<UML:AssociationEnd.participant>
+<UML:Class xmi.idref="cl0241"/>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+<UML:AssociationEnd association="ass335" type="cl0242" xmi.id="end337">
+<UML:AssociationEnd.participant>
+<UML:Class xmi.idref="cl0242"/>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+</UML:Association.connection>
+</UML:Association>
+<UML:Association name="" namespace="model1" xmi.id="ass338">
+<UML:Association.connection>
+<UML:AssociationEnd association="ass338" type="cl0255" xmi.id="end339">
+<UML:AssociationEnd.participant>
+<UML:Class xmi.idref="cl0255"/>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+<UML:AssociationEnd association="ass338" type="cl0242" xmi.id="end340">
+<UML:AssociationEnd.participant>
+<UML:Class xmi.idref="cl0242"/>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+</UML:Association.connection>
+</UML:Association>
+<UML:Association name="" namespace="model1" xmi.id="ass341">
+<UML:Association.connection>
+<UML:AssociationEnd association="ass341" type="cl0249" xmi.id="end342">
+<UML:AssociationEnd.participant>
+<UML:Class name="Dispatch_order" namespace="model1" xmi.id="cl0249">
+<UML:Classifier.feature>
+<UML:Attribute name="list" xmi.id="att343"/>
+<UML:Operation name="sent dispatch_office(dispatch_office)" xmi.id="att344"/>
+</UML:Classifier.feature>
+</UML:Class>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+<UML:AssociationEnd association="ass341" type="cl0242" xmi.id="end345">
+<UML:AssociationEnd.participant>
+<UML:Class xmi.idref="cl0242"/>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+</UML:Association.connection>
+</UML:Association>
+<UML:Association name="" namespace="model1" xmi.id="ass346">
+<UML:Association.connection>
+<UML:AssociationEnd association="ass346" type="cl0247" xmi.id="end347">
+<UML:AssociationEnd.participant>
+<UML:Class name="Back_order" namespace="model1" xmi.id="cl0247">
+<UML:Classifier.feature>
+<UML:Attribute name="file" xmi.id="att348"/>
+<UML:Attribute name="pool" xmi.id="att349"/>
+</UML:Classifier.feature>
+</UML:Class>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+<UML:AssociationEnd association="ass346" type="cl0242" xmi.id="end350">
+<UML:AssociationEnd.participant>
+<UML:Class xmi.idref="cl0242"/>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+</UML:Association.connection>
+</UML:Association>
+<UML:Association name="" namespace="model1" xmi.id="ass351">
+<UML:Association.connection>
+<UML:AssociationEnd association="ass351" type="cl0265" xmi.id="end352">
+<UML:AssociationEnd.participant>
+<UML:Class xmi.idref="cl0265"/>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+<UML:AssociationEnd association="ass351" type="cl0257" xmi.id="end353">
+<UML:AssociationEnd.participant>
+<UML:Class name="Query" namespace="model1" xmi.id="cl0257">
+<UML:Classifier.feature/>
+</UML:Class>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+</UML:Association.connection>
+</UML:Association>
+<UML:Association name="" namespace="model1" xmi.id="ass354">
+<UML:Association.connection>
+<UML:AssociationEnd association="ass354" type="cl0257" xmi.id="end355">
+<UML:AssociationEnd.participant>
+<UML:Class xmi.idref="cl0257"/>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+<UML:AssociationEnd association="ass354" type="cl0259" xmi.id="end356">
+<UML:AssociationEnd.participant>
+<UML:Class name="Article" namespace="model1" xmi.id="cl0259">
+<UML:Classifier.feature>
+<UML:Attribute name="amount" xmi.id="att357"/>
+<UML:Attribute name="category" xmi.id="att358"/>
+<UML:Attribute name="database" xmi.id="att359"/>
+<UML:Attribute name="datum" xmi.id="att360"/>
+<UML:Attribute name="name" xmi.id="att361"/>
+<UML:Attribute name="number" xmi.id="att362"/>
+<UML:Attribute name="price" xmi.id="att363"/>
+<UML:Attribute name="quantity" xmi.id="att364"/>
+<UML:Operation name="is available in quantity(quantity)" xmi.id="att365"/>
+<UML:Operation name="is available on stock(stock)" xmi.id="att366"/>
+<UML:Operation name="is dispatched()" xmi.id="att367"/>
+</UML:Classifier.feature>
+</UML:Class>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+</UML:Association.connection>
+</UML:Association>
+<UML:Association name="" namespace="model1" xmi.id="ass368">
+<UML:Association.connection>
+<UML:AssociationEnd association="ass368" type="cl0241" xmi.id="end369">
+<UML:AssociationEnd.participant>
+<UML:Class xmi.idref="cl0241"/>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+<UML:AssociationEnd association="ass368" type="cl0259" xmi.id="end370">
+<UML:AssociationEnd.participant>
+<UML:Class xmi.idref="cl0259"/>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+</UML:Association.connection>
+</UML:Association>
+<UML:Association name="scan" namespace="model1" xmi.id="ass371">
+<UML:Association.connection>
+<UML:AssociationEnd association="ass371" type="cl0261" xmi.id="end372">
+<UML:AssociationEnd.participant>
+<UML:Class name="Possibility" namespace="model1" xmi.id="cl0261">
+<UML:Classifier.feature>
+<UML:Operation name="scan article(article)" xmi.id="att373"/>
+<UML:Operation name="scan stock(stock)" xmi.id="att374"/>
+</UML:Classifier.feature>
+</UML:Class>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+<UML:AssociationEnd association="ass371" type="cl0259" xmi.id="end375">
+<UML:AssociationEnd.participant>
+<UML:Class xmi.idref="cl0259"/>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+</UML:Association.connection>
+</UML:Association>
+<UML:Association name="scan" namespace="model1" xmi.id="ass376">
+<UML:Association.connection>
+<UML:AssociationEnd association="ass376" type="cl0261" xmi.id="end377">
+<UML:AssociationEnd.participant>
+<UML:Class xmi.idref="cl0261"/>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+<UML:AssociationEnd association="ass376" type="cl0256" xmi.id="end378">
+<UML:AssociationEnd.participant>
+<UML:Class name="Stock" namespace="model1" xmi.id="cl0256">
+<UML:Classifier.feature/>
+</UML:Class>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+</UML:Association.connection>
+</UML:Association>
+<UML:Association name="is available on" namespace="model1" xmi.id="ass379">
+<UML:Association.connection>
+<UML:AssociationEnd association="ass379" type="cl0259" xmi.id="end380">
+<UML:AssociationEnd.participant>
+<UML:Class xmi.idref="cl0259"/>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+<UML:AssociationEnd association="ass379" type="cl0256" xmi.id="end381">
+<UML:AssociationEnd.participant>
+<UML:Class xmi.idref="cl0256"/>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+</UML:Association.connection>
+</UML:Association>
+<UML:Association name="sent" namespace="model1" xmi.id="ass382">
+<UML:Association.connection>
+<UML:AssociationEnd association="ass382" type="cl0249" xmi.id="end383">
+<UML:AssociationEnd.participant>
+<UML:Class xmi.idref="cl0249"/>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+<UML:AssociationEnd association="ass382" type="cl0262" xmi.id="end384">
+<UML:AssociationEnd.participant>
+<UML:Class name="Dispatch_office" namespace="model1" xmi.id="cl0262">
+<UML:Classifier.feature/>
+</UML:Class>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+</UML:Association.connection>
+</UML:Association>
+<UML:Association name="is sent with" namespace="model1" xmi.id="ass385">
+<UML:Association.connection>
+<UML:AssociationEnd association="ass385" type="cl0242" xmi.id="end386">
+<UML:AssociationEnd.participant>
+<UML:Class xmi.idref="cl0242"/>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+<UML:AssociationEnd association="ass385" type="cl0252" xmi.id="end387">
+<UML:AssociationEnd.participant>
+<UML:Class name="Order_confirmation" namespace="model1" xmi.id="cl0252">
+<UML:Classifier.feature/>
+</UML:Class>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+</UML:Association.connection>
+</UML:Association>
+<UML:Association name="is sent together with" namespace="model1" xmi.id="ass388">
+<UML:Association.connection>
+<UML:AssociationEnd association="ass388" type="cl0242" xmi.id="end389">
+<UML:AssociationEnd.participant>
+<UML:Class xmi.idref="cl0242"/>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+<UML:AssociationEnd association="ass388" type="cl0252" xmi.id="end390">
+<UML:AssociationEnd.participant>
+<UML:Class xmi.idref="cl0252"/>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+</UML:Association.connection>
+</UML:Association>
+<UML:Association name="include" namespace="model1" xmi.id="ass391">
+<UML:Association.connection>
+<UML:AssociationEnd association="ass391" type="cl0263" xmi.id="end392">
+<UML:AssociationEnd.participant>
+<UML:Class name="Invoice" namespace="model1" xmi.id="cl0263">
+<UML:Classifier.feature>
+<UML:Operation name="include item(item)" xmi.id="att393"/>
+<UML:Operation name="sent to customer(customer)" xmi.id="att394"/>
+</UML:Classifier.feature>
+</UML:Class>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+<UML:AssociationEnd association="ass391" type="cl0242" xmi.id="end395">
+<UML:AssociationEnd.participant>
+<UML:Class xmi.idref="cl0242"/>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+</UML:Association.connection>
+</UML:Association>
+<UML:Association name="sent to" namespace="model1" xmi.id="ass396">
+<UML:Association.connection>
+<UML:AssociationEnd association="ass396" type="cl0263" xmi.id="end397">
+<UML:AssociationEnd.participant>
+<UML:Class xmi.idref="cl0263"/>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+<UML:AssociationEnd association="ass396" type="cl0265" xmi.id="end398">
+<UML:AssociationEnd.participant>
+<UML:Class xmi.idref="cl0265"/>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+</UML:Association.connection>
+</UML:Association>
+<UML:Association name="For Billing i" namespace="model1" xmi.id="ass399">
+<UML:Association.connection>
+<UML:AssociationEnd association="ass399" type="cl0253" xmi.id="end400">
+<UML:AssociationEnd.participant>
+<UML:Class name="Customer_order" namespace="model1" xmi.id="cl0253">
+<UML:Classifier.feature>
+<UML:Operation name="For Billing i invoice(invoice)" xmi.id="att401"/>
+</UML:Classifier.feature>
+</UML:Class>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+<UML:AssociationEnd association="ass399" type="cl0263" xmi.id="end402">
+<UML:AssociationEnd.participant>
+<UML:Class xmi.idref="cl0263"/>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+</UML:Association.connection>
+</UML:Association>
+<UML:Association name="is sent out supplier in" namespace="model1" xmi.id="ass403">
+<UML:Association.connection>
+<UML:AssociationEnd association="ass403" type="cl0250" xmi.id="end404">
+<UML:AssociationEnd.participant>
+<UML:Class xmi.idref="cl0250"/>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+<UML:AssociationEnd association="ass403" type="cl0264" xmi.id="end405">
+<UML:AssociationEnd.participant>
+<UML:Class name="Time" namespace="model1" xmi.id="cl0264">
+<UML:Classifier.feature/>
+</UML:Class>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+</UML:Association.connection>
+</UML:Association>
+<UML:Association name="is sent out supplier at" namespace="model1" xmi.id="ass406">
+<UML:Association.connection>
+<UML:AssociationEnd association="ass406" type="cl0250" xmi.id="end407">
+<UML:AssociationEnd.participant>
+<UML:Class xmi.idref="cl0250"/>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+<UML:AssociationEnd association="ass406" type="cl0248" xmi.id="end408">
+<UML:AssociationEnd.participant>
+<UML:Class name="Moment" namespace="model1" xmi.id="cl0248">
+<UML:Classifier.feature/>
+</UML:Class>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+</UML:Association.connection>
+</UML:Association>
+<UML:Association name="monitor" namespace="model1" xmi.id="ass409">
+<UML:Association.connection>
+<UML:AssociationEnd association="ass409" type="cl0246" xmi.id="end410">
+<UML:AssociationEnd.participant>
+<UML:Class name="System" namespace="model1" xmi.id="cl0246">
+<UML:Classifier.feature>
+<UML:Attribute name="sum" xmi.id="att411"/>
+<UML:Operation name="is required()" xmi.id="att412"/>
+<UML:Operation name="monitor article(article)" xmi.id="att413"/>
+<UML:Operation name="monitor stock(stock)" xmi.id="att414"/>
+</UML:Classifier.feature>
+</UML:Class>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+<UML:AssociationEnd association="ass409" type="cl0259" xmi.id="end415">
+<UML:AssociationEnd.participant>
+<UML:Class xmi.idref="cl0259"/>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+</UML:Association.connection>
+</UML:Association>
+<UML:Association name="monitor" namespace="model1" xmi.id="ass416">
+<UML:Association.connection>
+<UML:AssociationEnd association="ass416" type="cl0246" xmi.id="end417">
+<UML:AssociationEnd.participant>
+<UML:Class xmi.idref="cl0246"/>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+<UML:AssociationEnd association="ass416" type="cl0256" xmi.id="end418">
+<UML:AssociationEnd.participant>
+<UML:Class xmi.idref="cl0256"/>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+</UML:Association.connection>
+</UML:Association>
+<UML:Association name="is sent out" namespace="model1" xmi.id="ass419">
+<UML:Association.connection>
+<UML:AssociationEnd association="ass419" type="cl0250" xmi.id="end420">
+<UML:AssociationEnd.participant>
+<UML:Class xmi.idref="cl0250"/>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+<UML:AssociationEnd association="ass419" type="cl0240" xmi.id="end421">
+<UML:AssociationEnd.participant>
+<UML:Class name="Supplier" namespace="model1" xmi.id="cl0240">
+<UML:Classifier.feature>
+<UML:Attribute name="number" xmi.id="att422"/>
+</UML:Classifier.feature>
+</UML:Class>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+</UML:Association.connection>
+</UML:Association>
+<UML:Association name="remains in" namespace="model1" xmi.id="ass423">
+<UML:Association.connection>
+<UML:AssociationEnd association="ass423" type="cl0241" xmi.id="end424">
+<UML:AssociationEnd.participant>
+<UML:Class xmi.idref="cl0241"/>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+<UML:AssociationEnd association="ass423" type="cl0243" xmi.id="end425">
+<UML:AssociationEnd.participant>
+<UML:Class name="Back_order_pool" namespace="model1" xmi.id="cl0243">
+<UML:Classifier.feature/>
+</UML:Class>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+</UML:Association.connection>
+</UML:Association>
+<UML:Association name="removed from" namespace="model1" xmi.id="ass426">
+<UML:Association.connection>
+<UML:AssociationEnd association="ass426" type="cl0245" xmi.id="end427">
+<UML:AssociationEnd.participant>
+<UML:Class name="Bill" namespace="model1" xmi.id="cl0245">
+<UML:Classifier.feature>
+<UML:Operation name="removed from back_order(back_order)" xmi.id="att428"/>
+<UML:Operation name="removed from pool(pool)" xmi.id="att429"/>
+</UML:Classifier.feature>
+</UML:Class>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+<UML:AssociationEnd association="ass426" type="cl0247" xmi.id="end430">
+<UML:AssociationEnd.participant>
+<UML:Class xmi.idref="cl0247"/>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+</UML:Association.connection>
+</UML:Association>
+<UML:Association name="removed from" namespace="model1" xmi.id="ass431">
+<UML:Association.connection>
+<UML:AssociationEnd association="ass431" type="cl0245" xmi.id="end432">
+<UML:AssociationEnd.participant>
+<UML:Class xmi.idref="cl0245"/>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+<UML:AssociationEnd association="ass431" type="cl0244" xmi.id="end433">
+<UML:AssociationEnd.participant>
+<UML:Class name="Pool" namespace="model1" xmi.id="cl0244">
+<UML:Classifier.feature/>
+</UML:Class>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+</UML:Association.connection>
+</UML:Association>
+<UML:Association name="" namespace="model1" xmi.id="ass434">
+<UML:Association.connection>
+<UML:AssociationEnd association="ass434" type="cl0251" xmi.id="end435">
+<UML:AssociationEnd.participant>
+<UML:Class name="Article_type" namespace="model1" xmi.id="cl0251">
+<UML:Classifier.feature>
+<UML:Attribute name="stock" xmi.id="att436"/>
+</UML:Classifier.feature>
+</UML:Class>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+<UML:AssociationEnd association="ass434" type="cl0254" xmi.id="end437">
+<UML:AssociationEnd.participant>
+<UML:Class name="Minimum" namespace="model1" xmi.id="cl0254">
+<UML:Classifier.feature>
+<UML:Attribute name="amount" xmi.id="att438"/>
+<UML:Attribute name="article_amount" xmi.id="att439"/>
+<UML:Attribute name="order_amount" xmi.id="att440"/>
+<UML:Attribute name="quantity" xmi.id="att441"/>
+</UML:Classifier.feature>
+</UML:Class>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+</UML:Association.connection>
+</UML:Association>
+<UML:Association name="" namespace="model1" xmi.id="ass442">
+<UML:Association.connection>
+<UML:AssociationEnd association="ass442" type="cl0251" xmi.id="end443">
+<UML:AssociationEnd.participant>
+<UML:Class xmi.idref="cl0251"/>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+<UML:AssociationEnd association="ass442" type="cl0258" xmi.id="end444">
+<UML:AssociationEnd.participant>
+<UML:Class name="Batch" namespace="model1" xmi.id="cl0258">
+<UML:Classifier.feature>
+<UML:Attribute name="component" xmi.id="att445"/>
+<UML:Attribute name="job" xmi.id="att446"/>
+<UML:Attribute name="mode" xmi.id="att447"/>
+<UML:Attribute name="process" xmi.id="att448"/>
+</UML:Classifier.feature>
+</UML:Class>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+</UML:Association.connection>
+</UML:Association>
+<UML:Association name="" namespace="model1" xmi.id="ass449">
+<UML:Association.connection>
+<UML:AssociationEnd association="ass449" type="cl0258" xmi.id="end450">
+<UML:AssociationEnd.participant>
+<UML:Class xmi.idref="cl0258"/>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+<UML:AssociationEnd association="ass449" type="cl0260" xmi.id="end451">
+<UML:AssociationEnd.participant>
+<UML:Class name="Week" namespace="model1" xmi.id="cl0260">
+<UML:Classifier.feature>
+<UML:Operation name="Once are()" xmi.id="att452"/>
+</UML:Classifier.feature>
+</UML:Class>
+</UML:AssociationEnd.participant>
+</UML:AssociationEnd>
+</UML:Association.connection>
+</UML:Association>
+</UML:Namespace.ownedElement>
+</UML:Model>
+</XMI.content>
+</XMI>

@@ -1,0 +1,91 @@
+Requ_ID         ;RequType;RequOwner   ;RequStat;Requirement_Label             ;LN;Requirement_Text_Line
+FUNC-REQ-01     ;Function;your_name   ;defined ;ArticleDisplay                ;1;ArticleDisplay
+FUNC-REQ-01     ;Function;your_name   ;defined ;ArticleDisplay                ;2; FUNC-REQ-01 ArticleDisplay
+FUNC-REQ-01     ;Function;your_name   ;defined ;ArticleDisplay                ;3; The <customer> should have the <possibility> to scan the <articles> on <stock> and their  <prices>.
+FUNC-REQ-01     ;Function;your_name   ;defined ;ArticleDisplay                ;4; The <articles> should be ordered alphabetically and by <category>.
+FUNC-REQ-02     ;Function;your_name   ;defined ;OrderProcessing               ;1;OrderProcessing
+FUNC-REQ-02     ;Function;your_name   ;defined ;OrderProcessing               ;2; FUNC-REQ-02 OrderProcessing
+FUNC-REQ-02     ;Function;your_name   ;defined ;OrderProcessing               ;3; The <customer> should have the <possibility> of selecting <articles> to be ordered.
+FUNC-REQ-02     ;Function;your_name   ;defined ;OrderProcessing               ;4; He must  first enter his <customer_number>.
+FUNC-REQ-02     ;Function;your_name   ;defined ;OrderProcessing               ;5; Then his <identity> and his <credibility> are checked.
+FUNC-REQ-02     ;Function;your_name   ;defined ;OrderProcessing               ;6; If  they are ok, he may <order> up to 10 <items> at one <time>.
+FUNC-REQ-02     ;Function;your_name   ;defined ;OrderProcessing               ;7; If an ordered <article> is  available on <stock> and in sufficient <quantity>, the <order> is to be accepted.
+FUNC-REQ-02     ;Function;your_name   ;defined ;OrderProcessing               ;8; If the <article>  is not on <stock> the <order> is to be rejected.
+FUNC-REQ-02     ;Function;your_name   ;defined ;OrderProcessing               ;9; If the <quantity> on <stock> is too low, a <back>  <order> is to be created.
+FUNC-REQ-03     ;Function;your_name   ;defined ;Dispatching                   ;1;Dispatching
+FUNC-REQ-03     ;Function;your_name   ;defined ;Dispatching                   ;2; FUNC-REQ-03 Dispatching
+FUNC-REQ-03     ;Function;your_name   ;defined ;Dispatching                   ;3; For every <article_item> fulfilled a <dispatch_order> should be generated and sent to the  <dispatch_office>.
+FUNC-REQ-03     ;Function;your_name   ;defined ;Dispatching                   ;4; The ordered <item> should be sent to the <customer> within one <day>  after it has been ordered.
+FUNC-REQ-03     ;Function;your_name   ;defined ;Dispatching                   ;5; It is sent together with the <order_confirmation>.
+FUNC-REQ-04     ;Function;your_name   ;defined ;Billing                       ;1;Billing
+FUNC-REQ-04     ;Function;your_name   ;defined ;Billing                       ;2; FUNC-REQ-04 Billing
+FUNC-REQ-04     ;Function;your_name   ;defined ;Billing                       ;3; For every <customer_order> in which at least one <item> is fulfilled, an <invoice> is to be  printed and sent to the <customer>.
+FUNC-REQ-04     ;Function;your_name   ;defined ;Billing                       ;4; The <invoices> are to be prepared once a <month> at  the end of the <month>.
+FUNC-REQ-04     ;Function;your_name   ;defined ;Billing                       ;5; The <invoice> should include the <items> ordered, their <prices>, the  <total_sum>, the <VAT> and the <amount_due>.
+FUNC-REQ-04     ;Function;your_name   ;defined ;Billing                       ;6; All <invoices> should be checked by the  <accountant> before being sent out.
+FUNC-REQ-05     ;Function;your_name   ;defined ;Resupplying                   ;1;Resupplying
+FUNC-REQ-05     ;Function;your_name   ;defined ;Resupplying                   ;2; FUNC-REQ-05 Resupplying
+FUNC-REQ-05     ;Function;your_name   ;defined ;Resupplying                   ;3; The <system> should <monitor> the <articles> on <stock>.
+FUNC-REQ-05     ;Function;your_name   ;defined ;Resupplying                   ;4; If the <quantity> of an <article> on  <stock> falls below the <minimum_quantity> that <article> should be automatically  reordered.
+FUNC-REQ-05     ;Function;your_name   ;defined ;Resupplying                   ;5; The generated <supply_orders> are to be collected and once a <week>, at the  end of the <week>, they are to be processed.
+FUNC-REQ-05     ;Function;your_name   ;defined ;Resupplying                   ;6; When a <supply_order> is sent out the  cheapest <supplier> at that <moment> in <time> should be selected.
+FUNC-REQ-05     ;Function;your_name   ;defined ;Resupplying                   ;7; For this the current  <prices> of all potential <suppliers> have to be checked.
+FUNC-REQ-06     ;Function;your_name   ;defined ;BackOrderProcessing           ;1;BackOrderProcessing
+FUNC-REQ-06     ;Function;your_name   ;defined ;BackOrderProcessing           ;2; FUNC-REQ-06 BackOrderProcessing
+FUNC-REQ-06     ;Function;your_name   ;defined ;BackOrderProcessing           ;3; If an <order> cannot be fulfilled, it is put on hold to be processed later.
+FUNC-REQ-06     ;Function;your_name   ;defined ;BackOrderProcessing           ;4; Once a <week> at  the end of the <week> the <back_orders> are to be processed.
+FUNC-REQ-06     ;Function;your_name   ;defined ;BackOrderProcessing           ;5; If the <order> can be fulfilled,  the <article> is dispatched, a <bill> prepared and the <back_order> removed from the <pool>  of <back_orders>.
+FUNC-REQ-06     ;Function;your_name   ;defined ;BackOrderProcessing           ;6; If it is not fulfilled, it remains in the <back_order_pool>.
+NF-REQ-01       ;NonFunct;your_name   ;defined ;ResponseTime                  ;1;ResponseTime
+NF-REQ-01       ;NonFunct;your_name   ;defined ;ResponseTime                  ;2; NF-REQ-01 ResponseTime
+NF-REQ-01       ;NonFunct;your_name   ;defined ;ResponseTime                  ;3; The <response_time> for a <customer_query> should be <= 1 <second>.
+NF-REQ-01       ;NonFunct;your_name   ;defined ;ResponseTime                  ;4; The <response_time>  for a <customer_order> should be <= 3 <seconds>.
+NF-REQ-02       ;NonFunct;your_name   ;defined ;TransactionCapacity           ;1;TransactionCapacity
+NF-REQ-02       ;NonFunct;your_name   ;defined ;TransactionCapacity           ;2; NF-REQ-02 TransactionCapacity
+NF-REQ-02       ;NonFunct;your_name   ;defined ;TransactionCapacity           ;3; The <system> should be able to <process> at least 1000 <orders> an <hour> without any <loss>  of <performance>.
+NF-REQ-03       ;NonFunct;your_name   ;defined ;availability                  ;1; availability
+NF-REQ-03       ;NonFunct;your_name   ;defined ;availability                  ;2; NF-REQ-03 <availability>
+NF-REQ-03       ;NonFunct;your_name   ;defined ;availability                  ;3; The <system> should be available 24 <hours> a <day>, 7 <days> a <week>, for at least 95% of  the <time>.
+NF-REQ-04       ;NonFunct;your_name   ;defined ;security                      ;1; security
+NF-REQ-04       ;NonFunct;your_name   ;defined ;security                      ;2; NF-REQ-04 <security>
+NF-REQ-04       ;NonFunct;your_name   ;defined ;security                      ;3; Only authorized <customers> should have <access> to the <system>.
+NF-REQ-04       ;NonFunct;your_name   ;defined ;security                      ;4; Unauthorized <persons>  are to be blocked from <access>.
+NF-REQ-04       ;NonFunct;your_name   ;defined ;security                      ;5; Of 10 attempts to break into the <system> by  unauthorized <persons>, at least 9 should be thwarted.
+NF-REQ-05       ;NonFunct;your_name   ;defined ;Recoverability                ;1;Recoverability
+NF-REQ-05       ;NonFunct;your_name   ;defined ;Recoverability                ;2; NF-REQ-05 Recoverability
+NF-REQ-05       ;NonFunct;your_name   ;defined ;Recoverability                ;3; In case of a <system_crash>, the <system> should be recovered within 30 <minutes> and all  <data> restored to the <state> before the <crash>.
+NF-REQ-06       ;NonFunct;your_name   ;defined ;DataSecurity                  ;1;DataSecurity
+NF-REQ-06       ;NonFunct;your_name   ;defined ;DataSecurity                  ;2; NF-REQ-06 DataSecurity
+NF-REQ-06       ;NonFunct;your_name   ;defined ;DataSecurity                  ;3; <customer> and <article_data> are to be secured in a <backup_database> at the end of each  working <day>.
+NF-REQ-06       ;NonFunct;your_name   ;defined ;DataSecurity                  ;4; The <backup_data> must be kept for at least 1 <year>.
+NF-REQ-07       ;NonFunct;your_name   ;defined ;usability                     ;1; usability
+NF-REQ-07       ;NonFunct;your_name   ;defined ;usability                     ;2; NF-REQ-07 <usability>
+NF-REQ-07       ;NonFunct;your_name   ;defined ;usability                     ;3;" The <system_user_interface> must <pass> a <usability_test> with a <score> of at least ""0.6""."
+NF-REQ-08       ;NonFunct;your_name   ;defined ;Maintainability               ;1;Maintainability
+NF-REQ-08       ;NonFunct;your_name   ;defined ;Maintainability               ;2; NF-REQ-08 Maintainability
+NF-REQ-08       ;NonFunct;your_name   ;defined ;Maintainability               ;3;" The <system_source_code> must have a maintainability <index> of at least ""0.5"" from the  <code_audit>."
+NF-REQ-09       ;NonFunct;your_name   ;defined ;Reusability                   ;1;Reusability
+NF-REQ-09       ;NonFunct;your_name   ;defined ;Reusability                   ;2; NF-REQ-09 Reusability
+NF-REQ-09       ;NonFunct;your_name   ;defined ;Reusability                   ;3;" The <system_source_code> must have a reusability <rate> of at least ""0.6"" from the <code>  <audit>."
+NF-REQ-10       ;NonFunct;your_name   ;defined ;reliability                   ;1; reliability
+NF-REQ-10       ;NonFunct;your_name   ;defined ;reliability                   ;2; NF-REQ-10 <reliability>
+NF-REQ-10       ;NonFunct;your_name   ;defined ;reliability                   ;3;" The <system> must have upon <release> a remaining <error_probability> of less than  ""0.002""."
+NF-REQ-11       ;NonFunct;your_name   ;defined ;Data-Quantities               ;1;Data-Quantities
+NF-REQ-11       ;NonFunct;your_name   ;defined ;Data-Quantities               ;2; NF-REQ-11 Data-Quantities
+NF-REQ-11       ;NonFunct;your_name   ;defined ;Data-Quantities               ;3; There can be as many as 1,000,000 <customers>, 10,000 <articles> und 200 <suppliers>.
+NF-REQ-11       ;NonFunct;your_name   ;defined ;Data-Quantities               ;4; The <system> must be able to handle up to 100,000 <customer_orders> per <day>.
+NF-REQ-12       ;NonFunct;your_name   ;defined ;Supply-Quantities             ;1;Supply-Quantities
+NF-REQ-12       ;NonFunct;your_name   ;defined ;Supply-Quantities             ;2; NF-REQ-12 Supply-Quantities
+NF-REQ-12       ;NonFunct;your_name   ;defined ;Supply-Quantities             ;3; Every <month> a <data_carrier> comes in with an <XML> <file> containing the <latest_supplier>  <data> and <supplier_prices>.
+NF-REQ-12       ;NonFunct;your_name   ;defined ;Supply-Quantities             ;4; It is predicted that there will be circa 500 <supply_orders> per  <month>.
+NF-REQ-12       ;NonFunct;your_name   ;defined ;Supply-Quantities             ;5; The biggest <supplier> supplies up to 50 different <articles>.
+NF-REQ-13       ;NonFunct;your_name   ;defined ;Article-Quantities            ;1;Article-Quantities
+NF-REQ-13       ;NonFunct;your_name   ;defined ;Article-Quantities            ;2; NF-REQ-13 Article-Quantities
+NF-REQ-13       ;NonFunct;your_name   ;defined ;Article-Quantities            ;3; Also every <month> a <data_carrier> comes with an <XML> <file> containing the changes to  the <article_data>, including the <latest_article_prices>.
+NF-REQ-13       ;NonFunct;your_name   ;defined ;Article-Quantities            ;4; Up until now there were 1,000  updates  • changes, <deletions>, <insertions>  • to the 10,000 <articles> per <month>.
+FUNC-REQ-07     ;Function;your_name   ;defined ;Monthly-Reporting             ;1;Monthly-Reporting
+FUNC-REQ-07     ;Function;your_name   ;defined ;Monthly-Reporting             ;2; FUNC-REQ-07 Monthly-Reporting
+FUNC-REQ-07     ;Function;your_name   ;defined ;Monthly-Reporting             ;3; At the end of every <month> our <system> is required to provide a .
+FUNC-REQ-07     ;Function;your_name   ;defined ;Monthly-Reporting             ;4; report giving the  <number> of <articles> sold and the <number> remaining for every <article_type> on <stock>.
+FUNC-REQ-07     ;Function;your_name   ;defined ;Monthly-Reporting             ;5; This .
+FUNC-REQ-07     ;Function;your_name   ;defined ;Monthly-Reporting             ;6; report goes to the <warehouse_manager> as well as to the <sales_manager>.
