@@ -1,8 +1,5 @@
 ### Images generated from MoreRedoc
 generatedModels/
-*.xmi
-*.png
-*.svg
 
 # Created by https://www.gitignore.io/api/java,maven,eclipse,jetbrains
 # Edit at https://www.gitignore.io/?templates=java,maven,eclipse,jetbrains
