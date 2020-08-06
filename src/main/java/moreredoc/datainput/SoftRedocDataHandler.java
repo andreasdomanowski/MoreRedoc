@@ -39,7 +39,7 @@ public final class SoftRedocDataHandler implements InputDataHandler {
     private String expressionBusinessObjects = "Business-Objects";
     private String expressionBusinessRules = "Business-Rules";
     private String expressionSystemActors = "System-Actors";
-    private boolean useAdditionalConcepts = false;
+    private boolean useAdditionalConcepts = true;
 
     private String csvDelimiter = ";";
 
@@ -71,7 +71,6 @@ public final class SoftRedocDataHandler implements InputDataHandler {
         additionalConceptFields.add(fieldBusinessObjects);
         additionalConceptFields.add(fieldBusinessRules);
         additionalConceptFields.add(fieldSystemActors);
-        additionalConceptFields.forEach( field -> field.setEnabled(false));
 
         JPanel panel = new JPanel(new GridLayout(0, 1));
 
@@ -82,7 +81,7 @@ public final class SoftRedocDataHandler implements InputDataHandler {
         panel.add(fieldPrefix);
 
         JCheckBox cbAdditionalConcepts = new JCheckBox("Use additional concepts");
-        cbAdditionalConcepts.setSelected(false);
+        cbAdditionalConcepts.setSelected(true);
         panel.add(cbAdditionalConcepts);
 
         cbAdditionalConcepts.addItemListener(e -> {
@@ -113,6 +112,7 @@ public final class SoftRedocDataHandler implements InputDataHandler {
             this.expressionBusinessObjects = fieldBusinessObjects.getText();
             this.expressionBusinessRules = fieldBusinessRules.getText();
             this.expressionSystemActors = fieldSystemActors.getText();
+            this.useAdditionalConcepts = cbAdditionalConcepts.isSelected();
         }
     }
 
