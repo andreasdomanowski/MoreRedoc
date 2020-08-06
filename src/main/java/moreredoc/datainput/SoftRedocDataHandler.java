@@ -39,7 +39,6 @@ public final class SoftRedocDataHandler implements InputDataHandler {
     private String expressionBusinessObjects = "Business-Objects";
     private String expressionBusinessRules = "Business-Rules";
     private String expressionSystemActors = "System-Actors";
-    private String expressionSystemUseCases = "system  Use Cases";
     private boolean useAdditionalConcepts = false;
 
     private String csvDelimiter = ";";
@@ -54,7 +53,6 @@ public final class SoftRedocDataHandler implements InputDataHandler {
             this.expressionBusinessObjects = prop.getProperty("expressionBusinessObjects");
             this.expressionBusinessRules = prop.getProperty("expressionBusinessRules");
             this.expressionSystemActors = prop.getProperty("expressionSystemActors");
-            this.expressionSystemUseCases = prop.getProperty("expressionSystemUseCases");
         } catch (IOException | NullPointerException e) {
             // do nothing
         }
@@ -68,13 +66,11 @@ public final class SoftRedocDataHandler implements InputDataHandler {
         JTextField fieldBusinessObjects = new JTextField(expressionBusinessObjects);
         JTextField fieldBusinessRules = new JTextField(expressionBusinessRules);
         JTextField fieldSystemActors = new JTextField(expressionSystemActors);
-        JTextField fieldSystemUseCases = new JTextField(expressionSystemUseCases);
 
         List<JTextField> additionalConceptFields = new ArrayList<>();
         additionalConceptFields.add(fieldBusinessObjects);
         additionalConceptFields.add(fieldBusinessRules);
         additionalConceptFields.add(fieldSystemActors);
-        additionalConceptFields.add(fieldSystemUseCases);
         additionalConceptFields.forEach( field -> field.setEnabled(false));
 
         JPanel panel = new JPanel(new GridLayout(0, 1));
@@ -108,9 +104,6 @@ public final class SoftRedocDataHandler implements InputDataHandler {
         panel.add(new JLabel("Expression for system actors:"));
         panel.add(fieldSystemActors);
 
-        panel.add(new JLabel("Expression for system use cases:"));
-        panel.add(fieldSystemUseCases);
-
         int result = JOptionPane.showConfirmDialog(null, panel, "SoftRedoc configuration",
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
@@ -120,7 +113,6 @@ public final class SoftRedocDataHandler implements InputDataHandler {
             this.expressionBusinessObjects = fieldBusinessObjects.getText();
             this.expressionBusinessRules = fieldBusinessRules.getText();
             this.expressionSystemActors = fieldSystemActors.getText();
-            this.expressionSystemUseCases = fieldSystemUseCases.getText();
         }
     }
 
@@ -199,7 +191,7 @@ public final class SoftRedocDataHandler implements InputDataHandler {
 
         Set<String> result = new HashSet<>();
 
-        if(this.useAdditionalConcepts){
+        if(!this.useAdditionalConcepts){
             return result;
         }
 
@@ -211,7 +203,7 @@ public final class SoftRedocDataHandler implements InputDataHandler {
             // add DATA from SECT, where base entity is either business object, business rule, system use case or system actor
             if ((typeI.equals(EXPRESSION_SECT))
                     && currentCsvLine.get(INDEX_TARGET_TYPE).equals(EXPRESSION_DATA)
-                    && (baseEntity.equals(expressionBusinessObjects) || baseEntity.equals(expressionBusinessRules) || baseEntity.equals(expressionSystemUseCases) || baseEntity.equals(expressionSystemActors))) {
+                    && (baseEntity.equals(expressionBusinessObjects) || baseEntity.equals(expressionBusinessRules)  || baseEntity.equals(expressionSystemActors))) {
                 result.add(currentCsvLine.get(INDEX_TARGET_ENTITY));
             }
 
