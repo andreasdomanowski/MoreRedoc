@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ItemEvent;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -39,6 +40,7 @@ public final class SoftRedocDataHandler implements InputDataHandler {
     private String expressionBusinessRules = "Business-Rules";
     private String expressionSystemActors = "System-Actors";
     private String expressionSystemUseCases = "system  Use Cases";
+    private boolean useAdditionalConcepts = false;
 
     private String csvDelimiter = ";";
 
@@ -62,10 +64,18 @@ public final class SoftRedocDataHandler implements InputDataHandler {
     public void configure() {
         JTextField fieldPrefix = new JTextField(prefixFunctionalRequirement);
         JTextField fieldCsvDelimiter = new JTextField(csvDelimiter);
+
         JTextField fieldBusinessObjects = new JTextField(expressionBusinessObjects);
         JTextField fieldBusinessRules = new JTextField(expressionBusinessRules);
         JTextField fieldSystemActors = new JTextField(expressionSystemActors);
         JTextField fieldSystemUseCases = new JTextField(expressionSystemUseCases);
+
+        List<JTextField> additionalConceptFields = new ArrayList<>();
+        additionalConceptFields.add(fieldBusinessObjects);
+        additionalConceptFields.add(fieldBusinessRules);
+        additionalConceptFields.add(fieldSystemActors);
+        additionalConceptFields.add(fieldSystemUseCases);
+        additionalConceptFields.forEach( field -> field.setEnabled(false));
 
         JPanel panel = new JPanel(new GridLayout(0, 1));
 
@@ -74,6 +84,20 @@ public final class SoftRedocDataHandler implements InputDataHandler {
 
         panel.add(new JLabel("Prefix for functional requirement IDs:"));
         panel.add(fieldPrefix);
+
+        JCheckBox cbAdditionalConcepts = new JCheckBox("Use additional concepts");
+        cbAdditionalConcepts.setSelected(false);
+        panel.add(cbAdditionalConcepts);
+
+        cbAdditionalConcepts.addItemListener(e -> {
+            if (e.getStateChange() == ItemEvent.SELECTED) {
+                additionalConceptFields.forEach(field -> field.setEnabled(true));
+                useAdditionalConcepts = true;
+            } else {
+                additionalConceptFields.forEach(field -> field.setEnabled(false));
+                useAdditionalConcepts = false;
+            }
+        });
 
         panel.add(new JLabel("Expression for business objects:"));
         panel.add(fieldBusinessObjects);
@@ -174,6 +198,10 @@ public final class SoftRedocDataHandler implements InputDataHandler {
         List<List<String>> csvContent = CsvReader.readCsv(csvPath, this.csvDelimiter);
 
         Set<String> result = new HashSet<>();
+
+        if(this.useAdditionalConcepts){
+            return result;
+        }
 
         for (int i = 0; i < csvContent.size(); i++) {
             List<String> currentCsvLine = csvContent.get(i);
