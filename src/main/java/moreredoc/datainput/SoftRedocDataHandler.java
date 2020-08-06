@@ -206,11 +206,6 @@ public final class SoftRedocDataHandler implements InputDataHandler {
                     && (baseEntity.equals(expressionBusinessObjects) || baseEntity.equals(expressionBusinessRules)  || baseEntity.equals(expressionSystemActors))) {
                 result.add(currentCsvLine.get(INDEX_TARGET_ENTITY));
             }
-
-            // add DATA from CASES
-            if ((typeI.equals(EXPRESSION_CASE) && currentCsvLine.get(INDEX_TARGET_TYPE).equals(EXPRESSION_DATA))) {
-                result.add(currentCsvLine.get(INDEX_TARGET_ENTITY));
-            }
         }
 
         return result;
