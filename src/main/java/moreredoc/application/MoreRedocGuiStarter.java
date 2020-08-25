@@ -1,7 +1,6 @@
 package moreredoc.application;
 
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.*;
 
 public class MoreRedocGuiStarter {
 
@@ -9,6 +8,7 @@ public class MoreRedocGuiStarter {
 		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		MoreRedocGui gui = new MoreRedocGui();
 		gui.setVisible(true);
+		gui.setResizable(false);
 	}
 
 }
