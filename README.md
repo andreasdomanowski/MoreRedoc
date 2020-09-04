@@ -52,4 +52,3 @@ Remember to increase the JVM's heap size in your run configuration.
 Including other (re)documentation tools can easily be achieved.
 - Implement a `moreredoc.datainput.InputDataHandler`for your tool
 - Add the tool with a reference to your *InputDataHandler* to the enum of supported tools in `moreredoc.datainput.tools.SupportedRedocumentationTools`
-- compound concepts in the input files (e.g. *customer number*) have to be separated by an underscore (*customer_number*)
