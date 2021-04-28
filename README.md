@@ -1,6 +1,9 @@
 [![Build Status](https://travis-ci.com/andauh/MoreRedoc.svg?branch=master)](https://travis-ci.com/andauh/MoreRedoc)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
+# April 28, 2021 - Important Notice!
+As of now, [JBoss DNA Common](https://mvnrepository.com/artifact/org.jboss.dna/dna-common/0.7) is hosted on just the Spring Plugins repository. Since the end of 2020, the Spring artifactory does not permit the anonymous download of 3rd party software (see [here](https://spring.io/blog/2020/10/29/notice-of-permissions-changes-to-repo-spring-io-fall-and-winter-2020)). Therefore, MoreRedoc can't be built and is out of order for now until I find the time to deal with this issue.
+
 # MoreRedoc
 **Mo**deling of **Re**documented **Re**quirement **Doc**uments
 
